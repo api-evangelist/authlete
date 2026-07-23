@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/authlete-openapi-original.yml (tags + endpoints) + https://www.authlete.com/developers/
+description: >-
+  Standards and protocol profiles the Authlete API is built to implement. Authlete is an
+  OAuth/OIDC authorization-server engine, so most entries reflect the identity protocols its
+  Runtime endpoints let a customer's authorization server support, derived from the OpenAPI tags
+  and endpoint set. `conforms` here means the API exposes first-class support for the standard.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: Token, Introspection, Revocation, Authorization endpoints (RFC 6749/7009/7662).
+  - id: openid-connect
+    conforms: true
+    evidence: UserInfo, Discovery, Configuration, JWK Set endpoints; OIDC tags.
+  - id: oidc-dynamic-client-registration
+    conforms: true
+    evidence: Dynamic Client Registration tag (RFC 7591 / 7592) endpoints.
+  - id: oauth2-pushed-authorization-requests
+    conforms: true
+    evidence: Pushed Authorization Endpoint tag (RFC 9126 PAR).
+  - id: oauth2-device-flow
+    conforms: true
+    evidence: Device Flow tag (RFC 8628).
+  - id: ciba
+    conforms: true
+    evidence: CIBA (Client Initiated Backchannel Authentication) tag and backchannel endpoints.
+  - id: fapi
+    conforms: true
+    evidence: FAPI / FAPI 2.0 profile support documented; Grant Management endpoint.
+  - id: grant-management
+    conforms: true
+    evidence: Grant Management Endpoint tag (FAPI Grant Management for OAuth 2.0).
+  - id: oid4vci
+    conforms: true
+    evidence: Verifiable Credential Issuer tag (OpenID for Verifiable Credential Issuance).
+  - id: oidc-federation
+    conforms: true
+    evidence: Federation Endpoint tag (OpenID Federation).
+  - id: native-sso
+    conforms: true
+    evidence: Native SSO tag (OpenID Connect Native SSO for Mobile Apps).
+  - id: jose
+    conforms: true
+    evidence: Jose Object tag; JWS/JWE/JWT generation and verification endpoints.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Error responses use bare HTTP status codes, not application/problem+json.
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false

@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: authlete.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Apr  5 23:59:59 2027 GMT
+  hsts: false
+- host: us.authlete.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Apr  5 23:59:59 2027 GMT
+  hsts: false
+- host: jp.authlete.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Apr  5 23:59:59 2027 GMT
+  hsts: false
+domains:
+- domain: authlete.com
+  dnssec: false
+  caa:
+  - 0 issue "letsencrypt.org"
+  - 0 issue "sectigo.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: none

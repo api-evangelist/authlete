@@ -1,0 +1,549 @@
+openapi: 3.0.3
+info:
+  title: Authlete Authorization Endpoint Native SSO API
+  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  version: 3.0.16
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- description: 🇺🇸 US Cluster
+  url: https://us.authlete.com
+- description: 🇯🇵 Japan Cluster
+  url: https://jp.authlete.com
+- description: 🇪🇺 Europe Cluster
+  url: https://eu.authlete.com
+- description: 🇧🇷 Brazil Cluster
+  url: https://br.authlete.com
+security:
+- bearer: []
+tags:
+- name: Native SSO
+  description: API endpoints for Native SSO
+  x-tag-expanded: false
+paths:
+  /api/{serviceId}/nativesso:
+    post:
+      summary: Native SSO Processing
+      description: 'This API should be called by the implementation of a token endpoint to generate the ID token and
+
+        token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+
+        (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate
+
+        the session id and verify or generate the device secret as required by the flow). The token endpoint
+
+        implementation should retrieve the value of `action` from the response and take the following steps
+
+        according to the value.
+
+        '
+      x-mint:
+        metadata:
+          description: This API should be called by the implementation of a token endpoint to generate the ID token and token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate the session id and verify or generate the device secret as required by the flow). The token endpoint implementation should retrieve the value of `action` from the response and take the following steps according to the value.
+        content: '<Accordion title="Full description" defaultOpen={false}>
+
+          ## OK
+
+
+          When the action is `OK`, it indicates that the `/nativesso` API processing has successfully completed.
+
+          In this case, the token endpoint implementation should return a successful response (`200 OK`) to
+
+          the client. The value of the responseContent property in the `/nativesso` API response can be used
+
+          directly as the message body of the token response. Therefore, the success response can be constructed
+
+          as follows:
+
+
+          ```
+
+          HTTP/1.1 200 OK
+
+          Content-Type: application/json
+
+          Cache-Control: no-store
+
+
+          (Embed the value of responseContent here.)
+
+          ```
+
+
+          ## INTERNAL_SERVER_ERROR
+
+
+          When the action is `INTERNAL_SERVER_ERROR`, it indicates that something has gone wrong on the Authlete
+
+          side. For example, an issue such as a database error might have occurred when retrieving the access
+
+          token specified by the accessToken parameter from the database.
+
+
+          In such cases, the token endpoint implementation should return an error response to the client.
+
+          The simplest implementation would be to return a `500 Internal Server Error`.
+
+
+          ```
+
+          HTTP/1.1 500 Internal Server Error
+
+          Content-Type: application/json
+
+          Cache-Control: no-store
+
+
+          (Embed the value of responseContent here.)
+
+          ```
+
+
+          However, in a production environment, it may be better to return a more abstract error (one that
+
+          does not directly describe the nature of the issue), rather than a `500` error.
+
+
+          ## CALLER_ERROR
+
+
+          When the action is `CALLER_ERROR`, it indicates that the issue lies with the caller of the API
+
+          (i.e., the implementation of the OpenID Provider). For example, this could be due to missing a
+
+          required parameter such as accessToken.
+
+
+          If `CALLER_ERROR` is returned, please review the implementation of your OpenID Provider.
+
+          </Accordion>
+
+          '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+        example: '715948317'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/native_sso_request'
+            example:
+              accessToken: _kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq
+              refreshToken: kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw
+              deviceSecret: my-ds
+              claims: '{"given_name":"John","family_name":"Brown","email":"test@example.com"}'
+      responses:
+        '200':
+          description: Native SSO processing completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/native_sso_response'
+              example:
+                resultCode: A501001
+                resultMessage: '[A501001] A Native SSO-compliant ID token and a token response were generated successfully.'
+                action: OK
+                responseContent: '{\"access_token\":\"_kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq\",\"token_type\":\"Bearer\",\"expires_in\":86400,\"scope\":\"openid device_sso\",\"refresh_token\":\"kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw\",\"id_token\":\"eyJraWQiOiItc1RSWDc5YnEyOEhyYkxBV0w2N3k4T1VJdXdrTms2ZFFkbzItSExZMkxvIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGhsZXRlLmNvbSIsInN1YiI6ImpvaG4iLCJhdWQiOlsibmF0aXZlX2FwcF8xIl0sImV4cCI6MTc1NjcxNzY3MywiaWF0IjoxNzU2NzE3MzczLCJkc19oYXNoIjoic0luWlNhY1luRkR1Y1dwckRqZmtYeENRZl9mWGhsVDY1ZDduS0VYNzc2OCIsInNpZCI6Im15LXNpZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJCcm93biIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSJ9.RASuwd4KYPe8b3vNNwIYJgoXzUadDFFHO1wYWD70Z3EsZd8qcxxkPmJKs3dRitvYTX8DDqf5zvAm1jlIeEuvRQ\",\"device_secret\":\"my-ds\"}'
+                idToken: eyJraWQiOiItc1RSWDc5YnEyOEhyYkxBV0w2N3k4T1VJdXdrTms2ZFFkbzItSExZMkxvIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGhsZXRlLmNvbSIsInN1YiI6ImpvaG4iLCJhdWQiOlsibmF0aXZlX2FwcF8xIl0sImV4cCI6MTc1NjcxNzY3MywiaWF0IjoxNzU2NzE3MzczLCJkc19oYXNoIjoic0luWlNhY1luRkR1Y1dwckRqZmtYeENRZl9mWGhsVDY1ZDduS0VYNzc2OCIsInNpZCI6Im15LXNpZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJCcm93biIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSJ9.RASuwd4KYPe8b3vNNwIYJgoXzUadDFFHO1wYWD70Z3EsZd8qcxxkPmJKs3dRitvYTX8DDqf5zvAm1jlIeEuvRQ
+          links:
+            authz_process:
+              $ref: '#/components/links/authz_process'
+            token_exchange:
+              $ref: '#/components/links/token_exchange'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: native_sso_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X POST https://us.authlete.com/api/21653835348762/nativesso \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d ''{ "accessToken": "_kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq", "refreshToken": "kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw", "deviceSecret": "my-ds", "claims": "{\"given_name\":\"John\",\"family_name\":\"Brown\",\"email\":\"test@example.com\"}" }''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          NativeSsoRequest req = new NativeSsoRequest();
+
+          req.setAccessToken("_kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq");
+
+          req.setRefreshToken("kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw");
+
+          req.setDeviceSecret("my-ds");
+
+          req.setClaims("{\"given_name\":\"John\",\"family_name\":\"Brown\",\"email\":\"test@example.com\"}")
+
+
+          api.nativeSso(req);
+
+          '
+      tags:
+      - Native SSO
+  /api/{serviceId}/nativesso/logout:
+    post:
+      summary: Native SSO Logout Processing
+      description: 'The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications"
+
+        in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+
+        (Native SSO). This is accomplished by deleting access/refresh token records associated with the
+
+        specified session ID. In Authlete''s implementation, access/refresh token records can be associated
+
+        with a session ID only through the mechanism introduced by Native SSO.
+
+        '
+      x-mint:
+        metadata:
+          description: The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications" in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO). This is accomplished by deleting access/refresh token records associated with the specified session ID. In Authlete's implementation, access/refresh token records can be associated with a session ID only through the mechanism introduced by Native SSO.
+        content: '<Accordion title="Full description" defaultOpen={false}>
+
+          A response from the `/nativesso/logout` API contains `action` response parameter. The possible values
+
+          are:
+
+
+          ## OK
+
+
+          When the action is `OK`, it indicates that the `/nativesso/logout` API call completed successfully.
+
+
+          ## SERVER_ERROR
+
+
+          When the action is `SERVER_ERROR`, it indicates that something has gone wrong on the Authlete side.
+
+
+          ## CALLER_ERROR
+
+
+          When the action is `CALLER_ERROR`, it indicates that the `/nativesso/logout` API call contained a
+
+          problem. For example, the call may have been missing the required request parameter `sessionId`.
+
+          </Accordion>
+
+          '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/native_sso_logout_request'
+            example:
+              sessionId: my-sid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/native_sso_logout_response'
+              example:
+                action: OK
+                count: 2
+                resultCode: A503001
+                resultMessage: '[A503001] The /nativesso/logout API call successfully deleted 2 access/refresh token record(s).'
+          links:
+            authz_process:
+              $ref: '#/components/links/authz_process'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: native_sso_logout_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X POST https://us.authlete.com/api/21653835348762/nativesso/logout \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d ''{ "sessionId": "my-sid" }''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          NativeSsoLogoutRequest req = new NativeSsoLogoutRequest();
+
+          req.setSessionId("my-sid");
+
+
+          api.nativeSsoLogout(req);
+
+          '
+      tags:
+      - Native SSO
+components:
+  schemas:
+    native_sso_request:
+      type: object
+      required:
+      - accessToken
+      - deviceSecret
+      properties:
+        accessToken:
+          type: string
+          description: 'The value of this parameter should be: (a) the value of the `jwtAccessToken` parameter in a response
+
+            from the `/auth/token` API when the value is available, or (b) the value of the `accessToken`
+
+            parameter in the response from the `/auth/token` API when the `jwtAccessToken` parameter is not
+
+            available.
+
+            '
+        refreshToken:
+          type: string
+          description: 'The value of this parameter should be the value of the `refreshToken` parameter in a response
+
+            from the `/auth/token` API.
+
+            '
+        sub:
+          type: string
+          description: 'The value that should be used as the value of the `sub` claim of the ID token. This parameter
+
+            is optional. When omitted, the value of the subject associated with the access token is used.
+
+            '
+        claims:
+          type: string
+          description: 'Additional claims that should be embedded in the payload part of the ID token. The format is a
+
+            JSON object. This parameter is optional.
+
+            '
+        idtHeaderParams:
+          type: string
+          description: 'Additional parameters that should be embedded in the JWS header of the ID token. The format is
+
+            a JSON object. This parameter is optional.
+
+            '
+        idTokenAudType:
+          type: string
+          description: 'The type of the `aud` claim of the ID token being issued. Valid values of this parameter are
+
+            as follows:
+
+            '
+          x-mint:
+            metadata:
+              description: 'The type of the `aud` claim of the ID token being issued. Valid values of this parameter are as follows:'
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n- `\"array\"`\n  The type of the `aud` claim becomes an array of strings.\n\n- `\"string\"`\n  The type of the `aud` claim becomes a single string.\n\nThis parameter is optional, and the default value when omitted is `\"array\"`. This parameter takes\nprecedence over the `idTokenAudType` property of `Service`.\n</Accordion>\n"
+        deviceSecret:
+          type: string
+          description: 'The device secret. The value of this parameter should be the value of the `deviceSecret` parameter
+
+            in the response from the `/auth/token` API, if the parameter is present. Otherwise, the authorization
+
+            server should generate a new device secret and specify it as the value of this parameter.
+
+            '
+          x-mint:
+            metadata:
+              description: The device secret. The value of this parameter should be the value of the `deviceSecret` parameter in the response from the `/auth/token` API, if the parameter is present. Otherwise, the authorization server should generate a new device secret and specify it as the value of this parameter.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              The specified device secret is included as the value of the `device_secret` property in the token
+
+              response prepared by the `/nativesso` API.
+
+
+              Additionally, if the `deviceSecretHash` request parameter is omitted, the device secret is used
+
+              to compute the value of the `ds_hash` claim. In this case, the `ds_hash` claim will be the
+
+              base64url-encoded SHA-256 hash of the device secret.
+
+              </Accordion>
+
+              '
+        deviceSecretHash:
+          type: string
+          description: 'The device secret hash. The specified device secret hash is included as the value of the `ds_hash`
+
+            claim in the ID token generated by the `/nativesso` API. If the `deviceSecretHash` request parameter
+
+            is omitted, the value of the `deviceSecret` request parameter is used to compute the hash.
+
+            '
+    native_sso_logout_request:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+          description: 'The session ID of a user''s authentication session.
+
+            '
+    native_sso_logout_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - SERVER_ERROR
+          - CALLER_ERROR
+          description: 'The next action that the API caller should take.
+
+            '
+        count:
+          type: integer
+          description: 'The number of deleted access/refresh token records.
+
+            '
+    native_sso_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - INTERNAL_SERVER_ERROR
+          - CALLER_ERROR
+          description: 'The next action that the implementation of the token endpoint should take.
+
+            '
+        responseContent:
+          type: string
+          description: 'The response content that can be used as the message body of the token response that should be
+
+            returned from the token endpoint.
+
+            '
+        idToken:
+          type: string
+          description: 'The issued ID token.
+
+            '
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+  responses:
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+  links:
+    token_exchange:
+      operationId: auth_token_api
+      parameters:
+        serviceId: $request.path.serviceId
+    authz_process:
+      operationId: auth_authorization_api
+      parameters:
+        serviceId: $request.path.serviceId
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Authenticate every request with a **Service Access Token** or **Organization Token**.
+
+        Set the token value in the `Authorization: Bearer <token>` header.
+
+
+        **Service Access Token**: Scoped to a single service. Use when automating service-level configuration or runtime flows.
+
+
+        **Organization Token**: Scoped to the organization; inherits permissions across services. Use for org-wide automation or when managing multiple services programmatically.
+
+
+        Both token types are issued by the Authlete console or provisioning APIs.
+
+        '

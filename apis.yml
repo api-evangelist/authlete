@@ -1,25 +1,429 @@
 aid: authlete
 name: Authlete
-description: Authlete is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Authlete is an API-first OAuth 2.0 and OpenID Connect backend service that provides a headless
+  authorization-server engine. It handles the OAuth/OIDC protocol logic and token management so
+  organizations can stand up standards-compliant authorization servers and verifiable-credential
+  issuers without building the protocol layer themselves. Authlete separates the Management APIs
+  (configure services and clients) from the Runtime APIs (power authorization, token, introspection,
+  CIBA, device-flow, federation, and OID4VCI endpoints), and offers managed shared cloud, dedicated
+  cloud, and self-managed deployment across US, Japan, Europe, and Brazil regional clusters. It
+  supports advanced profiles including FAPI / FAPI 2.0, CIBA, PAR, Grant Management, OpenID
+  Federation, Native SSO, and OpenID for Verifiable Credential Issuance, plus regional open-banking
+  standards (Brazil Open Banking, Australia CDR). Backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/8684109?v=4
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- OAuth 2.0
+- OpenID Connect
+- Authentication
+- Authorization
+- Identity
+- API Security
+- FAPI
+- Verifiable Credentials
+- CIBA
+apis:
+- aid: authlete:authlete-authorization-endpoint-api
+  name: Authlete Authorization Endpoint API
+  description: API endpoints for implementing OAuth 2.0 Authorization Endpoint.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Authorization Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-authorization-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-ciba-api
+  name: Authlete CIBA API
+  description: API endpoints for implementing Client-Initiated Backchannel Authentication (CIBA).
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - CIBA
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-ciba-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-client-management-api
+  name: Authlete Client Management API
+  description: >-
+    API endpoints for managing OAuth clients, including creation, update, and deletion of clients.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Client Management
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-client-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-device-flow-api
+  name: Authlete Device Flow API
+  description: API endpoints for implementing OAuth 2.0 Device Flow
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Device Flow
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-device-flow-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-dynamic-client-registration-api
+  name: Authlete Dynamic Client Registration API
+  description: API endpoints for implementing OAuth 2.0 Dynamic Client Registration.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Dynamic Client Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-dynamic-client-registration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-federation-endpoint-api
+  name: Authlete Federation Endpoint API
+  description: API endpoints for implementing OpenID Federation using Authlete.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Federation Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-federation-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-grant-management-endpoint-api
+  name: Authlete Grant Management Endpoint API
+  description: >-
+    API endpoint for implementing OAuth 2.0 grants, including grant management actions like updating and
+    revoking grants.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Grant Management Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-grant-management-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-hardware-security-key-api
+  name: Authlete Hardware Security Key API
+  description: API endpoints for managing hardware security keys (HSK).
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Hardware Security Key
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-hardware-security-key-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-introspection-endpoint-api
+  name: Authlete Introspection Endpoint API
+  description: API endpoints for implementing OAuth 2.0 Introspection Endpoint.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Introspection Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-introspection-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-jose-object-api
+  name: Authlete Jose Object API
+  description: API endpoints for JOSE objects.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Jose Object
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-jose-object-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-jwk-set-endpoint-api
+  name: Authlete JWK Set Endpoint API
+  description: API endpoints for to generate JSON Web Key Set (JWKS) for a service.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - JWK Set Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-jwk-set-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-lifecycle-api
+  name: Authlete Lifecycle API
+  description: The Lifecycle API from Authlete — 1 operation(s) for lifecycle.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Lifecycle
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-lifecycle-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-native-sso-api
+  name: Authlete Native SSO API
+  description: API endpoints for Native SSO
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Native SSO
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-native-sso-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-pushed-authorization-endpoint-api
+  name: Authlete Pushed Authorization Endpoint API
+  description: API endpoints for implementing OAuth 2.0 Pushed Authorization Requests (PAR).
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Pushed Authorization Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-pushed-authorization-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-revocation-endpoint-api
+  name: Authlete Revocation Endpoint API
+  description: API endpoint for implementing OAuth 2.0 Revocation Endpoint.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Revocation Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-revocation-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-service-management-api
+  name: Authlete Service Management API
+  description: >-
+    API endpoints for managing services, including creation, update, and deletion of services.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Service Management
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-service-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-token-endpoint-api
+  name: Authlete Token Endpoint API
+  description: API endpoints for implementing OAuth 2.0 Token Endpoint.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Token Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-token-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-token-operations-api
+  name: Authlete Token Operations API
+  description: >-
+    API endpoints for various token related operations, including creating, revoking and deleting access_tokens
+    with specified scopes.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Token Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-token-operations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-userinfo-endpoint-api
+  name: Authlete UserInfo Endpoint API
+  description: API endpoints for implementing OpenID Connect UserInfo Endpoint.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - UserInfo Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-userinfo-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-utility-endpoints-api
+  name: Authlete Utility Endpoints API
+  description: API endpoints for various utility operations.
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Utility Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-utility-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
+- aid: authlete:authlete-verifiable-credential-issuer-api
+  name: Authlete Verifiable Credential Issuer API
+  description: API endpoints for implementing and running a Verifiable Credential Issuer (VCI).
+  humanURL: https://docs.authlete.com/
+  baseURL: https://us.authlete.com
+  tags:
+  - Verifiable Credential Issuer
+  properties:
+  - type: OpenAPI
+    url: openapi/authlete-verifiable-credential-issuer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.authlete.com/
+  - type: APIReference
+    url: https://docs.authlete.com/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://www.authlete.com/developers/
+- type: Documentation
+  url: https://docs.authlete.com/
+- type: APIReference
+  url: https://docs.authlete.com/
+- type: GettingStarted
+  url: https://www.authlete.com/developers/getting_started/
+- type: Support
+  url: https://www.authlete.com/contact/
+- type: Blog
+  url: https://www.authlete.com/resources/blog
+- type: GitHubOrganization
+  url: https://github.com/authlete
+- type: Pricing
+  url: https://www.authlete.com/pricing
+- type: SignUp
+  url: https://console.authlete.com/
+- type: TermsOfService
+  url: https://www.authlete.com/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.authlete.com/privacy-policy
+- type: StatusPage
+  url: https://www.authlete.com/service-status
+- type: Deprecation
+  url: https://www.authlete.com/developers/lts_policy/
+- type: ChangeLog
+  url: https://www.authlete.com/developers/relnotes/
+- type: Packages
+  url: packages/authlete-packages.yml
+- type: SDKs
+  url: packages/authlete-packages.yml
+- type: CLI
+  url: cli/authlete-cli.yml
+- type: Components
+  url: components/authlete-components.yml
+- type: MCPServer
+  url: mcp/authlete-mcp.yml
+- type: LLMsTxt
+  url: llms/authlete-llms.txt
+- type: Overlay
+  url: overlays/authlete-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/authlete-conformance.yml
+- type: ErrorCatalog
+  url: errors/authlete-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/authlete-lifecycle.yml
+- type: Conventions
+  url: conventions/authlete-conventions.yml
+- type: DataModel
+  url: data-model/authlete-data-model.yml
+- type: WellKnown
+  url: well-known/authlete-well-known.yml
+- type: SecurityTxt
+  url: well-known/authlete-security.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/authlete-agentic-access.yml
+- type: Authentication
+  url: authentication/authlete-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/authlete-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.authlete.com/.well-known/security.txt
+- type: DomainSecurity
+  url: security/authlete-domain-security.yml
 - type: Website
   url: https://authlete.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

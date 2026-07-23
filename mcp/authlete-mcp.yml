@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/authlete-openapi-original.yml
+description: >-
+  No official hosted/remote Authlete MCP server was found (no @authlete MCP package, no
+  registry listing, no docs reference as of this pass). This is a DERIVED candidate tool
+  list mapping the highest-value Management operations to MCP tools, one tool per operationId.
+  Authlete ships an official CLI and SDKs (see cli/ and packages/) that an MCP server could wrap.
+server:
+  name: authlete
+  transport: http
+  url: null
+tools:
+  - name: list_services
+    description: List authorization-server services in the organization.
+    source_operation: openapi/authlete-openapi-original.yml#service_get_list_api
+  - name: get_service
+    description: Get a service (authorization-server) configuration.
+    source_operation: openapi/authlete-openapi-original.yml#service_get_api
+  - name: create_service
+    description: Create a new authorization-server service.
+    source_operation: openapi/authlete-openapi-original.yml#service_create_api
+  - name: update_service
+    description: Update a service configuration.
+    source_operation: openapi/authlete-openapi-original.yml#service_update_api
+  - name: get_service_configuration
+    description: Get the OIDC discovery configuration for a service.
+    source_operation: openapi/authlete-openapi-original.yml#service_configuration_api
+  - name: list_clients
+    description: List clients registered under a service.
+    source_operation: openapi/authlete-openapi-original.yml#client_get_list_api
+  - name: get_client
+    description: Get a client's configuration.
+    source_operation: openapi/authlete-openapi-original.yml#client_get_api
+  - name: create_client
+    description: Register a new OAuth/OIDC client.
+    source_operation: openapi/authlete-openapi-original.yml#client_create_api
+  - name: update_client
+    description: Update a client's configuration.
+    source_operation: openapi/authlete-openapi-original.yml#client_update_api
+  - name: delete_client
+    description: Delete a client.
+    source_operation: openapi/authlete-openapi-original.yml#client_delete_api
+  - name: introspect_token
+    description: Introspect an access token (runtime).
+    source_operation: openapi/authlete-openapi-original.yml#auth_introspection_api
+  - name: process_authorization
+    description: Process an authorization request at the authorization endpoint (runtime).
+    source_operation: openapi/authlete-openapi-original.yml#auth_authorization_api
+  - name: process_token
+    description: Process a token request at the token endpoint (runtime).
+    source_operation: openapi/authlete-openapi-original.yml#auth_token_api

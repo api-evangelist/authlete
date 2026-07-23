@@ -1,0 +1,75 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/authlete-openapi-original.yml (components.schemas + path parameters)
+description: >-
+  Entity-relationship graph derived from the Authlete OpenAPI schemas and the
+  service/client path hierarchy. The core hierarchy is Organization -> Service
+  (authorization-server instance) -> Client (relying party) -> issued tokens/grants.
+entities:
+  - name: organization
+    description: Top-level tenant; owns services and organization-scoped access tokens.
+    id_field: organizationId
+  - name: service
+    description: A single authorization-server instance configured in Authlete.
+    id_field: serviceId
+    schema: service
+  - name: client
+    description: An OAuth/OIDC client (relying party) registered under a service.
+    id_field: clientId
+    schema: client
+  - name: access_token
+    description: An access token issued/managed for a client under a service.
+    schema: access_token
+  - name: authorization_ticket
+    description: Short-lived ticket representing an in-flight authorization request.
+    id_field: ticket
+  - name: granted_scopes
+    description: The set of scopes a user has granted to a client.
+    schema: scope
+  - name: hsk
+    description: Hardware security key material bound to a service.
+    schema: hsk
+  - name: credential_offer
+    description: An OID4VCI credential offer issued by a VC issuer service.
+    schema: credential_offer_info
+relationships:
+  - from: service
+    to: organization
+    type: belongs_to
+    via: organizationId
+  - from: organization
+    to: service
+    type: has_many
+    via: serviceId
+  - from: client
+    to: service
+    type: belongs_to
+    via: serviceId
+  - from: service
+    to: client
+    type: has_many
+    via: clientId
+  - from: access_token
+    to: client
+    type: belongs_to
+    via: clientId
+  - from: access_token
+    to: service
+    type: belongs_to
+    via: serviceId
+  - from: granted_scopes
+    to: client
+    type: belongs_to
+    via: clientId
+  - from: authorization_ticket
+    to: service
+    type: belongs_to
+    via: serviceId
+  - from: hsk
+    to: service
+    type: belongs_to
+    via: serviceId
+  - from: credential_offer
+    to: service
+    type: belongs_to
+    via: serviceId

@@ -1,0 +1,34 @@
+# Authlete
+
+> Authlete is an API-first OAuth 2.0 and OpenID Connect backend service. It provides a headless
+> authorization-server engine that handles OAuth/OIDC protocol operations and token management,
+> letting organizations stand up standards-compliant authorization servers and verifiable-credential
+> issuers without building the protocol layer themselves. Deployment models include a managed shared
+> cloud, dedicated cloud, and self-managed, across US, Japan, Europe, and Brazil regional clusters.
+> Advanced profiles include FAPI / FAPI 2.0, CIBA, PAR, Device Flow, Grant Management, OpenID
+> Federation, Native SSO, and OID4VCI, plus regional standards (Brazil Open Banking, Australia CDR).
+
+## APIs
+- [Authlete API (OpenAPI 3.0.16)](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/openapi/authlete-openapi-original.yml): 82 paths / 86 operations across Management (services, clients) and Runtime (authorization, token, introspection, CIBA, VCI, federation) endpoints.
+
+## Specs & Artifacts
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/authentication/authlete-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/conventions/authlete-conventions.yml)
+- [Conformance / standards](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/conformance/authlete-conformance.yml)
+- [Error / problem types](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/errors/authlete-problem-types.yml)
+- [Lifecycle & versioning](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/lifecycle/authlete-lifecycle.yml)
+- [Data model / ERD](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/data-model/authlete-data-model.yml)
+- [Packages / SDKs](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/packages/authlete-packages.yml)
+- [CLI](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/cli/authlete-cli.yml)
+- [Agentic access contracts](https://raw.githubusercontent.com/api-evangelist/authlete/refs/heads/main/agentic-access/authlete-agentic-access.yml)
+
+## Docs
+- [API Reference](https://docs.authlete.com/)
+- [Developer Portal](https://www.authlete.com/developers/)
+- [Getting Started](https://www.authlete.com/developers/getting_started/)
+- [Management Console](https://console.authlete.com/)
+- [Release Notes](https://www.authlete.com/developers/relnotes/)
+- [Knowledge Base](https://www.authlete.com/kb/)
+- [GitHub Organization](https://github.com/authlete)
+- [Service Status](https://www.authlete.com/service-status)
+- [Pricing](https://www.authlete.com/pricing)

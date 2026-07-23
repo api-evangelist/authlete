@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/authlete-openapi-original.yml + https://github.com/authlete/authlete-cli
+description: >-
+  Cross-cutting request/response conventions for the Authlete API, derived from the OpenAPI
+  and the official SDK/CLI docs. Authlete is an API-first OAuth 2.0 / OIDC backend: Management
+  APIs configure services and clients; Runtime APIs power authorization-server endpoints.
+authentication:
+  style: bearer-token
+  header: "Authorization: Bearer <token>"
+  token_types:
+    - name: Service Access Token
+      scope: single service (authorization-server instance)
+    - name: Organization Token
+      scope: entire organization (inherits permissions across services)
+  permissions_model: >-
+    Tokens are minted in the Authlete console with permission strings (e.g. service.read,
+    client.write) that gate which operations they may call. See authentication/authlete-authentication.yml.
+  ref: authentication/authlete-authentication.yml
+base_urls:
+  regional_clusters:
+    - https://us.authlete.com
+    - https://jp.authlete.com
+    - https://eu.authlete.com
+    - https://br.authlete.com
+  note: Customers choose the region their data is hosted in; the same API surface is served from each.
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or idempotency contract is documented in the OpenAPI or SDKs.
+    Management writes are addressed by resource id (serviceId, clientId), so create/update/delete
+    are naturally addressable but not replay-protected via an idempotency key.
+pagination:
+  style: offset
+  params: [start, end]
+  applies_to: [service_get_list_api, client_get_list_api, client_authorization_get_list_api]
+  note: >-
+    List endpoints take integer `start` (inclusive) and `end` (exclusive) index bounds as query
+    parameters; there is no cursor. List responses wrap the collection with a total count and
+    the echoed start/end.
+versioning:
+  style: major-stream
+  ref: lifecycle/authlete-lifecycle.yml
+error_handling:
+  http_errors: [400, 401, 403, 404, 500]
+  format: http-status (no RFC 9457 problem+json)
+  runtime_result_object: {fields: [action, resultCode, resultMessage]}
+  ref: errors/authlete-problem-types.yml
+rate_limiting:
+  documented: false
+  note: No rate-limit headers or published limits found in the OpenAPI or docs.
+content_type: application/json

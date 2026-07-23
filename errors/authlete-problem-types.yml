@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/authlete-openapi-original.yml
+format: http-status
+description: >-
+  Derived from the HTTP status responses declared across the Authlete OpenAPI. The API
+  does not emit RFC 9457 application/problem+json bodies; error responses are signalled by
+  HTTP status code (5xx bodies are text/plain). Individual operations return a JSON result
+  object whose `action` and `resultCode`/`resultMessage` fields carry Authlete-specific
+  outcome codes for the runtime (authorization/token/introspection) endpoints.
+envelope:
+  transport: http-status
+  runtime_result_fields: [action, resultCode, resultMessage]
+  note: >-
+    Runtime endpoints (auth/authorization, auth/token, auth/introspection, ...) return 200
+    with a result object whose `action` tells the caller how to respond to the end user, and
+    `resultCode`/`resultMessage` carry the detailed Authlete outcome. These are not HTTP errors.
+problems:
+  - status: 400
+    title: Bad Request
+    meaning: The request was malformed or a parameter was invalid.
+  - status: 401
+    title: Unauthorized
+    meaning: Missing or invalid Bearer access token (Service Access Token or Organization Token).
+  - status: 403
+    title: Forbidden
+    meaning: The token lacks the permission required for the operation, or the resource is not accessible to it.
+  - status: 404
+    title: Not Found
+    meaning: The referenced resource (e.g. client or service) was not found.
+  - status: 500
+    title: Internal Server Error
+    meaning: An unexpected server-side error (text/plain body).

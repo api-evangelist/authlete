@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/authlete-openapi-original.yml
+skills:
+  - file: authlete-provision-service-and-client.md
+    name: Provision a service and register a client
+    api: openapi/authlete-openapi-original.yml
+    operations: [service_create_api, service_get_api, client_create_api, client_get_list_api]
+  - file: authlete-authorization-code-flow.md
+    name: Drive an authorization-code flow at the runtime endpoints
+    api: openapi/authlete-openapi-original.yml
+    operations: [auth_authorization_api, auth_authorization_issue_api, auth_token_api, auth_introspection_api]
+  - file: authlete-issue-verifiable-credential.md
+    name: Issue a verifiable credential (OID4VCI)
+    api: openapi/authlete-openapi-original.yml
+    operations: [vci_metadata_api, vci_offer_create_api, vci_single_parse_api, vci_single_issue_api]

@@ -1,0 +1,289 @@
+openapi: 3.0.3
+info:
+  title: Authlete Authorization Endpoint Jose Object API
+  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  version: 3.0.16
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- description: 🇺🇸 US Cluster
+  url: https://us.authlete.com
+- description: 🇯🇵 Japan Cluster
+  url: https://jp.authlete.com
+- description: 🇪🇺 Europe Cluster
+  url: https://eu.authlete.com
+- description: 🇧🇷 Brazil Cluster
+  url: https://br.authlete.com
+security:
+- bearer: []
+tags:
+- name: Jose Object
+  description: API endpoints for JOSE objects.
+  x-tag-expanded: false
+paths:
+  /api/{serviceId}/jose/verify:
+    post:
+      summary: Verify JOSE
+      description: 'This API verifies a JOSE object.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/jose_verify_request'
+            example:
+              jose: eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA
+              clockSkew: 100
+              signedByClient: true
+              clientIdentifier: '57297408867'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/jose_verify_request'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jose_verify_response'
+              example:
+                resultCode: A160001
+                resultMessage: '[A160001] The JOSE is valid.'
+                signatureValid: true
+                valid: true
+          links:
+            token_exchange:
+              $ref: '#/components/links/token_exchange'
+            token_introspect:
+              $ref: '#/components/links/token_introspect'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: jose_verify_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v https://us.authlete.com/api/21653835348762/jose/verify \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d jose=eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA \
+
+          -d clockSkew=100 \
+
+          -d signedByClient=true \
+
+          -d clientIdentifier=57297408867
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          JoseVerifyRequest req = new JoseVerifyRequest();
+
+          req.setJose("eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtw");
+
+          req.setClockSkew(100);
+
+          req.setSinedByClient(true);
+
+          req.setClientIdentifier("57297408867");
+
+
+          api.verifyJose(request);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          req = JoseVerifyRequest()
+
+          req.jose = ''eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtw''
+
+          req.clockSkew = 100
+
+          req.sinedByClient = True
+
+          req.clientIdentifier = ''57297408867''
+
+
+          api.verifyJose(req)
+
+          '
+      tags:
+      - Jose Object
+components:
+  responses:
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+  schemas:
+    jose_verify_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        valid:
+          type: boolean
+          description: 'The result of the verification on the JOSE object.
+
+            '
+        signatureValid:
+          type: boolean
+          description: 'The result of the signature verification.
+
+            '
+        missingClaims:
+          type: array
+          items:
+            type: string
+          description: 'The list of missing claims.
+
+            '
+        invalidClaims:
+          type: array
+          items:
+            type: string
+          description: 'The list of invalid claims.
+
+            '
+        errorDescriptions:
+          type: array
+          items:
+            type: string
+          description: 'The list of error messages.
+
+            '
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    jose_verify_request:
+      type: object
+      required:
+      - jose
+      properties:
+        jose:
+          type: string
+          description: 'A JOSE object.
+
+            '
+        mandatoryClaims:
+          type: array
+          items:
+            type: string
+          description: 'Mandatory claims that are required to be included in the JOSE object.
+
+            '
+        clockSkew:
+          type: integer
+          format: int32
+          description: 'Allowable clock skew in seconds.
+
+            '
+        clientIdentifier:
+          type: string
+          description: 'The identifier of the client application whose keys are required for verification of the JOSE
+
+            object.
+
+            '
+        signedByClient:
+          type: boolean
+          description: 'The flag which indicates whether the signature of the JOSE object has been signed by a client
+
+            application with the client''s private key or a shared symmetric key.
+
+            '
+  links:
+    token_introspect:
+      operationId: auth_introspection_api
+      parameters:
+        serviceId: $request.path.serviceId
+    token_exchange:
+      operationId: auth_token_api
+      parameters:
+        serviceId: $request.path.serviceId
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Authenticate every request with a **Service Access Token** or **Organization Token**.
+
+        Set the token value in the `Authorization: Bearer <token>` header.
+
+
+        **Service Access Token**: Scoped to a single service. Use when automating service-level configuration or runtime flows.
+
+
+        **Organization Token**: Scoped to the organization; inherits permissions across services. Use for org-wide automation or when managing multiple services programmatically.
+
+
+        Both token types are issued by the Authlete console or provisioning APIs.
+
+        '

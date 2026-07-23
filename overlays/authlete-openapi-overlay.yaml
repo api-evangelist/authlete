@@ -1,0 +1,37 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Authlete API
+  version: 1.0.0
+extends: openapi/authlete-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-18'
+      x-apievangelist-provider: authlete
+      x-apievangelist-categories:
+        - authentication
+        - authorization
+        - oauth
+        - openid-connect
+        - identity
+      x-apievangelist-standards:
+        - oauth2
+        - openid-connect
+        - fapi
+        - ciba
+        - oid4vci
+        - oidc-federation
+        - pushed-authorization-requests
+        - device-flow
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/authlete-authentication.yml
+        conventions: conventions/authlete-conventions.yml
+        conformance: conformance/authlete-conformance.yml
+        errors: errors/authlete-problem-types.yml
+        lifecycle: lifecycle/authlete-lifecycle.yml
+        data_model: data-model/authlete-data-model.yml
+        packages: packages/authlete-packages.yml
+        cli: cli/authlete-cli.yml
+        agentic_access: agentic-access/authlete-agentic-access.yml

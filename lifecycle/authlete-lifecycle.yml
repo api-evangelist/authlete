@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.authlete.com/developers/relnotes/ + https://www.authlete.com/service-status
+versioning:
+  scheme: major-stream
+  current: "3.0"
+  spec_version: "3.0.16"
+  maintained_streams: ["3.0", "2.3", "2.2"]
+  release_notes: https://www.authlete.com/developers/relnotes/
+deprecation:
+  lts_policy_url: https://www.authlete.com/developers/lts_policy/
+  policy: >-
+    Authlete maintains long-term-support streams (2.2, 2.3, 3.0) with a published LTS policy;
+    older server streams remain in maintenance while 3.0 is current.
+status_page: https://www.authlete.com/service-status
+support: https://www.authlete.com/contact/
+knowledge_base: https://www.authlete.com/kb/
+deprecated_operations: []
+notes: >-
+  No RFC 8594 Sunset/Deprecation response headers are declared in the OpenAPI, and no
+  operations are flagged deprecated in the spec. Lifecycle is governed at the server-stream
+  level (LTS policy) rather than per-operation.

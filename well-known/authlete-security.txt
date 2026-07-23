@@ -1,0 +1,19 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# Authlete security.txt (RFC 9116)
+# Publish at: https://www.authlete.com/.well-known/security.txt (HTTPS only)
+
+Contact: mailto:security@authlete.com
+Expires: 2027-07-13T00:00:00.000Z
+Encryption: https://www.authlete.com/.well-known/security-pubkey.asc
+Preferred-Languages: en, ja
+Canonical: https://www.authlete.com/.well-known/security.txt
+-----BEGIN PGP SIGNATURE-----
+
+iJEEARYKADkWIQROGwVG8PaaWypW3A88O9GkfRQLsgUCalj5WBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwwLDMACgkQPDvRpH0UC7JvdgD/Whs2kWKtxU1MDUoGtfM9
+tGsx8gICshvxKdNF2elhUBYA/ikZ3G9Q7ui18QUKJdFDQd+e6aI7xx5Fq+Ja8ohq
+ylgP
+=AHxy
+-----END PGP SIGNATURE-----

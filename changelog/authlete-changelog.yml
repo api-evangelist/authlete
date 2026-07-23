@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.authlete.com/developers/relnotes/
+description: >-
+  Authlete publishes dated release notes per product line (Console, IdP, and the
+  Authlete Server engine) rather than a single semver changelog. The OpenAPI document
+  itself is versioned (info.version 3.0.16). The Server line follows major streams
+  (3.0 current; 2.3 and 2.2 in maintenance) with roughly monthly releases plus hotfixes.
+scheme: dated-release-notes
+current_version: "3.0"
+spec_version: "3.0.16"
+lts_policy: https://www.authlete.com/developers/lts_policy/
+product_lines:
+  - name: Authlete Console
+    latest: '2026-06'
+  - name: Authlete IdP
+    latest: '2026-06'
+  - name: Authlete Server 3.0
+    latest: '2026-06'
+    status: current
+  - name: Authlete Server 2.3
+    status: maintenance
+    since: '2023-01'
+  - name: Authlete Server 2.2
+    status: maintenance
+    since: '2021-02'
+notes: >-
+  Individual dated entries (feature additions, fixes, hotfixes) live at the release-notes
+  URL; per-entry breaking-vs-additive detail is on each linked note. Captured window is the
+  most recent (June 2026) across all three active lines.

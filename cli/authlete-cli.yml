@@ -1,0 +1,71 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/authlete/authlete-cli
+name: authlete
+description: >-
+  Official command-line interface for the Authlete API (Speakeasy-generated Go binary).
+  Wraps the same Management and Runtime operations as the SDKs.
+repo: https://github.com/authlete/authlete-cli
+language: go
+binary: authlete
+install:
+  - method: script
+    command: "curl -fsSL https://raw.githubusercontent.com/authlete/authlete-cli/main/scripts/install.sh | bash"
+    platforms: [linux, macos]
+  - method: powershell
+    command: "iwr -useb https://raw.githubusercontent.com/authlete/authlete-cli/main/scripts/install.ps1 | iex"
+    platforms: [windows]
+  - method: homebrew
+    command: "brew install authlete/tap/authlete"
+    tap: https://github.com/authlete/homebrew-tap
+    platforms: [macos, linux]
+  - method: go
+    command: "go install github.com/authlete/authlete-cli/cmd/authlete@latest"
+  - method: binary
+    command: "download from https://github.com/authlete/authlete-cli/releases"
+authentication:
+  precedence: [command-line-flag, environment-variable, os-keychain, config-file]
+  flag: "--bearer <token>"
+  env: AUTHLETE_BEARER
+  keychain: "authlete configure (macOS Keychain / GNOME Keyring / Windows Credential Locker)"
+  config_file: "~/.config/authlete/config.yaml"
+  note: Uses a Service Access Token or Organization Token as a Bearer credential.
+server_selection:
+  flag: "--server-url"
+  default_clusters: [https://us.authlete.com, https://jp.authlete.com, https://eu.authlete.com, https://br.authlete.com]
+output_formats: [json, table]
+shell_completion: [bash, zsh, fish, powershell]
+command_groups:
+  - group: service
+    commands: [get, list, update, delete, get-configuration]
+  - group: client
+    commands: [get, list, create, update, update-form, delete]
+    subgroups:
+      - group: client-management
+        commands:
+          - update-lock-flag
+          - refresh-secret
+          - update-secret
+          - list-authorized-applications
+          - list-authorizations
+          - update-authorizations
+          - revoke-client-tokens
+          - delete-authorizations
+          - get-granted-scopes-for-client
+          - delete-granted-scopes-for-client
+          - get-requestable-scopes
+          - update-requestable-scopes
+          - delete-requestable-scopes
+  - group: authorization
+    commands: [process-request, fail, issue]
+    subgroups:
+      - group: authorization-management
+        commands: [get-ticket-info, update-ticket]
+  - group: pushed-authorization
+    commands: [create]
+  - group: token
+    commands: [process, fail, issue]
+    subgroups:
+      - group: token-management
+        commands: []
+example: "authlete service get --bearer 'Bearer <token>' --service-id '<id>'"

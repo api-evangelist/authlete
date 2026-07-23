@@ -1,0 +1,410 @@
+openapi: 3.0.3
+info:
+  title: Authlete Authorization Endpoint Hardware Security Key API
+  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  version: 3.0.16
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- description: 🇺🇸 US Cluster
+  url: https://us.authlete.com
+- description: 🇯🇵 Japan Cluster
+  url: https://jp.authlete.com
+- description: 🇪🇺 Europe Cluster
+  url: https://eu.authlete.com
+- description: 🇧🇷 Brazil Cluster
+  url: https://br.authlete.com
+security:
+- bearer: []
+tags:
+- name: Hardware Security Key
+  description: API endpoints for managing hardware security keys (HSK).
+  x-tag-expanded: false
+paths:
+  /api/{serviceId}/hsk/create:
+    post:
+      summary: Create Security Key
+      x-badges:
+      - color: primary-color
+        label: 🏢 Dedicated Cloud Required
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hsk_create_request'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/hsk_create_request'
+      responses:
+        '200':
+          description: HSK created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hsk_create_response'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: hsk_create_api
+      tags:
+      - Hardware Security Key
+  /api/{serviceId}/hsk/delete/{handle}:
+    delete:
+      summary: Delete Security Key
+      x-badges:
+      - color: primary-color
+        label: 🏢 Dedicated Cloud Required
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: handle
+        schema:
+          type: string
+        required: true
+      responses:
+        '204':
+          description: HSK deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hsk_delete_response'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: hsk_delete_api
+      tags:
+      - Hardware Security Key
+  /api/{serviceId}/hsk/get/{handle}:
+    get:
+      summary: Get Security Key
+      x-badges:
+      - color: primary-color
+        label: 🏢 Dedicated Cloud Required
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: handle
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hsk_get_response'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: hsk_get_api
+      tags:
+      - Hardware Security Key
+  /api/{serviceId}/hsk/get/list:
+    get:
+      summary: List Security Keys
+      x-badges:
+      - color: primary-color
+        label: 🏢 Dedicated Cloud Required
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: HSK list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hsk_get_list_response'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: hsk_get_list_api
+      tags:
+      - Hardware Security Key
+components:
+  schemas:
+    hsk:
+      type: object
+      description: 'Holds information about a key managed in an HSM (Hardware Security Module)
+
+        '
+      properties:
+        kty:
+          type: string
+          description: 'The key type (EC or RSA)
+
+            '
+        use:
+          type: string
+          description: 'Get the use of the key on the HSM.
+
+            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
+
+            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
+
+            '
+        kid:
+          type: string
+          description: 'Key ID for the key on the HSM.
+
+            '
+        hsmName:
+          type: string
+          description: 'The name of the HSM.
+
+            The identifier for the HSM that sits behind the Authlete server. For example, "google".
+
+            '
+        handle:
+          type: string
+          description: 'The handle for the key on the HSM.
+
+            A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
+
+            '
+        publicKey:
+          type: string
+          description: 'The public key that corresponds to the key on the HSM.
+
+            '
+        alg:
+          type: string
+          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
+
+            signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
+
+            encryption algorithm such as `"RSA-OAEP-256"`.
+
+            '
+    hsk_create_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call.
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    hsk_get_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    hsk_get_list_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - SERVER_ERROR
+          description: Result of the API call
+        hsks:
+          type: array
+          items:
+            $ref: '#/components/schemas/hsk'
+          description: List of HSK
+    hsk_delete_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    hsk_create_request:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: 'The key type (EC or RSA)
+
+            '
+        use:
+          type: string
+          description: 'The key on the HSM.
+
+            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
+
+            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
+
+            '
+        kid:
+          type: string
+          description: 'Key ID for the key on the HSM.
+
+            '
+        hsmName:
+          type: string
+          description: 'The name of the HSM.
+
+            The identifier for the HSM that sits behind the Authlete server. For example, "google".
+
+            '
+        alg:
+          type: string
+          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a signing
+
+            algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an encryption
+
+            algorithm such as `"RSA-OAEP-256"`.
+
+
+            It is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).
+
+            When the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API
+
+            fails.
+
+            '
+  responses:
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Authenticate every request with a **Service Access Token** or **Organization Token**.
+
+        Set the token value in the `Authorization: Bearer <token>` header.
+
+
+        **Service Access Token**: Scoped to a single service. Use when automating service-level configuration or runtime flows.
+
+
+        **Organization Token**: Scoped to the organization; inherits permissions across services. Use for org-wide automation or when managing multiple services programmatically.
+
+
+        Both token types are issued by the Authlete console or provisioning APIs.
+
+        '

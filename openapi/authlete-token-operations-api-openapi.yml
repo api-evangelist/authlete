@@ -1,0 +1,1577 @@
+openapi: 3.0.3
+info:
+  title: Authlete Authorization Endpoint Token Operations API
+  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  version: 3.0.16
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- description: 🇺🇸 US Cluster
+  url: https://us.authlete.com
+- description: 🇯🇵 Japan Cluster
+  url: https://jp.authlete.com
+- description: 🇪🇺 Europe Cluster
+  url: https://eu.authlete.com
+- description: 🇧🇷 Brazil Cluster
+  url: https://br.authlete.com
+security:
+- bearer: []
+tags:
+- name: Token Operations
+  description: API endpoints for various token related operations, including creating, revoking and deleting access_tokens with specified scopes.
+  x-tag-expanded: false
+paths:
+  /api/{serviceId}/auth/token/get/list:
+    get:
+      summary: List Issued Tokens
+      description: 'Get the list of access tokens that are associated with the service.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: clientIdentifier
+        schema:
+          type: string
+        required: false
+        description: 'Client Identifier (client ID or client ID alias).
+
+          '
+      - in: query
+        name: subject
+        schema:
+          type: string
+        required: false
+        description: 'Unique user ID.
+
+          '
+      - in: query
+        name: start
+        schema:
+          type: integer
+          format: int32
+        required: false
+        description: Start index of search results (inclusive). The default value is 0.
+      - in: query
+        name: end
+        schema:
+          type: integer
+          format: int32
+        required: false
+        description: 'End index of search results (exclusive). The default value is 5.
+
+          '
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token_get_list_response'
+              example:
+                accessTokens:
+                - accessTokenExpiresAt: 1642048149000
+                  accessTokenHash: tC5hpjGylLiiw-vsd5_tqVHtYSUHblAGimEJ-5xqAco
+                  clientId: 26888344961664
+                  createdAt: 1642044549000
+                  grantType: AUTHORIZATION_CODE
+                  lastRefreshedAt: 0
+                  refreshTokenExpiresAt: 1642048149000
+                  refreshTokenHash: jv4B_7_kpY-Rez_E7bYIxGYnZk43w18uigkaeUe6tc4
+                  scopes:
+                  - history.read
+                  subject: john
+                - accessTokenExpiresAt: 1642051604000
+                  accessTokenHash: Bk1QneTxkoLKw_RRB8ToVL25Plt075RvPK68N9cWWtg
+                  clientId: 26888344961664
+                  createdAt: 1642048004000
+                  grantType: AUTHORIZATION_CODE
+                  lastRefreshedAt: 0
+                  refreshTokenExpiresAt: 1642051604000
+                  refreshTokenHash: YHmwk4xETvoIJ_maWCpJDlpvmcFLkxmaaSS-v9KPng4
+                  scopes:
+                  - history.read
+                  - openid
+                  - timeline.read
+                  subject: john
+                - accessTokenExpiresAt: 1642052094000
+                  accessTokenHash: UUatYXjkqYFbRQlnItjq03DtUYA2MRRtuL88GCbQpbw
+                  clientId: 26888344961664
+                  createdAt: 1642048494000
+                  grantType: AUTHORIZATION_CODE
+                  lastRefreshedAt: 0
+                  refreshTokenExpiresAt: 1642052094000
+                  refreshTokenHash: wjc-IXoScxDiVyBmRrB92I-B0zMXSSKw_qwP_WK1lFM
+                  scopes:
+                  - history.read
+                  subject: john
+                client:
+                  clientId: 26888344961664
+                  clientIdAliasEnabled: false
+                  clientName: My Device Flow Client
+                  clientType: CONFIDENTIAL
+                  number: 6260
+                end: 3
+                start: 0
+                subject: john
+                totalCount: 3
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: auth_token_get_list_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v https://us.authlete.com/api/21653835348762/auth/token/get/list/?clientIdentifier=26888344961664\&subject=john\&start=0\&end=3 \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          String clientIdentifier = "26888344961664";
+
+          String subject = "john";
+
+          int start = 0;
+
+          int end = 3;
+
+
+          api.getTokenList(clientIdentifier, subject, start, end);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          clientIdentifier = ''26888344961664''
+
+          subject = ''john''
+
+          start = 0
+
+          end = 3
+
+
+          api.getTokenList(clientIdentifier, subject, start, end)
+
+          '
+      tags:
+      - Token Operations
+  /api/{serviceId}/auth/token/create:
+    post:
+      summary: Create Access Token
+      description: 'Create an access token.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/token_create_request'
+            example:
+              grantType: AUTHORIZATION_CODE
+              clientId: 26888344961664
+              subject: john
+              scopes:
+              - history.read
+              - timeline.read
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/token_create_request'
+      responses:
+        '200':
+          description: Token created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token_create_response'
+              example:
+                resultCode: A109001
+                resultMessage: '[A109001] An access token was created successfully: authorization_code, client = 26888344961664'
+                accessToken: Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q
+                action: OK
+                clientId: 26888344961664
+                expiresAt: 1642048148973
+                expiresIn: 3600
+                grantType: AUTHORIZATION_CODE
+                refreshToken: 9beh15GWkGLseBBO1tPobnsGpKLHV3mTkm0EWnNBa4g
+                scopes:
+                - history.read
+                - timeline.read
+                subject: john
+                tokenType: Bearer
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: auth_token_create_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X POST https://us.authlete.com/api/21653835348762/auth/token/create \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d ''{ "grantType": "AUTHORIZATION_CODE", "clientId": 26888344961664, "subject": "john", "scopes": [ "history.read", "timeline.read" ] }''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          TokenCreateRequest req = new TokenCreateRequest();
+
+          req.setGrantType(GrantType.AUTHORIZATION_CODE)
+
+          req.setClientId(26888344961664)
+
+          req.setSubject("john")
+
+          req.setScopes({ "history.read", "timeline.read" });
+
+
+          api.tokenCreate(req);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          req = TokenCreateRequest()
+
+          req.grantType = GrantType.AUTHORIZATION_CODE
+
+          req.clientId = 26888344961664
+
+          req.subject = ''john''
+
+          req.scopes = [ ''history.read'', ''timeline.read'' ]
+
+
+          api.tokenCreate(req)
+
+          '
+      tags:
+      - Token Operations
+  /api/{serviceId}/auth/token/update:
+    post:
+      summary: Update Access Token
+      description: 'Update an access token.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/token_update_request'
+            example:
+              accessToken: Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q
+              scopes:
+              - history.read
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/token_update_request'
+      responses:
+        '200':
+          description: Token updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token_update_response'
+              example:
+                resultCode: A135001
+                resultMessage: '[A135001] Updated the access token successfully.'
+                accessToken: Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q
+                accessTokenExpiresAt: 1642048149000
+                action: OK
+                scopes:
+                - history.read
+                tokenType: Bearer
+          links:
+            token_issue:
+              $ref: '#/components/links/token_issue'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: auth_token_update_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X POST https://us.authlete.com/api/21653835348762/auth/token/update \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d ''{ "accessToken": "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q", "scopes": [ "history.read" ] }''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          TokenUpdateRequest req = new TokenUpdateRequest();
+
+          req.setAccessToken("JDGiiM9PuWT63FIwGjG9eYlGi-aZMq6CQ2IB475JUxs");
+
+          req.setScopes({ "history.read" });
+
+
+          api.tokenUpdate(req);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          req = TokenUpdateRequest()
+
+          req.accessToken = ''JDGiiM9PuWT63FIwGjG9eYlGi-aZMq6CQ2IB475JUxs''
+
+          req.scopes = [ ''history.read'' ]
+
+
+          api.tokenUpdate(req)
+
+          '
+      tags:
+      - Token Operations
+  /api/{serviceId}/auth/token/delete/{accessTokenIdentifier}:
+    delete:
+      summary: Delete Access Token
+      description: 'Delete an access token.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: accessTokenIdentifier
+        schema:
+          type: string
+        required: true
+        description: 'The identifier of an existing access token. The identifier is the value of the access token
+
+          or the value of the hash of the access token.
+
+          '
+      responses:
+        '204':
+          description: 'The access token was successfully deleted.
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: auth_token_delete_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X DELETE https://us.authlete.com/api/21653835348762/auth/token/delete/Bk1QneTxkoLKw_RRB8ToVL25Plt075RvPK68N9cWWtg \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          String accessTokenIdentifier = "Bk1QneTxkoLKw_RRB8ToVL25Plt075RvPK68N9cWWtg";
+
+
+          api.tokenDelete(accessToken);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          accessTokenIdentifier = ''Bk1QneTxkoLKw_RRB8ToVL25Plt075RvPK68N9cWWtg''
+
+
+          api.tokenDelete(accessToken)
+
+          '
+      tags:
+      - Token Operations
+  /api/{serviceId}/auth/token/revoke:
+    post:
+      summary: Revoke Access Token
+      description: 'Revoke an access token.
+
+        '
+      parameters:
+      - in: path
+        name: serviceId
+        description: A service ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/token_revoke_request'
+            example:
+              accessTokenIdentifier: Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/token_revoke_request'
+      responses:
+        '200':
+          description: Token revoked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token_revoke_response'
+              example:
+                resultCode: A312001
+                resultMessage: Revoked 1 access token(s).
+                count: 1
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: auth_token_revoke_api
+      x-code-samples:
+      - lang: shell
+        label: curl
+        source: 'curl -v -X POST https://us.authlete.com/api/21653835348762/auth/token/revoke \
+
+          -H ''Content-Type:application/json'' \
+
+          -H ''Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'' \
+
+          -d ''{ "accessTokenIdentifier": "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q" }''
+
+          '
+      - lang: java
+        label: java
+        source: 'AuthleteConfiguration conf = ...;
+
+          AuthleteApi api = AuthleteApiFactory.create(conf);
+
+
+          TokenRevokeRequest req = new TokenRevokeRequest();
+
+          req.setAccessTokenIdentifier("Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q");
+
+
+          api.tokenRevoke(req);
+
+          '
+      - lang: python
+        source: 'conf = ...
+
+          api = AuthleteApiImpl(conf)
+
+
+          req = TokenRevokeRequest()
+
+          req.access_token_identifier = ''Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q''
+
+
+          api.token_revoke(req)
+
+          '
+      tags:
+      - Token Operations
+components:
+  schemas:
+    token_revoke_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        count:
+          type: integer
+          description: The number of tokens revoked
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    client_limited:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          readOnly: true
+          description: 'The sequential number of the client. The value of this property is assigned by Authlete.
+
+            '
+        clientName:
+          type: string
+          description: 'The name of the client application. This property corresponds to `client_name` in
+
+            [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+            '
+        clientNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Client names with language tags. If the client application has different names for different
+
+            languages, this property can be used to register the names.
+
+            '
+        description:
+          type: string
+          description: The description about the client application.
+        descriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Descriptions about the client application with language tags. If the client application has different
+
+            descriptions for different languages, this property can be used to register the descriptions.
+
+            '
+        clientId:
+          type: integer
+          format: int64
+          readOnly: true
+          description: The client identifier used in Authlete API calls. The value of this property is assigned by Authlete.
+        clientIdAlias:
+          type: string
+          description: 'The value of the client''s `client_id` property used in OAuth and OpenID Connect calls. By
+
+            default, this is a string version of the `clientId` property.
+
+            '
+        clientIdAliasEnabled:
+          type: boolean
+          description: Deprecated. Always set to `true`.
+        clientType:
+          $ref: '#/components/schemas/client_type'
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    token_update_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - FORBIDDEN
+          - NOT_FOUND
+          - OK
+          description: The next action that the authorization server implementation should take.
+        accessToken:
+          type: string
+          description: The access token which has been specified by the request.
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'The date at which the access token will expire.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The extra properties associated with the access token.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the access token.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        tokenType:
+          type: string
+          description: 'The token type associated with the access token.
+
+            '
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
+
+            '
+        tokenId:
+          type: string
+          description: 'Set the unique token identifier.
+
+            '
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'The datetime at which the newly issued refresh token will expire.
+
+            The value is represented in milliseconds since the Unix epoch (1970-01-01).
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
+    access_token:
+      type: object
+      properties:
+        accessTokenHash:
+          type: string
+          description: The hash of the access token.
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: The timestamp at which the access token will expire.
+        refreshTokenHash:
+          type: string
+          description: The hash of the refresh token.
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: The timestamp at which the refresh token will expire.
+        createdAt:
+          type: integer
+          format: int64
+          description: 'The timestamp at which the access token was first created.
+
+            '
+        lastRefreshedAt:
+          type: integer
+          format: int64
+          description: 'The timestamp at which the access token was last refreshed using the refresh token.
+
+            '
+        clientId:
+          type: integer
+          format: int64
+          description: 'The ID of the client associated with the access token.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique user ID) associated with the access token.
+
+            '
+        grantType:
+          $ref: '#/components/schemas/grant_type'
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the access token.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The properties associated with the access token.
+
+            '
+        refreshTokenScopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the refresh token.
+
+            '
+    authz_details:
+      type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
+
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
+
+            '
+    token_create_request:
+      type: object
+      required:
+      - grantType
+      properties:
+        grantType:
+          $ref: '#/components/schemas/grant_type'
+        clientId:
+          type: integer
+          format: int64
+          description: 'The ID of the client application which will be associated with a newly created access token.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique identifier) of the user who will be associated with a newly created access
+
+            token. This parameter is required unless the grant type is `CLIENT_CREDENTIALS`. The value must
+
+            consist of only ASCII characters and its length must not exceed 100.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes which will be associated with a newly created access token. Scopes that are not supported
+
+            by the service cannot be specified and requesting them will cause an error.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration of a newly created access token in seconds. If the value is 0, the duration is determined
+
+            according to the settings of the service.
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration of a newly created refresh token in seconds. If the value is 0, the duration is
+
+            determined according to the settings of the service.
+
+
+            A refresh token is not created (1) if the service does not support `REFRESH_TOKEN`, or (2) if the
+
+            specified grant type is either `IMPLICIT`or `CLIENT_CREDENTIALS`.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'Extra properties to associate with a newly created access token. Note that properties parameter
+
+            is accepted only when the HTTP method of the request is POST and Content-Type of the request is
+
+            `application/json`, so don''t use `GET` method or `application/x-www-form-urlencoded` if you want
+
+            to specify properties.
+
+            '
+        clientIdAliasUsed:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether to emulate that the client ID alias is used
+
+            instead of the original numeric client ID when a new access token is created.
+
+            '
+          x-mint:
+            metadata:
+              description: A boolean request parameter which indicates whether to emulate that the client ID alias is used instead of the original numeric client ID when a new access token is created.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              This has an effect only on the value of the aud claim in a response from [UserInfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo).
+
+              When you access the UserInfo endpoint (which is expected to be implemented using Authlete''s
+
+              `/api/auth/userinfo` API and `/api/auth/userinfo/issue` API) with an access token which has been
+
+              created using Authlete''s `/api/auth/token/create` API with this property (`clientIdAliasUsed`)
+
+              `true`, the client ID alias is used as the value of the aud claim in a response from the UserInfo
+
+              endpoint.
+
+
+              Note that if a client ID alias is not assigned to the client when Authlete''s `/api/auth/token/create`
+
+              API is called, this property (`clientIdAliasUsed`) has no effect (it is always regarded as `false`).
+
+              </Accordion>
+
+              '
+        accessToken:
+          type: string
+          description: 'The value of the new access token.
+
+            '
+          x-mint:
+            metadata:
+              description: The value of the new access token.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              The `/api/auth/token/create` API generates an access token. Therefore, callers of the API do not
+
+              have to specify values of newly created access tokens. However, in some cases, for example, if
+
+              you want to migrate existing access tokens from an old system to Authlete, you may want to specify
+
+              values of access tokens. In such a case, you can specify the value of a newly created access token
+
+              by passing a non-null value as the value of accessToken request parameter. The implementation
+
+              of the `/api/auth/token/create` uses the value of the accessToken request parameter instead of
+
+              generating a new value when the request parameter holds a non-null value.
+
+
+              Note that if the hash value of the specified access token already exists in Authlete''s database,
+
+              the access token cannot be inserted and the `/api/auth/token/create` API will report an error.
+
+              </Accordion>
+
+              '
+        refreshToken:
+          type: string
+          description: 'The value of the new refresh token.
+
+            '
+          x-mint:
+            metadata:
+              description: The value of the new refresh token.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              The `/api/auth/token/create` API may generate a refresh token. Therefore, callers of the API do
+
+              not have to specify values of newly created refresh tokens. However, in some cases, for example,
+
+              if you want to migrate existing refresh tokens from an old system to Authlete, you may want to
+
+              specify values of refresh tokens. In such a case, you can specify the value of a newly created
+
+              refresh token by passing a non-null value as the value of refreshToken request parameter. The
+
+              implementation of the `/api/auth/token/create` uses the value of the refreshToken request parameter
+
+              instead of generating a new value when the request parameter holds a non-null value.
+
+
+              Note that if the hash value of the specified refresh token already exists in Authlete''s database,
+
+              the refresh token cannot be inserted and the `/api/auth/token/create` API will report an error.
+
+              </Accordion>
+
+              '
+        accessTokenPersistent:
+          type: boolean
+          description: 'Get whether the access token expires or not. By default, all access tokens expire after a period
+
+            of time determined by their service.
+
+
+            If this request parameter is `true`, then the access token will not automatically expire and must
+
+            be revoked or deleted manually at the service. If this request parameter is true, the `accessTokenDuration`
+
+            request parameter is ignored.
+
+            '
+        certificateThumbprint:
+          type: string
+          description: 'The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate
+
+            with the corresponding value MUST be presented with the access token when it is used by a client.
+
+            The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
+
+            '
+        dpopKeyThumbprint:
+          type: string
+          description: 'The thumbprint of the public key used for DPoP presentation of this token. If this property is
+
+            set, a DPoP proof signed with the corresponding private key MUST be presented with the access
+
+            token when it is used by a client. Additionally, the token''s `token_type` will be set to ''DPoP''.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        resources:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: 'The value of the resources to associate with the token. This property represents the value of
+
+            one or more `resource` request parameters which is defined in "RFC8707 Resource Indicators for
+
+            OAuth 2.0".
+
+            '
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
+
+            '
+        jwtAtClaims:
+          type: string
+          description: 'Additional claims that are added to the payload part of the JWT access token.
+
+            '
+        acr:
+          type: string
+          description: 'The Authentication Context Class Reference of the user authentication that the authorization server performed
+
+            during the course of issuing the access token.
+
+            '
+        authTime:
+          type: integer
+          format: int64
+          description: 'The time when the user authentication was performed during the course of issuing the access token.
+
+            '
+        clientEntityIdUsed:
+          type: boolean
+          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+
+            '
+        clientIdentifier:
+          type: string
+          description: 'The client Identifier associated with the newly issued access token.
+
+            '
+        sessionId:
+          type: string
+          description: 'The session ID, which is the ID of the user''s authentication session, associated with a newly
+
+            created access token.
+
+            '
+        metadataDocumentUsed:
+          type: boolean
+          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+
+            When `true`, the client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism rather than from the Authlete database.
+
+            '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
+    client_type:
+      type: string
+      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+
+        for details.
+
+        '
+      enum:
+      - PUBLIC
+      - CONFIDENTIAL
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    token_revoke_request:
+      type: object
+      properties:
+        accessTokenIdentifier:
+          type: string
+          description: 'The identifier of an access token to revoke
+
+
+            The hash of an access token is recognized as an identifier as well as the access token itself.
+
+            '
+        refreshTokenIdentifier:
+          type: string
+          description: 'The identifier of a refresh token to revoke.
+
+
+            The hash of a refresh token is recognized as an identifier as well as the refresh token itself.
+
+            '
+        clientIdentifier:
+          type: string
+          description: 'The client ID of the access token to be revoked.
+
+
+            Both the numeric client ID and the alias are recognized as an identifier
+
+            of a client.
+
+            '
+        subject:
+          type: string
+          description: 'The subject of a resource owner.
+
+            '
+    token_update_request:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: 'An access token.
+
+            '
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
+
+            If the `accessTokenExpiresAt` request parameter is not included in a request or its value is 0
+
+            (or negative), the expiration date of the access token is not changed.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'A new set of scopes assigned to the access token. Scopes that are not supported by the service
+
+            and those that the client application associated with the access token is not allowed to request
+
+            are ignored on the server side. If the `scopes` request parameter is not included in a request or
+
+            its value is `null`, the scopes of the access token are not changed. Note that `properties` parameter
+
+            is accepted only when `Content-Type` of the request is `application/json`, so don''t use `application/x-www-form-urlencoded`
+
+            if you want to specify `properties`.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'A new set of properties assigned to the access token. If the `properties` request parameter is
+
+            not included in a request or its value is null, the properties of the access token are not changed.
+
+            '
+        accessTokenExpiresAtUpdatedOnScopeUpdate:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
+
+            date of the access token when the scopes linked to the access token are changed by this request.
+
+            '
+        accessTokenHash:
+          type: string
+          description: 'The hash of the access token value. Used when the hash of the token is known (perhaps from lookup)
+
+            but the value of the token itself is not. The value of the `accessToken` parameter takes precedence.
+
+            '
+        accessTokenValueUpdated:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether to update the value of the access token in
+
+            the data store. If this parameter is set to `true` then a new access token value is generated
+
+            by the server and returned in the response.
+
+            '
+        accessTokenPersistent:
+          type: boolean
+          description: 'The flag which indicates whether the access token expires or not. By default, all access tokens
+
+            expire after a period of time determined by their service. If this request parameter is `true`
+
+            then the access token will not automatically expire and must be revoked or deleted manually at
+
+            the service.
+
+
+            If this request parameter is `true`, the `accessTokenExpiresAt` request parameter is ignored.
+
+            If this request parameter is `false`, the `accessTokenExpiresAt` request parameter is processed
+
+            normally.
+
+            '
+        certificateThumbprint:
+          type: string
+          description: 'The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate
+
+            with the corresponding value MUST be presented with the access token when it is used by a client.
+
+            The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
+
+            '
+        dpopKeyThumbprint:
+          type: string
+          description: 'The thumbprint of the public key used for DPoP presentation of this token. If this property is
+
+            set, a DPoP proof signed with the corresponding private key MUST be presented with the access
+
+            token when it is used by a client. Additionally, the token''s `token_type` will be set to ''DPoP''.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
+
+            '
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
+
+            If the `refreshTokenExpiresAt` request parameter is not included in a request or its value is 0
+
+            (or negative), the expiration date of the refresh token is not changed.
+
+            '
+        refreshTokenExpiresAtUpdatedOnScopeUpdate:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
+
+            date of the refresh token when the scopes linked to the refresh token are changed by this request.
+
+            '
+        tokenId:
+          type: string
+          description: 'The token identifier.
+
+            '
+    token_create_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - FORBIDDEN
+          - OK
+          description: The next action that the authorization server implementation should take.
+        accessToken:
+          type: string
+          description: The newly issued access token.
+        clientId:
+          type: integer
+          format: int64
+          description: 'The ID of the client application associated with the access token.
+
+            '
+        expiresAt:
+          type: integer
+          format: int64
+          description: 'The time at which the access token expires.
+
+            '
+        expiresIn:
+          type: integer
+          format: int64
+          description: 'The duration of the newly issued access token in seconds.
+
+            '
+        grantType:
+          type: string
+          description: 'The grant type for the newly issued access token.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The extra properties associated with the access token.
+
+            '
+        refreshToken:
+          type: string
+          description: 'The newly issued refresh token.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'Scopes which are associated with the access token.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique identifier) of the user associated with the newly issued access
+
+            token.
+
+            '
+        tokenType:
+          type: string
+          description: 'The token type of the access token.
+
+            '
+        jwtAccessToken:
+          type: string
+          description: 'If the authorization server is configured to issue JWT-based access tokens (= if `Service.accessTokenSignAlg`
+
+            is set to a `non-null` value), a JWT-based access token is issued along with the original
+
+            random-string one.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
+
+            '
+        tokenId:
+          type: string
+          description: 'Set the unique token identifier.
+
+            '
+        refreshTokenScopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the refresh token. May be null.
+
+            '
+        clientIdentifier:
+          type: string
+          description: 'The client Identifier that will be associated with a newly created access token.
+
+            '
+        sessionId:
+          type: string
+          description: 'The session ID associated with a newly created access token.
+
+
+            NOTE: A refresh token must be associated with a session ID, which is the ID of the user''s authentication
+
+            session, in order to be used to obtain a [Native SSO](https://openid.net/specs/openid-connect-native-sso-1_0.html)-compliant
+
+            ID token in the refresh token flow.
+
+            '
+    token_get_list_response:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+          description: 'Start index of search results (inclusive).
+
+            '
+        end:
+          type: integer
+          format: int32
+          description: 'End index of search results (exclusive).
+
+            '
+        totalCount:
+          type: integer
+          format: int32
+          description: 'Unique ID of a client developer.
+
+            '
+        client:
+          $ref: '#/components/schemas/client_limited'
+        subject:
+          type: string
+          description: 'Unique user ID of an end-user.
+
+            '
+        accessTokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/access_token'
+          description: 'An array of access tokens.
+
+            '
+  links:
+    token_issue:
+      operationId: auth_token_issue_api
+      parameters:
+        serviceId: $request.path.serviceId
+  responses:
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '404':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: 404
+            resultMessage: ''
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Authenticate every request with a **Service Access Token** or **Organization Token**.
+
+        Set the token value in the `Authorization: Bearer <token>` header.
+
+
+        **Service Access Token**: Scoped to a single service. Use when automating service-level configuration or runtime flows.
+
+
+        **Organization Token**: Scoped to the organization; inherits permissions across services. Use for org-wide automation or when managing multiple services programmatically.
+
+
+        Both token types are issued by the Authlete console or provisioning APIs.
+
+        '
