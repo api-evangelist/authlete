@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Dynamic Client Registration API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dynamic Client Registration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/registration",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a client. This API is supposed to be used to implement a client registration endpoint that\ncomplies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client\nRegistration Protocol).\n"
+        },
+        {
+          "info": {
+            "name": "Get Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/registration/get",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a dynamically registered client. This API is supposed to be used to implement a client registration\nmanagement endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n"
+        },
+        {
+          "info": {
+            "name": "Update Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/registration/update",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a dynamically registered client. This API is supposed to be used to implement a client\nregistration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n"
+        },
+        {
+          "info": {
+            "name": "Delete Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/registration/delete",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a dynamically registered client. This API is supposed to be used to implement a client\nregistration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Revocation Endpoint API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Revocation Endpoint",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Process Revocation Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/revocation",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API revokes access tokens and refresh tokens.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

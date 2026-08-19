@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Token Operations API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Issued Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/get/list",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientIdentifier",
+                "value": "",
+                "type": "query",
+                "description": "Client Identifier (client ID or client ID alias).\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID.\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start index of search results (inclusive). The default value is 0."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End index of search results (exclusive). The default value is 5.\n"
+              }
+            ]
+          },
+          "docs": "Get the list of access tokens that are associated with the service.\n"
+        },
+        {
+          "info": {
+            "name": "Create Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/create",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an access token.\n"
+        },
+        {
+          "info": {
+            "name": "Update Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/update",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an access token.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/delete/:accessTokenIdentifier",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "accessTokenIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of an existing access token. The identifier is the value of the access token\nor the value of the hash of the access token.\n"
+              }
+            ]
+          },
+          "docs": "Delete an access token.\n"
+        },
+        {
+          "info": {
+            "name": "Revoke Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/revoke",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revoke an access token.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

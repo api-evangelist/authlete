@@ -1,0 +1,476 @@
+{
+  "item": [
+    {
+      "id": "93c8fb96-068f-489c-8ce9-556eb94ed6d7",
+      "name": "JWK Set Endpoint",
+      "description": {
+        "content": "API endpoints for to generate JSON Web Key Set (JWKS) for a service.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24c51503-1919-4955-ab6b-4bd831c73ae1",
+          "name": "Get JWK Set",
+          "request": {
+            "name": "Get JWK Set",
+            "description": {
+              "content": "This API gathers JWK Set information for a service so that its client applications can verify\nsignatures by the service and encrypt their requests to the service.\n\nThis API is supposed to be called from within the implementation of the jwk set endpoint of the\nservice where the service that supports OpenID Connect must expose its JWK Set information so that\nclient applications can verify signatures by the service and encrypt their requests to the service.\nThe URI of the endpoint can be found as the value of `jwks_uri` in [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)\nif the service supports [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "service",
+                "jwks",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includePrivateKeys",
+                  "value": "<boolean>",
+                  "description": "The boolean value that indicates whether the response should include the private keys associated with the service or not. If `true`, the private keys are included in the response. The default value is `false`."
+                },
+                {
+                  "disabled": false,
+                  "key": "pretty",
+                  "value": "<boolean>",
+                  "description": "This boolean value indicates whether the JSON in the response should be formatted or not. If `true`, the JSON in the response is pretty-formatted. The default value is `false`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e06bb9e7-83f5-43ca-b4d1-a58d48808163",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"keys\": [\n    {\n      \"e\": \"AQAB\",\n      \"n\": \"kVXi0XB8LGYZfFPXymaszWjBQsO22tasQH3PEiPeLSymBHbp7PtqM8O8xblqhbxV-24lKNs2zDugQaBiVt4zpalyYxL5kqnfY247priZRfmeUatdECh81T-i3VcLpz_M5yfljfVp3sFdaURUQNA3ow9VtUfvPIxN_9YIxXN1zP2nLP5amC2XA8xMt5iubRwbbPbrLyg69zTOzosDVhRTSs5adHK5HNwVn8wCCZPbU7u1cQD8hFNn8xlQcmOmJjSXUQ9slBpLc7G-dUEOI59RxiPd4R44GtSe8gA1WFXvOAdtGjivSm8BAbxuNO8HFtDJmpVl9YsDr9FsxirFl9ZPKs\",\n      \"kty\": \"RSA\",\n      \"use\": \"sig\",\n      \"kid\": \"rsa-sig-001\"\n    },\n    {\n      \"e\": \"AQAB\",\n      \"n\": \"lQui3_DlrkLs_dyaOQBOclphIIRTTMo0gNlnAgfEM9xjbYQJQzi0CLtO6eseecE3HtvDBWVTw-rMM_NMJTlPTO0_ODWvmJRjXy9DZGEm05LFd_qr6jZ7cdOvjD7zUC3GI9TIokPbjGzueBPJjtAvv_tAazRFCQQfiFy7sQR3u-J4tM8fNo9szo9H09R_eA29llZ3hU39JDKs9nzG60I1mVZtJYPx0_bnO8eYeVDHqoj4SZ4jeru3iX9iDeccH_cDm3M87UomUh-Ri4LlAxXgewDvOaPxAef9ADkDvBVmRo5t60_PJxQ3Tug2EKK-xF1_T7I4TxgS7ga8entMmCxLca\",\n      \"kty\": \"RSA\",\n      \"use\": \"enc\",\n      \"kid\": \"rsa-enc-001\"\n    },\n    {\n      \"crv\": \"P-256\",\n      \"kty\": \"EC\",\n      \"use\": \"sig\",\n      \"y\": \"824At71mYpbGK2oOCKAL1Z2scLPrbVwhM882v3a9gBq\",\n      \"x\": \"ZXE3h9BxCyyb_Z9ZJ5qH4Vx650y09qwI1EpZO4o4OmL\",\n      \"kid\": \"ec256-sig-001\"\n    },\n    {\n      \"crv\": \"P-256\",\n      \"kty\": \"EC\",\n      \"use\": \"enc\",\n      \"y\": \"j80Y3leZHHnxC_gN-Ols_l_VfEBQkfGDFFDG5LNJKMl\",\n      \"x\": \"xAdEkaExYWGGAC1xYjwxzvqcaCyDloylZk04yiE9_OF\",\n      \"kid\": \"ec256-enc-001\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9ba16a8-1da3-4023-8f45-cecd53bd1d0d",
+              "name": "No JWK Set available for this service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c6323eb-eb1f-4c91-b3c6-7ad357b6161d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a20a86b-5aca-4fd8-9227-b0fb1fffc586",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cbb4232-ed1b-48aa-bcd8-1f6d838d4101",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1ba2b31-400a-48a5-9161-b63e8a17cebf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "service",
+                    "jwks",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includePrivateKeys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f572e18c-c41f-4fd5-800a-422524feaeb6",
+    "name": "Authlete Authorization Endpoint JWK Set Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

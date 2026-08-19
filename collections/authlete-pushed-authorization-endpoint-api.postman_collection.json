@@ -1,0 +1,582 @@
+{
+  "item": [
+    {
+      "id": "f732107a-c9ce-4f51-99cc-6e2743c21b5d",
+      "name": "Pushed Authorization Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OAuth 2.0 Pushed Authorization Requests (PAR).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf4bb393-887a-4708-bb91-4c2af6e36fa1",
+          "name": "Process Pushed Authorization Request",
+          "request": {
+            "name": "Process Pushed Authorization Request",
+            "description": {
+              "content": "This API creates a pushed request authorization. It authenticates the client and creates a authorization_uri to be returned by the authorization server.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "pushed_auth_req"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientId",
+                  "value": "<string>",
+                  "description": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientSecret",
+                  "value": "<string>",
+                  "description": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "The client certificate from the MTLS connection to pushed authorization endpoint from the client application."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpop",
+                  "value": "<string>",
+                  "description": "DPoP Header\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htm",
+                  "value": "<string>",
+                  "description": "HTTP Method (for DPoP validation).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htu",
+                  "value": "<string>",
+                  "description": "HTTP URL base (for DPoP validation).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestation",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestationPop",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpopNonceRequired",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/pushed_auth_req` API with\nthis `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP\nproof JWT includes the expected `nonce` value.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "936422ce-4d15-4875-8d99-dabdf7edcb03",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "pushed_auth_req"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "response_type=code%20id_token&client_id=5921531358155430&redirect_uri=https%3A%2F%2Fserver.example.com%2Fcb&state=SOME_VALUE_ABLE_TO_PREVENT_CSRF&scope=openid&nonce=SOME_VALUE_ABLE_TO_PREVENT_REPLAY_ATTACK&code_challenge=5ZWDQJiryK3eaLtSeFV8y1XySMCWtyITxICLaTwvK8g&code_challenge_method=S256"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "5921531358155430"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "P_FouxWlI7zcOep_9vBwR9qMAVJQiCiUiK1HrAP4GziOyezHQpqY0f5dHXK4JT4tnvI51OkbWVoEM9GnOyJViA"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A245001\",\n  \"resultMessage\": \"[A245001] Successfully registered a request object for client (5921531358155430), URI is urn:ietf:params:oauth:request_uri:CAK9YEtNorwXE3UwSyihsBOL0jFrqUup7yAACw5y5Zg.\",\n  \"action\": \"CREATED\",\n  \"requestUri\": \"urn:ietf:params:oauth:request_uri:CAK9YEtNorwXE3UwSyihsBOL0jFrqUup7yAACw5y5Zg\",\n  \"responseContent\": \"{\\\"expires_in\\\":600,\\\"request_uri\\\":\\\"urn:ietf:params:oauth:request_uri:CAK9YEtNorwXE3UwSyihsBOL0jFrqUup7yAACw5y5Zg\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f736049-f0f3-489c-8c1d-b700ac5ae5e3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "pushed_auth_req"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "response_type=code%20id_token&client_id=5921531358155430&redirect_uri=https%3A%2F%2Fserver.example.com%2Fcb&state=SOME_VALUE_ABLE_TO_PREVENT_CSRF&scope=openid&nonce=SOME_VALUE_ABLE_TO_PREVENT_REPLAY_ATTACK&code_challenge=5ZWDQJiryK3eaLtSeFV8y1XySMCWtyITxICLaTwvK8g&code_challenge_method=S256"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "5921531358155430"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "P_FouxWlI7zcOep_9vBwR9qMAVJQiCiUiK1HrAP4GziOyezHQpqY0f5dHXK4JT4tnvI51OkbWVoEM9GnOyJViA"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96ec8683-119d-4c8f-a1e6-17adcb126c1a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "pushed_auth_req"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "response_type=code%20id_token&client_id=5921531358155430&redirect_uri=https%3A%2F%2Fserver.example.com%2Fcb&state=SOME_VALUE_ABLE_TO_PREVENT_CSRF&scope=openid&nonce=SOME_VALUE_ABLE_TO_PREVENT_REPLAY_ATTACK&code_challenge=5ZWDQJiryK3eaLtSeFV8y1XySMCWtyITxICLaTwvK8g&code_challenge_method=S256"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "5921531358155430"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "P_FouxWlI7zcOep_9vBwR9qMAVJQiCiUiK1HrAP4GziOyezHQpqY0f5dHXK4JT4tnvI51OkbWVoEM9GnOyJViA"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db4e9684-38be-4862-b679-11f44e2f525b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "pushed_auth_req"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "response_type=code%20id_token&client_id=5921531358155430&redirect_uri=https%3A%2F%2Fserver.example.com%2Fcb&state=SOME_VALUE_ABLE_TO_PREVENT_CSRF&scope=openid&nonce=SOME_VALUE_ABLE_TO_PREVENT_REPLAY_ATTACK&code_challenge=5ZWDQJiryK3eaLtSeFV8y1XySMCWtyITxICLaTwvK8g&code_challenge_method=S256"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "5921531358155430"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "P_FouxWlI7zcOep_9vBwR9qMAVJQiCiUiK1HrAP4GziOyezHQpqY0f5dHXK4JT4tnvI51OkbWVoEM9GnOyJViA"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a16b7a06-68a8-4cb2-a71c-5b7b4feda915",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "pushed_auth_req"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The pushed authorization request body received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "response_type=code%20id_token&client_id=5921531358155430&redirect_uri=https%3A%2F%2Fserver.example.com%2Fcb&state=SOME_VALUE_ABLE_TO_PREVENT_CSRF&scope=openid&nonce=SOME_VALUE_ABLE_TO_PREVENT_REPLAY_ATTACK&code_challenge=5ZWDQJiryK3eaLtSeFV8y1XySMCWtyITxICLaTwvK8g&code_challenge_method=S256"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the pushed request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "5921531358155430"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the pushed authorization request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "P_FouxWlI7zcOep_9vBwR9qMAVJQiCiUiK1HrAP4GziOyezHQpqY0f5dHXK4JT4tnvI51OkbWVoEM9GnOyJViA"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0684243b-1f9b-4b72-ace3-23b7af57164b",
+    "name": "Authlete Authorization Endpoint Pushed Authorization Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,790 @@
+{
+  "item": [
+    {
+      "id": "bf3e2537-ef94-4622-9a9b-a3939d0ea439",
+      "name": "Revocation Endpoint",
+      "description": {
+        "content": "API endpoint for implementing OAuth 2.0 Revocation Endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e77133dd-f9cf-4e6a-8369-3af83173b558",
+          "name": "Process Revocation Request",
+          "request": {
+            "name": "Process Revocation Request",
+            "description": {
+              "content": "This API revokes access tokens and refresh tokens.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "revocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientId",
+                  "value": "<string>",
+                  "description": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientSecret",
+                  "value": "<string>",
+                  "description": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestation",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestationPop",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6738d8e5-6f0e-46bb-b0c6-7903ee0e7f22",
+              "name": "Token revoked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "revocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A113001\",\n  \"resultMessage\": \"[A113001] The token has been revoked successfully.\",\n  \"action\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d941b432-79b6-4b91-900c-3d370794cfb1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "revocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70bc9b07-c710-4de1-b678-db581587118a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "revocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1871d0a7-a907-4204-86ec-8f4588b24731",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "revocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd3e3643-3ce7-4583-b6c7-91d303e2ff39",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "revocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint\n([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the\nclient application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request\nfrom the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports Basic Authentication\nas a means of client authentication, and the request from the client application contains its client ID in\n`Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the revocation request from the client application.\n\nIf the revocation endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate used in the TLS connection between the client application and the revocation endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dff2af26-6165-4443-b3f3-c2086eed115d",
+    "name": "Authlete Authorization Endpoint Revocation Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

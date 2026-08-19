@@ -1,0 +1,1662 @@
+{
+  "item": [
+    {
+      "id": "e4b0a43f-be57-4e79-b686-d8db4729170c",
+      "name": "Hardware Security Key",
+      "description": {
+        "content": "API endpoints for managing hardware security keys (HSK).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e0ed627-679d-482a-9131-6613b6bb1d68",
+          "name": "Create Security Key",
+          "request": {
+            "name": "Create Security Key",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "hsk",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "kty",
+                  "value": "<string>",
+                  "description": "The key type (EC or RSA)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "use",
+                  "value": "<string>",
+                  "description": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "kid",
+                  "value": "<string>",
+                  "description": "Key ID for the key on the HSM.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "hsmName",
+                  "value": "<string>",
+                  "description": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "alg",
+                  "value": "<string>",
+                  "description": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5a1efba-c4f4-4f5a-9a71-84c94f2f5d5a",
+              "name": "HSK created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key type (EC or RSA)\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kty",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n",
+                        "type": "text/plain"
+                      },
+                      "key": "use",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Key ID for the key on the HSM.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kid",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "hsmName",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alg",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"SERVER_ERROR\",\n  \"hsk\": {\n    \"kty\": \"string\",\n    \"use\": \"string\",\n    \"kid\": \"string\",\n    \"hsmName\": \"string\",\n    \"handle\": \"string\",\n    \"publicKey\": \"string\",\n    \"alg\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97c4a086-5c3e-4173-bac6-704f41b3e515",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key type (EC or RSA)\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kty",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n",
+                        "type": "text/plain"
+                      },
+                      "key": "use",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Key ID for the key on the HSM.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kid",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "hsmName",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alg",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ded31c57-0d4c-4446-81e3-28dca7b8ae61",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key type (EC or RSA)\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kty",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n",
+                        "type": "text/plain"
+                      },
+                      "key": "use",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Key ID for the key on the HSM.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kid",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "hsmName",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alg",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e94f7fbc-dd0e-4db7-aaee-6baa94f88b04",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key type (EC or RSA)\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kty",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n",
+                        "type": "text/plain"
+                      },
+                      "key": "use",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Key ID for the key on the HSM.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kid",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "hsmName",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alg",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8dbef7d-022f-4654-84dd-f117623cbcad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key type (EC or RSA)\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kty",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key on the HSM.\nWhen the key use is \"sig\" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.\nWhen the key use is \"enc\" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key\n",
+                        "type": "text/plain"
+                      },
+                      "key": "use",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Key ID for the key on the HSM.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "kid",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the HSM.\nThe identifier for the HSM that sits behind the Authlete server. For example, \"google\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "hsmName",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The algorithm of the key on the HSM. When the key use is `\"sig\"`, the algorithm represents a signing\nalgorithm such as `\"ES256\"`. When the key use is `\"enc\"`, the algorithm represents an encryption\nalgorithm such as `\"RSA-OAEP-256\"`.\n\nIt is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).\nWhen the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API\nfails.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alg",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "450255b2-4cd2-4def-b949-5de760ad13d6",
+          "name": "Delete Security Key",
+          "request": {
+            "name": "Delete Security Key",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "hsk",
+                "delete",
+                ":handle"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "handle",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90f5a8e8-230b-47e9-b828-b8ef27d5ce7a",
+              "name": "HSK deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "delete",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"SERVER_ERROR\",\n  \"hsk\": {\n    \"kty\": \"string\",\n    \"use\": \"string\",\n    \"kid\": \"string\",\n    \"hsmName\": \"string\",\n    \"handle\": \"string\",\n    \"publicKey\": \"string\",\n    \"alg\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ee9464a-7d33-4370-9b49-96123d231805",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "delete",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab42edce-7b11-4cb8-b42b-cdeadc49fc10",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "delete",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f99c0acd-4e4f-4a2a-b451-a339041de424",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "delete",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee1c82c8-20bb-4226-aef9-0e00684f3d3d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "delete",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ab3b6ae-7d8d-4cbe-bae1-c50bd1c9c370",
+          "name": "Get Security Key",
+          "request": {
+            "name": "Get Security Key",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "hsk",
+                "get",
+                ":handle"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "handle",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e853b83-1f2d-4bd9-a0ea-527ffcc0c76a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"SERVER_ERROR\",\n  \"hsk\": {\n    \"kty\": \"string\",\n    \"use\": \"string\",\n    \"kid\": \"string\",\n    \"hsmName\": \"string\",\n    \"handle\": \"string\",\n    \"publicKey\": \"string\",\n    \"alg\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c22628a-b960-4b88-8496-ede00d98c1d5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "580c0284-56f2-48a8-818d-0822650f518c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc50555c-9a9e-4860-8ae7-715e723e6522",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "141a612d-dcce-41de-b074-5b640eda1b3a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    ":handle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d2a09bd-7500-43f4-8a90-d6714fdfada7",
+          "name": "List Security Keys",
+          "request": {
+            "name": "List Security Keys",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "hsk",
+                "get",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd006aa2-2fe9-465f-aeaa-6dd55d6f3781",
+              "name": "HSK list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"INVALID_REQUEST\",\n  \"hsks\": [\n    {\n      \"kty\": \"string\",\n      \"use\": \"string\",\n      \"kid\": \"string\",\n      \"hsmName\": \"string\",\n      \"handle\": \"string\",\n      \"publicKey\": \"string\",\n      \"alg\": \"string\"\n    },\n    {\n      \"kty\": \"string\",\n      \"use\": \"string\",\n      \"kid\": \"string\",\n      \"hsmName\": \"string\",\n      \"handle\": \"string\",\n      \"publicKey\": \"string\",\n      \"alg\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdcc39bd-e82c-4b99-9966-1ca7d69b52f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a20e77bc-181f-4140-8f57-27bed3236abf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff14a052-d034-4588-8cda-f47ea14dc66f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a40f5690-312d-45bd-83e7-417a673afad1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "hsk",
+                    "get",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b22787a6-61ef-460e-af82-be1a3bdd145c",
+    "name": "Authlete Authorization Endpoint Hardware Security Key API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

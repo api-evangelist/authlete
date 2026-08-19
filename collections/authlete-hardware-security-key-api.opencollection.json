@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Hardware Security Key API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hardware Security Key",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Security Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/hsk/create",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Security Key"
+        },
+        {
+          "info": {
+            "name": "Delete Security Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/hsk/delete/:handle",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "handle",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Security Key"
+        },
+        {
+          "info": {
+            "name": "Get Security Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/hsk/get/:handle",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "handle",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Security Key"
+        },
+        {
+          "info": {
+            "name": "List Security Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/hsk/get/list",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ]
+          },
+          "docs": "List Security Keys"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Token Endpoint API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token Endpoint",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Process Token Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API parses request parameters of an authorization request and returns necessary data for the\nauthorization server implementation to process the authorization request further.\n"
+        },
+        {
+          "info": {
+            "name": "Fail Token Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/fail",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API generates a content of an error token response that the authorization server implementation\nreturns to the client application.\n"
+        },
+        {
+          "info": {
+            "name": "Issue Token Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/auth/token/issue",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API generates a content of a successful token response that the authorization server implementation\nreturns to the client application.\n"
+        },
+        {
+          "info": {
+            "name": "Reissue ID Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/idtoken/reissue",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The API is expected to be called only when the value of the `action`\nparameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose\nof the `/idtoken/reissue` API is to generate a token response that\nincludes a new ID token together with a new access token and a refresh\ntoken.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3435 @@
+{
+  "item": [
+    {
+      "id": "ff45d437-6b0e-4a0e-a4b5-4766a149d633",
+      "name": "Authorization Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OAuth 2.0 Authorization Endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "978d61f0-428e-4fcb-8f1d-b62dc10e83ac",
+          "name": "Process Authorization Request",
+          "request": {
+            "name": "Process Authorization Request",
+            "description": {
+              "content": "This API parses request parameters of an authorization request and returns necessary data for the authorization server\nimplementation to process the authorization request further.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "authorization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "alwaysRetrieved",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "httpPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "queryPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9bff33fe-edcf-49bb-8df4-ad40cfc3e5b2",
+              "name": "Authorization request processed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A004001\",\n  \"resultMessage\": \"[A004001] Authlete has successfully issued a ticket to the service (API Key = 21653835348762) for the authorization request from the client (ID = 26478243745571). [response_type=code, openid=false]\",\n  \"acrEssential\": false,\n  \"action\": \"INTERACTION\",\n  \"client\": {\n    \"clientId\": 26478243745571,\n    \"clientIdAlias\": \"my-client\",\n    \"clientIdAliasEnabled\": true,\n    \"clientName\": \"My updated client\",\n    \"logo_uri\": \"https://my-client.example.com/logo.png\",\n    \"number\": 6164\n  },\n  \"clientIdAliasUsed\": false,\n  \"display\": \"PAGE\",\n  \"maxAge\": 0,\n  \"scopes\": [\n    {\n      \"defaultEntry\": false,\n      \"description\": \"A permission to read your history.\",\n      \"name\": \"history.read\"\n    },\n    {\n      \"defaultEntry\": false,\n      \"description\": \"A permission to read your timeline.\",\n      \"name\": \"timeline.read\"\n    }\n  ],\n  \"service\": {\n    \"apiKey\": 21653835348762,\n    \"clientIdAliasEnabled\": true,\n    \"number\": 5041,\n    \"serviceName\": \"My updated service\"\n  },\n  \"ticket\": \"hXoY87t_t23enrVHWxpXNP5FfVDhDypD3T6H6lt4IPA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0749091-4f40-4f13-8d06-044a5f1c347c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5599e5a-90b5-43b4-80a6-fd957738290c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9612409a-4634-4715-840a-160d6b127030",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f338d75f-a2bc-45e1-99fb-942af45862d4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of\nthe authorization server implementation received from the client application.\n\nThe value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`\nor (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from\nthe client application is `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`\nAPI.\n\nThe text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated\nby the `/auth/authorization/ticket/update` API.\n\nThe text will be compressed and encrypted when it is saved in the Authlete database.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b787bec-e594-4df7-ba08-53e3fd94e18f",
+          "name": "Fail Authorization Request",
+          "request": {
+            "name": "Fail Authorization Request",
+            "description": {
+              "content": "This API generates a content of an error authorization response that the authorization server implementation\nreturns to the client application.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "authorization",
+                "fail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "reason",
+                  "value": "<string>",
+                  "description": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>",
+                  "description": "The custom description about the authorization failure.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7fbca9cb-8712-46a6-9f8c-9350f3691d2b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The custom description about the authorization failure.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A004201\",\n  \"resultMessage\": \"[A004201] The authorization request from the service does not contain 'parameters' parameter.\",\n  \"action\": \"BAD_REQUEST\",\n  \"responseContent\": \"{\\\\\\\"error_description\\\\\\\":\\\\\\\"[A004201] The authorization request from the service does not contain 'parameters' parameter.\\\\\\\",\\\\\\\"error\\\\\\\":\\\\\\\"invalid_request\\\\\\\",\\\\\\\"error_uri\\\\\\\":\\\\\\\"https://docs.authlete.com/#A004201\\\\\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8d26cda-6952-4e6a-9d3f-745da3024a4c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The custom description about the authorization failure.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97e16112-9e41-4d0d-8452-477f5af8585a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The custom description about the authorization failure.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34aef3d8-7970-4ace-9660-3e9a5b5195ee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The custom description about the authorization failure.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01c16600-658b-4453-bd48-0f8294f76ffc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the authorization request.\nFor more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The custom description about the authorization failure.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e9e2df6-d548-4e68-8791-7af8da5ecf6e",
+          "name": "Issue Authorization Response",
+          "request": {
+            "name": "Issue Authorization Response",
+            "description": {
+              "content": "This API parses request parameters of an authorization request and returns necessary data for the\nauthorization server implementation to process the authorization request further.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "authorization",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject",
+                  "value": "<string>",
+                  "description": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "authTime",
+                  "value": "<long>",
+                  "description": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "acr",
+                  "value": "<string>",
+                  "description": "The Authentication Context Class Reference performed for the end-user authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "claims",
+                  "value": "<string>",
+                  "description": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with an access token and/or an authorization code."
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with an access token and/or an authorization code."
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sub",
+                  "value": "<string>",
+                  "description": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "idtHeaderParams",
+                  "value": "<string>",
+                  "description": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "claimsForTx",
+                  "value": "<string>",
+                  "description": "Claim key-value pairs that are used to compute transformed claims.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "consentedClaims",
+                  "value": "<string>",
+                  "description": "the claims that the user has consented for the client application\nto know.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "consentedClaims",
+                  "value": "<string>",
+                  "description": "the claims that the user has consented for the client application\nto know.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "elements",
+                  "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                },
+                {
+                  "disabled": false,
+                  "key": "jwtAtClaims",
+                  "value": "<string>",
+                  "description": "Additional claims that are added to the payload part of the JWT access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessToken",
+                  "value": "<string>",
+                  "description": "The representation of an access token that may be issued as a result of the Authlete API call.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "idTokenAudType",
+                  "value": "<string>",
+                  "description": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "verifiedClaimsForTx",
+                  "value": "<string>",
+                  "description": "Values of verified claims requested indirectly by \"transformed claims\".\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "verifiedClaimsForTx",
+                  "value": "<string>",
+                  "description": "Values of verified claims requested indirectly by \"transformed claims\".\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21106d20-d802-4973-9fc2-f70d6cc9a19b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Authentication Context Class Reference performed for the end-user authentication.",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "elements",
+                      "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A040001\",\n  \"resultMessage\": \"[A040001] The authorization request was processed successfully.\",\n  \"accessTokenDuration\": 0,\n  \"accessTokenExpiresAt\": 0,\n  \"action\": \"LOCATION\",\n  \"authorizationCode\": \"Xv_su944auuBgc5mfUnxXayiiQU9Z4-T_Yae_UfExmo\",\n  \"responseContent\": \"https://my-client.example.com/cb1?code=Xv_su944auuBgc5mfUnxXayiiQU9Z4-T_Yae_UfExmo&iss=https%3A%2F%2Fmy-service.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7e6fd60-d459-47b6-8749-f5c96cc4afc3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Authentication Context Class Reference performed for the end-user authentication.",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "elements",
+                      "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e5219b7-ce84-4262-bd3b-0a994fac7e67",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Authentication Context Class Reference performed for the end-user authentication.",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "elements",
+                      "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5250ddfd-62f6-4d91-8c09-2d9292e9d516",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Authentication Context Class Reference performed for the end-user authentication.",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "elements",
+                      "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7d9166f-8abf-4651-a77f-1bd090ae8722",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/authorization` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= a user account managed by the service) who has granted authorization to the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Authentication Context Class Reference performed for the end-user authentication.",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The claims of the end-user (= pieces of information about the end-user) in JSON format.\nSee [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token and/or an authorization code.",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to associate with an access token and/or an authorization code.\nIf a non-empty string array is given, it replaces the scopes specified by the original authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,\nthe value of the `subject` request parameter is used as the value of the `sub` claim.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens that may be issued based on\nthe authorization request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "elements",
+                      "value": "[{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"},{\"type\":\"<string>\",\"locations\":[\"<string>\",\"<string>\"],\"actions\":[\"<string>\",\"<string>\"],\"dataTypes\":[\"<string>\",\"<string>\"],\"identifier\":\"<string>\",\"privileges\":[\"<string>\",\"<string>\"],\"otherFields\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The session ID of the user's authentication session. The specified value will be embedded in the\nID token as the value of the `sid` claim. This parameter needs to be provided only if you want\nto support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\nspecification (a.k.a. \"Native SSO\"). To enable support for the Native SSO specification, the\n`nativeSsoSupported` property of your service must be set to `true`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a3cd6af-22db-47dd-9bbe-3579d0dee214",
+          "name": "Get Ticket Information",
+          "request": {
+            "name": "Get Ticket Information",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "authorization",
+                "ticket",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket that has been issued from the `/auth/authorization` API."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9465a41b-d076-469b-a6ae-5751ce0d35cc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket that has been issued from the `/auth/authorization` API.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"context\": \"string\"\n  },\n  \"action\": \"CALLER_ERROR\",\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6814c9d-76b5-4f33-9e4c-948472b19cdb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket that has been issued from the `/auth/authorization` API.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54add228-b8b5-4876-87e4-7ed2ff141862",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket that has been issued from the `/auth/authorization` API.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b0219f9-44d4-4432-8751-a102e252f7e3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket that has been issued from the `/auth/authorization` API.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd4498e9-022f-4a6a-a04d-cdc8d03c40a8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket that has been issued from the `/auth/authorization` API.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "738036ba-bf52-4649-a3c0-4ed8901ac57c",
+          "name": "Update Ticket Information",
+          "request": {
+            "name": "Update Ticket Information",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "authorization",
+                "ticket",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket."
+                },
+                {
+                  "disabled": false,
+                  "key": "info",
+                  "value": "<string>",
+                  "description": "(Required) The information about the ticket."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "70ab3f00-01c0-4e92-a217-b441ccfcec47",
+              "name": "Authorization ticket updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The information about the ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "info",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"context\": \"string\"\n  },\n  \"action\": \"AUTHLETE_ERROR\",\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8335250-1886-4179-bbab-1e4afd04036e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The information about the ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "info",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c04e8a75-1b18-4144-ad2b-128d3e43384b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The information about the ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "info",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07db884a-e35a-442e-93cf-32ae5cfeda65",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The information about the ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "info",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00225972-5551-4543-9d4b-cbaf60b0ff79",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "authorization",
+                    "ticket",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The information about the ticket.",
+                        "type": "text/plain"
+                      },
+                      "key": "info",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "09210d67-5b10-47a7-927f-ee70b04968b1",
+    "name": "Authlete Authorization Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

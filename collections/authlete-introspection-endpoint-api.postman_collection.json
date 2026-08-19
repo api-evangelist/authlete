@@ -1,0 +1,2360 @@
+{
+  "item": [
+    {
+      "id": "af2bb04e-132d-4818-b2bc-b67686e56cf9",
+      "name": "Introspection Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OAuth 2.0 Introspection Endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e1a7ab3-68d6-42a9-998f-9b1a8bdd7a40",
+          "name": "Process Introspection Request",
+          "request": {
+            "name": "Process Introspection Request",
+            "description": {
+              "content": "This API gathers information about an access token.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "introspection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) An access token to introspect."
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject",
+                  "value": "<string>",
+                  "description": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpop",
+                  "value": "<string>",
+                  "description": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htm",
+                  "value": "<string>",
+                  "description": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htu",
+                  "value": "<string>",
+                  "description": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resources",
+                  "value": "<string>",
+                  "description": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resources",
+                  "value": "<string>",
+                  "description": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "acrValues",
+                  "value": "<string>",
+                  "description": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "acrValues",
+                  "value": "<string>",
+                  "description": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxAge",
+                  "value": "<long>",
+                  "description": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "requiredComponents",
+                  "value": "<string>",
+                  "description": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "requiredComponents",
+                  "value": "<string>",
+                  "description": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "uri",
+                  "value": "<string>",
+                  "description": "The full URL of the userinfo endpoint.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "The HTTP message body of the request, if present.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "targetUri",
+                  "value": "<string>",
+                  "description": "The target URI of the resource request, including the query part, if any.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpopNonceRequired",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "requestBodyContained",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28e42ba0-3b7d-41db-8c2a-f97b3b6accc0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token to introspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "maxAge",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the resource request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A056001\",\n  \"resultMessage\": \"[A056001] The access token is valid.\",\n  \"action\": \"OK\",\n  \"clientAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"clientId\": 26478243745571,\n  \"clientIdAlias\": \"my-client\",\n  \"clientIdAliasUsed\": false,\n  \"existent\": true,\n  \"expiresAt\": 1640416873000,\n  \"refreshable\": true,\n  \"responseContent\": \"Bearer error=\\\"invalid_request\\\"\",\n  \"scopes\": [\n    \"history.read\",\n    \"timeline.read\"\n  ],\n  \"serviceAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"subject\": \"john\",\n  \"sufficient\": true,\n  \"usable\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b6f13c8-8707-4092-8fa6-5053e59b3f4e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token to introspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "maxAge",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the resource request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d89b573-9ae7-457d-9efc-55e902deff25",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token to introspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "maxAge",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the resource request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83414ee6-0b95-480a-b343-910915a75a11",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token to introspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "maxAge",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the resource request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d96a70ed-5798-4913-8036-28483eba2121",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token to introspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A string array listing names of scopes which the caller (= a protected resource endpoint of the\nservice) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,\nthe format of `scopes` is a space-separated list of scope names.\n\nIf this parameter is a non-empty array and if it contains a scope which is not covered by the\naccess token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A subject (= a user account managed by the service) whom the caller (= a protected resource\nendpoint of the service) requires.\n\nIf this parameter is not `null` and if the value does not match the subject who is associated\nwith the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate in PEM format, used to validate binding against access tokens using the TLS\nclient certificate confirmation method.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the resource server.\n\nThe header contains a signed JWT which includes the public key that is paired with the private\nkey used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application\nLayer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the request from the client to the protected resource endpoint. This field is\nused to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the protected resource endpoint. This field is used to validate the `DPoP` header.\n\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The resources specified by the `resource` request parameters in the token request. See \"Resource Indicators for OAuth 2.0\" for details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication Context Class Reference values one of which the user authentication performed during the course\nof issuing the access token must satisfy.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acrValues",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum authentication age which is the maximum allowable elapsed time since the user authentication\nwas performed during the course of issuing the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "maxAge",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP Message Components required to be in the signature. If absent, defaults to [ \"@method\", \"@target-uri\", \"authorization\" ].\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requiredComponents",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the resource request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected\n`nonce` value. In this case, the response from the `/auth/introspection` API will include the\n`dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the resource request contains a request body.\n\nWhen the resource request must comply with the HTTP message signing requirements defined in the\nFAPI 2.0 Message Signing specification, the `\"content-digest\"` component identifier must be included\nin the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))\nif the resource request contains a request body.\n\nWhen this `requestBodyContained` parameter is set to `true`, Authlete checks whether `\"content-digest\"`\nis included in the signature base, if the FAPI profile applies to the resource request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e91f248-05d6-4a28-8dc5-31e2de73305f",
+          "name": "Process OAuth 2.0 Introspection Request",
+          "request": {
+            "name": "Process OAuth 2.0 Introspection Request",
+            "description": {
+              "content": "This API exists to help your authorization server provide its own introspection API which complies\nwith [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspection).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "introspection",
+                "standard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "withHiddenProperties",
+                  "value": "<boolean>",
+                  "description": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "rsUri",
+                  "value": "<string>",
+                  "description": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "httpAcceptHeader",
+                  "value": "<string>",
+                  "description": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "introspectionSignAlg",
+                  "value": "<string>",
+                  "description": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "introspectionEncryptionAlg",
+                  "value": "<string>",
+                  "description": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "introspectionEncryptionEnc",
+                  "value": "<string>",
+                  "description": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharedKeyForSign",
+                  "value": "<string>",
+                  "description": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharedKeyForEncryption",
+                  "value": "<string>",
+                  "description": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "publicKeyForEncryption",
+                  "value": "<string>",
+                  "description": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8bb6fa19-b14a-4976-a175-e34c24956f48",
+              "name": "Token introspection completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection",
+                    "standard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "withHiddenProperties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "rsUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpAcceptHeader",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionSignAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionEnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForSign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForEncryption",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "publicKeyForEncryption",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A145001\",\n  \"resultMessage\": \"[A145001] Introspection was performed successfully (type=access_token, active=true).\",\n  \"action\": \"OK\",\n  \"responseContent\": \"{\\\\\\\"sub\\\\\\\":\\\\\\\"john\\\\\\\",\\\\\\\"scope\\\\\\\":\\\\\\\"history.read timeline.read\\\\\\\",\\\\\\\"iss\\\\\\\":\\\\\\\"https://my-service.example.com\\\\\\\",\\\\\\\"active\\\\\\\":true,\\\\\\\"token_type\\\\\\\":\\\\\\\"Bearer\\\\\\\",\\\\\\\"exp\\\\\\\":1640416873,\\\\\\\"client_id\\\\\\\":\\\\\\\"26478243745571\\\\\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9d526d8-0792-45fd-9209-7eb1f9d5ae52",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection",
+                    "standard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "withHiddenProperties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "rsUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpAcceptHeader",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionSignAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionEnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForSign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForEncryption",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "publicKeyForEncryption",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb2544e8-8795-4596-b243-97ccca224071",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection",
+                    "standard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "withHiddenProperties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "rsUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpAcceptHeader",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionSignAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionEnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForSign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForEncryption",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "publicKeyForEncryption",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0f31516-96bf-46a5-8819-d76f4dcee4d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection",
+                    "standard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "withHiddenProperties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "rsUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpAcceptHeader",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionSignAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionEnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForSign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForEncryption",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "publicKeyForEncryption",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e6ed336-fc0c-4f6d-b58d-086a5801470d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "introspection",
+                    "standard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request parameters which comply with the introspection request defined\nin \"[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)\" in\nRFC 7662.\n\nThe implementation of the introspection endpoint of your authorization server will receive an\nHTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters\nin the `application/x-www-form-urlencoded` format. It is the entity body of the request that\nAuthlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Flag indicating whether to include hidden properties in the output.\n\nAuthlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.\nEach key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute\nis set to `true` are not embedded in the standard introspection output.\n\nIf the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard\nAPI includes all the associated key-value pairs into the output regardless of the value of the\nhidden attribute.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "withHiddenProperties",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of the resource server making the introspection request.\n\nIf the `rsUri` request parameter is given and the token has audience values, Authlete checks if\nthe value of the `rsUri` request parameter is contained in the audience values. If not contained,\nAuthlete generates an introspection response with the `active` property set to `false`.\n\nThe `rsUri` request parameter is required when the resource server requests a JWT introspection\nresponse, i.e., when the value of the `httpAcceptHeader` request parameter is set to `\"application/token-introspection+jwt\"`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "rsUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `HTTP Accept` header in the introspection request.\n\nIf the value of the `httpAcceptHeader` request parameter is `\"application/token-introspection+jwt\"`,\nAuthlete generates a JWT introspection response. See \"[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\"\nfor more details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpAcceptHeader",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to\n`introspection_signed_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `RS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionSignAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_alg` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nIf the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT\nintrospection response encrypted with the algorithm by this property and the algorithm specified by\nthe `introspectionEncryptionEnc` request parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionAlg",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds\nto `introspection_encrypted_response_enc` defined in \"[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)\"\nof \"[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)\".\n\nThe default value is `A128CBC_HS256`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "introspectionEncryptionEnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for signing the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForSign` request parameter is required when the introspection response is requested\nto be signed with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForSign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The shared key for encrypting the introspection response with a symmetric algorithm.\n\nThe `sharedKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with a symmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sharedKeyForEncryption",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The public key for signing the introspection response with an asymmetric algorithm.\n\nThe `publicKeyForEncryption` request parameter is required when the introspection response is\nrequested to be encrypted with an asymmetric algorithm.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "publicKeyForEncryption",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bba268d8-54a5-4e65-bb50-54a60ffc3fd3",
+    "name": "Authlete Authorization Endpoint Introspection Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

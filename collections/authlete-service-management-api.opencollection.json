@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Service Management API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/service/get",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ]
+          },
+          "docs": "Get a service.\n\nIf the access token can only view or modify clients underneath this service, but does not\nhave access to view this service directly, a limited view of the service will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "List Services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/service/get/list",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start index (inclusive) of the result set. The default value is 0. Must not be a negative number."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End index (exclusive) of the result set. The default value is 5. Must not be a negative number."
+              }
+            ]
+          },
+          "docs": "Get a list of services.\n\nIf the access token can only view or modify clients underneath a service, but does not\nhave access to view that service directly, a limited view of the service will be returned.\nOtherwise, all properties of the service are returned.\n\nIf the access token is an administrative token, this returns a list of all services on the Authlete instance.\nOtherwise, all services that the access token can view, even in a limited fashion, are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/service/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new service.\n"
+        },
+        {
+          "info": {
+            "name": "Update Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/service/update",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a service.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Service ⚡",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/service/delete",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ]
+          },
+          "docs": "Delete a service.\n"
+        },
+        {
+          "info": {
+            "name": "Get Service Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/service/configuration",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query",
+                "description": "This boolean value indicates whether the JSON in the response should be formatted or not. If `true`, the JSON in the response is pretty-formatted. The default value is `false`."
+              },
+              {
+                "name": "patch",
+                "value": "",
+                "type": "query",
+                "description": "Get the JSON Patch [RFC 6902 JavaScript Object Notation (JSON) Patch](https://www.rfc-editor.org/rfc/rfc6902) to be applied."
+              }
+            ]
+          },
+          "docs": "This API gathers configuration information about a service.\n\nThis API is supposed to be called from within the implementation of the configuration endpoint of\nthe service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)\nmust expose its configuration information in a JSON format. Details about the format are described\nin \"[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

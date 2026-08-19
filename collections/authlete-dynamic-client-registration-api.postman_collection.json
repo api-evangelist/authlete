@@ -1,0 +1,1516 @@
+{
+  "item": [
+    {
+      "id": "0b16285e-a36f-424f-b620-8df97cfe52a9",
+      "name": "Dynamic Client Registration",
+      "description": {
+        "content": "API endpoints for implementing OAuth 2.0 Dynamic Client Registration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c3b10e0-da36-4980-beba-95643c0ea362",
+          "name": "Register Client",
+          "request": {
+            "name": "Register Client",
+            "description": {
+              "content": "Register a client. This API is supposed to be used to implement a client registration endpoint that\ncomplies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client\nRegistration Protocol).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "client",
+                "registration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a0633653-bddb-40bf-b5e4-4c1de4f2ab03",
+              "name": "Client registration completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"json\": \"{ \\\"client_name\\\": \\\"My Dynamic Client\\\" }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A202001\",\n  \"resultMessage\": \"[A202001] The client was created with id 26837717140341.\",\n  \"action\": \"CREATED\",\n  \"client\": {\n    \"authTimeRequired\": false,\n    \"bcUserCodeRequired\": false,\n    \"clientId\": 26837717140341,\n    \"clientIdAliasEnabled\": false,\n    \"clientName\": \"My Dynamic Client\",\n    \"clientSecret\": \"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\",\n    \"clientType\": \"CONFIDENTIAL\",\n    \"createdAt\": 1641735467000,\n    \"defaultMaxAge\": 0,\n    \"developer\": \"authlete_21653835348762\",\n    \"dynamicallyRegistered\": true,\n    \"frontChannelRequestObjectEncryptionRequired\": false,\n    \"idTokenSignAlg\": \"RS256\",\n    \"modifiedAt\": 1641735467013,\n    \"number\": 6248,\n    \"parRequired\": false,\n    \"requestObjectEncryptionAlgMatchRequired\": false,\n    \"requestObjectEncryptionEncMatchRequired\": false,\n    \"requestObjectRequired\": false,\n    \"serviceNumber\": 5041,\n    \"subjectType\": \"PUBLIC\",\n    \"tlsClientCertificateBoundAccessTokens\": false,\n    \"tokenAuthMethod\": \"CLIENT_SECRET_BASIC\"\n  },\n  \"responseContent\": \"{\\\\\\\"default_max_age\\\\\\\":0,\\\\\\\"registration_client_uri\\\\\\\":\\\\\\\"https://my-service.example.com/dcr/register/26837717140341\\\\\\\",\\\\\\\"registration_access_token\\\\\\\":\\\\\\\"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\\\\\\\",\\\\\\\"client_id\\\\\\\":\\\\\\\"26837717140341\\\\\\\",\\\\\\\"token_endpoint_auth_method\\\\\\\":\\\\\\\"client_secret_basic\\\\\\\",\\\\\\\"require_pushed_authorization_requests\\\\\\\":false,\\\\\\\"backchannel_user_code_parameter\\\\\\\":false,\\\\\\\"client_secret\\\\\\\":\\\\\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\\\\\",\\\\\\\"client_id_issued_at\\\\\\\":1641735467,\\\\\\\"tls_client_certificate_bound_access_tokens\\\\\\\":false,\\\\\\\"client_name\\\\\\\":\\\\\\\"My Dynamic Client\\\\\\\",\\\\\\\"id_token_signed_response_alg\\\\\\\":\\\\\\\"RS256\\\\\\\",\\\\\\\"subject_type\\\\\\\":\\\\\\\"public\\\\\\\",\\\\\\\"client_secret_expires_at\\\\\\\":0,\\\\\\\"require_signed_request_object\\\\\\\":false}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e07f89fc-0848-4905-b22f-31a887123b38",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"json\": \"{ \\\"client_name\\\": \\\"My Dynamic Client\\\" }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81df0ff9-f2fd-40ce-a4e7-9b3dac7c2aaa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"json\": \"{ \\\"client_name\\\": \\\"My Dynamic Client\\\" }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b05f4342-adef-4061-814d-bc2f2a9b8dbb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"json\": \"{ \\\"client_name\\\": \\\"My Dynamic Client\\\" }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fd8582f-341a-4924-a745-003e7210518e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"json\": \"{ \\\"client_name\\\": \\\"My Dynamic Client\\\" }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab2b79d3-ae04-47f8-9761-e7015f7d0ed0",
+          "name": "Get Client",
+          "request": {
+            "name": "Get Client",
+            "description": {
+              "content": "Get a dynamically registered client. This API is supposed to be used to implement a client registration\nmanagement endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "client",
+                "registration",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "832a05d6-0da2-4daa-a0f1-48d4662ee530",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A217001\",\n  \"resultMessage\": \"[A217001] The client information has been returned.\",\n  \"action\": \"OK\",\n  \"client\": {\n    \"authTimeRequired\": false,\n    \"bcUserCodeRequired\": false,\n    \"clientId\": 26837717140341,\n    \"clientIdAliasEnabled\": false,\n    \"clientName\": \"My Dynamic Client\",\n    \"clientSecret\": \"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\",\n    \"clientType\": \"CONFIDENTIAL\",\n    \"createdAt\": 1641735467000,\n    \"defaultMaxAge\": 0,\n    \"developer\": \"authlete_21653835348762\",\n    \"dynamicallyRegistered\": true,\n    \"frontChannelRequestObjectEncryptionRequired\": false,\n    \"idTokenSignAlg\": \"RS256\",\n    \"modifiedAt\": 1641735467000,\n    \"number\": 6248,\n    \"parRequired\": false,\n    \"requestObjectEncryptionAlgMatchRequired\": false,\n    \"requestObjectEncryptionEncMatchRequired\": false,\n    \"requestObjectRequired\": false,\n    \"serviceNumber\": 5041,\n    \"subjectType\": \"PUBLIC\",\n    \"tlsClientCertificateBoundAccessTokens\": false,\n    \"tokenAuthMethod\": \"CLIENT_SECRET_BASIC\"\n  },\n  \"responseContent\": \"{\\\\\\\"default_max_age\\\\\\\":0,\\\\\\\"registration_client_uri\\\\\\\":\\\\\\\"https://my-service.example.com/dcr/register/26837717140341\\\\\\\",\\\\\\\"registration_access_token\\\\\\\":\\\\\\\"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\\\\\\\",\\\\\\\"client_id\\\\\\\":\\\\\\\"26837717140341\\\\\\\",\\\\\\\"token_endpoint_auth_method\\\\\\\":\\\\\\\"client_secret_basic\\\\\\\",\\\\\\\"require_pushed_authorization_requests\\\\\\\":false,\\\\\\\"backchannel_user_code_parameter\\\\\\\":false,\\\\\\\"client_secret\\\\\\\":\\\\\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\\\\\",\\\\\\\"client_id_issued_at\\\\\\\":1641735467,\\\\\\\"tls_client_certificate_bound_access_tokens\\\\\\\":false,\\\\\\\"client_name\\\\\\\":\\\\\\\"My Dynamic Client\\\\\\\",\\\\\\\"id_token_signed_response_alg\\\\\\\":\\\\\\\"RS256\\\\\\\",\\\\\\\"subject_type\\\\\\\":\\\\\\\"public\\\\\\\",\\\\\\\"client_secret_expires_at\\\\\\\":0,\\\\\\\"require_signed_request_object\\\\\\\":false}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef54b9c0-9bd5-461f-98c2-493310b1b2d2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5309be7-4bad-432c-93ab-065259681608",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1723c0c3-de6b-4edc-9e9f-62e467c84e06",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc5e690a-aa92-4e45-a4b4-c7382f307016",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "746d79d3-b11d-43c8-9114-356034c9ae01",
+          "name": "Update Client",
+          "request": {
+            "name": "Update Client",
+            "description": {
+              "content": "Update a dynamically registered client. This API is supposed to be used to implement a client\nregistration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "client",
+                "registration",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb051009-7b74-4eb4-9b52-463d79500427",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\",\n  \"json\": \"{\\\"client_name\\\":\\\"My Updated Dynamic Client\\\",\\\"default_max_age\\\":0,\\\"registration_client_uri\\\":\\\"https://my-service.example.com/dcr/register/26837717140341\\\",\\\"client_id\\\":\\\"26837717140341\\\",\\\"token_endpoint_auth_method\\\":\\\"client_secret_basic\\\",\\\"require_pushed_authorization_requests\\\":false,\\\"backchannel_user_code_parameter\\\":false,\\\"client_secret\\\":\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\",\\\"tls_client_certificate_bound_access_tokens\\\":false,\\\"id_token_signed_response_alg\\\":\\\"RS256\\\",\\\"subject_type\\\":\\\"public\\\",\\\"require_signed_request_object\\\":false}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A213001\",\n  \"resultMessage\": \"[A213001] The client has been updated.\",\n  \"action\": \"UPDATED\",\n  \"client\": {\n    \"authTimeRequired\": false,\n    \"bcUserCodeRequired\": false,\n    \"clientId\": 26837717140341,\n    \"clientIdAliasEnabled\": false,\n    \"clientName\": \"My Updated Dynamic Client\",\n    \"clientSecret\": \"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\",\n    \"clientType\": \"CONFIDENTIAL\",\n    \"createdAt\": 1641735467000,\n    \"defaultMaxAge\": 0,\n    \"developer\": \"authlete_21653835348762\",\n    \"dynamicallyRegistered\": true,\n    \"frontChannelRequestObjectEncryptionRequired\": false,\n    \"idTokenSignAlg\": \"RS256\",\n    \"modifiedAt\": 1641826276936,\n    \"number\": 6248,\n    \"parRequired\": false,\n    \"requestObjectEncryptionAlgMatchRequired\": false,\n    \"requestObjectEncryptionEncMatchRequired\": false,\n    \"requestObjectRequired\": false,\n    \"serviceNumber\": 5041,\n    \"subjectType\": \"PUBLIC\",\n    \"tlsClientCertificateBoundAccessTokens\": false,\n    \"tokenAuthMethod\": \"CLIENT_SECRET_BASIC\"\n  },\n  \"responseContent\": \"{\\\\\\\"default_max_age\\\\\\\":0,\\\\\\\"registration_client_uri\\\\\\\":\\\\\\\"https://my-service.example.com/dcr/register/26837717140341\\\\\\\",\\\\\\\"registration_access_token\\\\\\\":\\\\\\\"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\\\\\\\",\\\\\\\"client_id\\\\\\\":\\\\\\\"26837717140341\\\\\\\",\\\\\\\"token_endpoint_auth_method\\\\\\\":\\\\\\\"client_secret_basic\\\\\\\",\\\\\\\"require_pushed_authorization_requests\\\\\\\":false,\\\\\\\"backchannel_user_code_parameter\\\\\\\":false,\\\\\\\"client_secret\\\\\\\":\\\\\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\\\\\",\\\\\\\"client_id_issued_at\\\\\\\":1641735467,\\\\\\\"tls_client_certificate_bound_access_tokens\\\\\\\":false,\\\\\\\"client_name\\\\\\\":\\\\\\\"My Updated Dynamic Client\\\\\\\",\\\\\\\"id_token_signed_response_alg\\\\\\\":\\\\\\\"RS256\\\\\\\",\\\\\\\"subject_type\\\\\\\":\\\\\\\"public\\\\\\\",\\\\\\\"client_secret_expires_at\\\\\\\":0,\\\\\\\"require_signed_request_object\\\\\\\":false}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05b0de7d-dae4-47d5-b0b6-d55007356b21",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\",\n  \"json\": \"{\\\"client_name\\\":\\\"My Updated Dynamic Client\\\",\\\"default_max_age\\\":0,\\\"registration_client_uri\\\":\\\"https://my-service.example.com/dcr/register/26837717140341\\\",\\\"client_id\\\":\\\"26837717140341\\\",\\\"token_endpoint_auth_method\\\":\\\"client_secret_basic\\\",\\\"require_pushed_authorization_requests\\\":false,\\\"backchannel_user_code_parameter\\\":false,\\\"client_secret\\\":\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\",\\\"tls_client_certificate_bound_access_tokens\\\":false,\\\"id_token_signed_response_alg\\\":\\\"RS256\\\",\\\"subject_type\\\":\\\"public\\\",\\\"require_signed_request_object\\\":false}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d7b0ee-f984-420d-a97e-25e8409dc00a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\",\n  \"json\": \"{\\\"client_name\\\":\\\"My Updated Dynamic Client\\\",\\\"default_max_age\\\":0,\\\"registration_client_uri\\\":\\\"https://my-service.example.com/dcr/register/26837717140341\\\",\\\"client_id\\\":\\\"26837717140341\\\",\\\"token_endpoint_auth_method\\\":\\\"client_secret_basic\\\",\\\"require_pushed_authorization_requests\\\":false,\\\"backchannel_user_code_parameter\\\":false,\\\"client_secret\\\":\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\",\\\"tls_client_certificate_bound_access_tokens\\\":false,\\\"id_token_signed_response_alg\\\":\\\"RS256\\\",\\\"subject_type\\\":\\\"public\\\",\\\"require_signed_request_object\\\":false}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9b3873d-6d84-43d7-876e-d4cd549e23c0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\",\n  \"json\": \"{\\\"client_name\\\":\\\"My Updated Dynamic Client\\\",\\\"default_max_age\\\":0,\\\"registration_client_uri\\\":\\\"https://my-service.example.com/dcr/register/26837717140341\\\",\\\"client_id\\\":\\\"26837717140341\\\",\\\"token_endpoint_auth_method\\\":\\\"client_secret_basic\\\",\\\"require_pushed_authorization_requests\\\":false,\\\"backchannel_user_code_parameter\\\":false,\\\"client_secret\\\":\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\",\\\"tls_client_certificate_bound_access_tokens\\\":false,\\\"id_token_signed_response_alg\\\":\\\"RS256\\\",\\\"subject_type\\\":\\\"public\\\",\\\"require_signed_request_object\\\":false}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20e6bb61-5610-4af6-9a7b-2cb9c58e6943",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\",\n  \"json\": \"{\\\"client_name\\\":\\\"My Updated Dynamic Client\\\",\\\"default_max_age\\\":0,\\\"registration_client_uri\\\":\\\"https://my-service.example.com/dcr/register/26837717140341\\\",\\\"client_id\\\":\\\"26837717140341\\\",\\\"token_endpoint_auth_method\\\":\\\"client_secret_basic\\\",\\\"require_pushed_authorization_requests\\\":false,\\\"backchannel_user_code_parameter\\\":false,\\\"client_secret\\\":\\\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\\\",\\\"tls_client_certificate_bound_access_tokens\\\":false,\\\"id_token_signed_response_alg\\\":\\\"RS256\\\",\\\"subject_type\\\":\\\"public\\\",\\\"require_signed_request_object\\\":false}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c86a3c00-29fd-4d19-8b09-a15b7c238303",
+          "name": "Delete Client",
+          "request": {
+            "name": "Delete Client",
+            "description": {
+              "content": "Delete a dynamically registered client. This API is supposed to be used to implement a client\nregistration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)\n(OAuth 2.0 Dynamic Registration Management).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "client",
+                "registration",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79ff3993-90a8-4cfc-8ed1-772f4fcf45c4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A216001\",\n  \"resultMessage\": \"[A216001] The client has been deleted.\",\n  \"action\": \"DELETED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5d0eaa6-1910-406b-933f-364011225ef4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "658a5743-160b-4e75-aa27-8c66a1a4703f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7445f355-ec0c-46dd-ba9e-852bcc613883",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c2ab0cd-4171-4b91-8721-03175bf3a468",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "client",
+                    "registration",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientId\": \"26837717140341\",\n  \"token\": \"qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea983703-ebdb-4979-a710-65e4af99bc42",
+    "name": "Authlete Authorization Endpoint Dynamic Client Registration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

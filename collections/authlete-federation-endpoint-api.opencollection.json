@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Federation Endpoint API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Federation Endpoint",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Process Entity Configuration Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/federation/configuration",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API gathers the federation configuration about a service.\nThe authorization server implementation should\nretrieve the value of the `action`\nresponse parameter from the API response and take the following steps\naccording to the value.\n"
+        },
+        {
+          "info": {
+            "name": "Process Federation Registration Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/federation/registration",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Authlete API is for implementations of the **federation registration\nendpoint** that accepts \"explicit client registration\". Its details are\ndefined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\nThe endpoint accepts `POST` requests whose `Content-Type`\nis either of the following.\n1. `application/entity-statement+jwt`- `application/trust-chain+json`\nWhen the `Content-Type` of a request is\n`application/entity-statement+jwt`, the content of the"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,736 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Client Management API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Client Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/get/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID."
+              }
+            ]
+          },
+          "docs": "Get a client.\n"
+        },
+        {
+          "info": {
+            "name": "List Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/get/list",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "developer",
+                "value": "",
+                "type": "query",
+                "description": "The developer of client applications. The default value is null. If this parameter is not set\nto `null`, client application of the specified developer are returned. Otherwise, all client\napplications that belong to the service are returned.\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start index (inclusive) of the result set. The default value is 0. Must not be a negative number."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End index (exclusive) of the result set. The default value is 5. Must not be a negative number."
+              }
+            ]
+          },
+          "docs": "Get a list of clients on a service.\n\nIf the access token can view a full service (including an admin), all clients within the\nservice are returned. Otherwise, only clients that the access token can view within the\nservice are returned.\n- ViewClient: []\n"
+        },
+        {
+          "info": {
+            "name": "Create Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/create",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new client.\n"
+        },
+        {
+          "info": {
+            "name": "Update Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/update/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a client.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Client ⚡",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/delete/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "The client ID."
+              }
+            ]
+          },
+          "docs": "Delete a client.\n"
+        },
+        {
+          "info": {
+            "name": "Update Client Lock",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/lock_flag/update/:clientIdentifier",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "A client ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lock and unlock a client\n"
+        },
+        {
+          "info": {
+            "name": "Rotate Client Secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/secret/refresh/:clientIdentifier",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The client ID or the client ID alias of a client.\n"
+              }
+            ]
+          },
+          "docs": "Refresh the client secret of a client. A new value of the client secret will be generated by the\nAuthlete server.\n\nIf you want to specify a new value, use `/api/client/secret/update` API.\n"
+        },
+        {
+          "info": {
+            "name": "Update Client Secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/secret/update/:clientIdentifier",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The client ID or the client ID alias of a client.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the client secret of a client.\n\nIf you want to have the Authlete server generate a new value of the client secret, use `/api/client/secret/refresh`\nAPI.\n"
+        },
+        {
+          "info": {
+            "name": "Get Authorized Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/get/list",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID of an end-user.\n"
+              },
+              {
+                "name": "developer",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of a client developer.\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start index of search results (inclusive). The default value is 0."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End index of search results (exclusive). The default value is 5.\n"
+              }
+            ]
+          },
+          "docs": "Get a list of client applications that an end-user has authorized.\n\nThe subject parameter is required and can be provided as a query parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Get Authorized Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/get/list",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a list of client applications that an end-user has authorized.\n\nThe subject parameter is required.\n"
+        },
+        {
+          "info": {
+            "name": "Get Authorized Applications (by Subject)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/get/list/:subject",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "path",
+                "description": "Unique user ID of an end-user.\n"
+              },
+              {
+                "name": "developer",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of a client developer.\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start index of search results (inclusive). The default value is 0."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End index of search results (exclusive). The default value is 5.\n"
+              }
+            ]
+          },
+          "docs": "Get a list of client applications that an end-user has authorized.\nIn this variant, the subject is provided in the path.\n"
+        },
+        {
+          "info": {
+            "name": "Update Client Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/update/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update attributes of all existing access tokens given to a client application.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Client Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/delete/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete all existing access tokens issued to a client application by an end-user.\n\nThe subject parameter is required.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Client Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/delete/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Delete all existing access tokens issued to a client application by an end-user.\n\nThe subject parameter is required and must be provided as a query parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Client Tokens (by Subject)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/authorization/delete/:clientId/:subject",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "path",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Delete all existing access tokens issued to a client application by an end-user.\nIn this variant, the subject is provided in the path.\n"
+        },
+        {
+          "info": {
+            "name": "Get Granted Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/granted_scopes/get/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "715948317",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "1140735077",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Get the set of scopes that a user has granted to a client application.\n"
+        },
+        {
+          "info": {
+            "name": "Get Granted Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/granted_scopes/get/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the set of scopes that a user has granted to a client application.\n\nThe subject parameter is required.\n"
+        },
+        {
+          "info": {
+            "name": "Get Granted Scopes (by Subject)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/granted_scopes/get/:clientId/:subject",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "path",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Get the set of scopes that a user has granted to a client application.\nIn this variant, the subject is provided in the path.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Granted Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/granted_scopes/delete/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Delete the set of scopes that an end-user has granted to a client application.\n\nEven if records about granted scopes are deleted by calling this API, existing access tokens are\nnot deleted and scopes of existing access tokens are not changed.\nThe subject parameter is required and must be provided as a query parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Granted Scopes (by Subject)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/granted_scopes/delete/:clientId/:subject",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "path",
+                "description": "Unique user ID of an end-user.\n"
+              }
+            ]
+          },
+          "docs": "Delete the set of scopes that an end-user has granted to a client application.\nIn this variant, the subject is provided in the path.\n"
+        },
+        {
+          "info": {
+            "name": "Get Requestable Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/:serviceId/client/extension/requestable_scopes/get/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ]
+          },
+          "docs": "Get the requestable scopes per client\n"
+        },
+        {
+          "info": {
+            "name": "Update Requestable Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/client/extension/requestable_scopes/update/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update requestable scopes of a client\n"
+        },
+        {
+          "info": {
+            "name": "Update Requestable Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://us.authlete.com/api/:serviceId/client/extension/requestable_scopes/update/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update requestable scopes of a client\n"
+        },
+        {
+          "info": {
+            "name": "Delete Requestable Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us.authlete.com/api/:serviceId/client/extension/requestable_scopes/delete/:clientId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "A client ID.\n"
+              }
+            ]
+          },
+          "docs": "Delete requestable scopes of a client\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

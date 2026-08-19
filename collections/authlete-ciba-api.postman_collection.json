@@ -1,0 +1,3308 @@
+{
+  "item": [
+    {
+      "id": "0c7c59fd-67ac-4a5f-8133-f52e8047a8a6",
+      "name": "CIBA",
+      "description": {
+        "content": "API endpoints for implementing Client-Initiated Backchannel Authentication (CIBA).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b81cac26-3c96-44da-8a10-f29621c7ceda",
+          "name": "Process Backchannel Authentication Request",
+          "request": {
+            "name": "Process Backchannel Authentication Request",
+            "description": {
+              "content": "This API parses request parameters of a [backchannel authentication request](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_request)\nand returns necessary data for the authorization server implementation to process the backchannel\nauthentication request further.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "backchannel",
+                "authentication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientId",
+                  "value": "<string>",
+                  "description": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientSecret",
+                  "value": "<string>",
+                  "description": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestation",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestationPop",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "alwaysRetrieved",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "httpPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "queryPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "64c21938-9be1-4426-8a1a-75e9dcb277c0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A179001\",\n  \"resultMessage\": \"[A179001] The backchannel authentication request was processed successfully.\",\n  \"action\": \"USER_IDENTIFICATION\",\n  \"clientId\": 26862190133482,\n  \"clientIdAliasUsed\": false,\n  \"clientName\": \"My CIBA Client\",\n  \"clientNotificationToken\": \"my-client-notification-token\",\n  \"deliveryMode\": \"POLL\",\n  \"hint\": \"john\",\n  \"hintType\": \"LOGIN_HINT\",\n  \"requestedExpiry\": 0,\n  \"scopes\": [\n    {\n      \"defaultEntry\": false,\n      \"name\": \"openid\"\n    }\n  ],\n  \"serviceAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"ticket\": \"Y1qeCf0A-JUz6caceaBfd2AaBYNZ-X-WGTP5Qv47cQI\",\n  \"userCode\": \"my-user-code\",\n  \"userCodeRequired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ae7d31-9a2a-4184-b6d5-9e6557e0be65",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b86f4b4-6b01-4dd4-94eb-fafd34794827",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e902b319-6441-4ab6-9692-ad588cf0c7cd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af8b15d7-bde4-4e68-9601-29e2ea532947",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Parameters of a backchannel authentication request which are the request parameters that the\nbackchannel authentication endpoint of the OpenID provider implementation received from the client\napplication.\n\nThe value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)\nof the request from the client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from Authorization header of the backchannel authentication request from\nthe client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client ID in Authorization header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from Authorization header of the backchannel authentication request\nfrom the client application.\n\nIf the backchannel authentication endpoint of the OpenID provider implementation supports Basic\nAuthentication as a means of client authentication, and the request from the client application\ncontained its client secret in Authorization header, the value should be extracted and set to\nthis parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certification used in the TLS connection between the client application and the\nbackchannel authentication endpoint of the OpenID provider.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate path presented by the client during client authentication. Each element\nis a string in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8f9eb29-d255-44a2-81ee-af52c4e1b359",
+          "name": "Issue Backchannel Authentication Response",
+          "request": {
+            "name": "Issue Backchannel Authentication Response",
+            "description": {
+              "content": "This API prepares JSON that contains an `auth_req_id`. The JSON should be used as the response body\nof the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "backchannel",
+                "authentication",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08afbeb5-59e1-48e3-bd21-0c58f8b94b01",
+              "name": "Backchannel authentication issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A183001\",\n  \"resultMessage\": \"[A183001] An auth_req_id was issued successfully.\",\n  \"action\": \"OK\",\n  \"authReqId\": \"_mzc-ZQdAhSPuMxTlO-MC_oqaOqYCrdNQ39PVxisaiE\",\n  \"expiresIn\": 3600,\n  \"interval\": 0,\n  \"responseContent\": \"{\\\\\\\"auth_req_id\\\\\\\":\\\\\\\"_mzc-ZQdAhSPuMxTlO-MC_oqaOqYCrdNQ39PVxisaiE\\\\\\\",\\\\\\\"interval\\\\\\\":0,\\\\\\\"expires_in\\\\\\\":3600}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe29ddd0-ebe8-4b20-b18b-8de6e6b58e1a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59826d51-62dc-4847-a506-cd037d88f85e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5060df9b-317b-4caf-b5df-4c2d44aa57db",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a7d5f89-ec91-48fb-9cde-9d875b547cfb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57665eca-d365-4e8d-b288-bb650fe5c1e6",
+          "name": "Fail Backchannel Authentication Request",
+          "request": {
+            "name": "Fail Backchannel Authentication Request",
+            "description": {
+              "content": "The API prepares JSON that contains an error. The JSON should be used as the response body of the\nresponse which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "backchannel",
+                "authentication",
+                "fail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "reason",
+                  "value": "<string>",
+                  "description": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "errorDescription",
+                  "value": "<string>",
+                  "description": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "errorUri",
+                  "value": "<string>",
+                  "description": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39044109-c538-48b1-b6b8-1be7ddc2c7be",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A185001\",\n  \"resultMessage\": \"[A185001] Successfully generated an error response for the backchannel authentication request.\",\n  \"action\": \"FORBIDDEN\",\n  \"responseContent\": \"{\\\\\\\"error\\\\\\\":\\\\\\\"access_denied\\\\\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ece7ec3-ebd9-40fa-90d5-167d26ce46de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b23de276-8077-47c0-a84e-1e46b785116a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73e76475-4ba3-4e39-8410-590c6ea8e5f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec0f1362-fd48-464e-a840-a45a405d567a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.\nThis request parameter is not mandatory but optional. If this request parameter is given and the\nticket belongs to the service, the specified ticket is deleted from the database. Giving this\nparameter is recommended to clean up the storage area for the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the backchannel authentication request. This request parameter is\nnot mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`\nis used as a reason.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. This corresponds to the `error_description` property in the response\nto the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. If this optional request parameter\nis given, its value is used as the value of the `error_uri` property.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c551f4f0-8c38-4f38-9523-3dd95183c735",
+          "name": "Complete Backchannel Authentication",
+          "request": {
+            "name": "Complete Backchannel Authentication",
+            "description": {
+              "content": "This API returns information about what action the authorization server should take after it receives\nthe result of end-user's decision about whether the end-user has approved or rejected a client application's\nrequest on the authentication device.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "backchannel",
+                "authentication",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "result",
+                  "value": "<string>",
+                  "description": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject",
+                  "value": "<string>",
+                  "description": "(Required) The subject (= unique identifier) of the end-user.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sub",
+                  "value": "<string>",
+                  "description": "The value of the sub claim that should be used in the ID token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "authTime",
+                  "value": "<long>",
+                  "description": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "acr",
+                  "value": "<string>",
+                  "description": "The reference of the authentication context class which the end-user authentication satisfied.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "claims",
+                  "value": "<string>",
+                  "description": "Additional claims which will be embedded in the ID token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "The extra properties associated with the access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "The extra properties associated with the access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "idtHeaderParams",
+                  "value": "<string>",
+                  "description": "JSON that represents additional JWS header parameters for ID tokens.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "errorDescription",
+                  "value": "<string>",
+                  "description": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "errorUri",
+                  "value": "<string>",
+                  "description": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "consentedClaims",
+                  "value": "<string>",
+                  "description": "the claims that the user has consented for the client application\nto know.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "consentedClaims",
+                  "value": "<string>",
+                  "description": "the claims that the user has consented for the client application\nto know.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "jwtAtClaims",
+                  "value": "<string>",
+                  "description": "Additional claims that are added to the payload part of the JWT access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessToken",
+                  "value": "<string>",
+                  "description": "The representation of an access token that may be issued as a result of the Authlete API call.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "idTokenAudType",
+                  "value": "<string>",
+                  "description": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "51fe073a-c02a-4bcd-9e4e-dc853215c6b5",
+              "name": "Backchannel authentication completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the end-user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the sub claim that should be used in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The reference of the authentication context class which the end-user authentication satisfied.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims which will be embedded in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A198001\",\n  \"resultMessage\": \"[A198001] Successfully updated the database so that the token endpoint can generate tokens (mode = poll, result = AUTHORIZED).\",\n  \"accessTokenDuration\": 0,\n  \"action\": \"NO_ACTION\",\n  \"authReqId\": \"_mzc-ZQdAhSPuMxTlO-MC_oqaOqYCrdNQ39PVxisaiE\",\n  \"clientId\": 26862190133482,\n  \"clientIdAliasUsed\": false,\n  \"clientName\": \"My CIBA Client\",\n  \"deliveryMode\": \"POLL\",\n  \"idTokenDuration\": 0,\n  \"refreshTokenDuration\": 0,\n  \"serviceAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fa8d35e-e9ae-4fb0-95c2-20b7159028a4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the end-user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the sub claim that should be used in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The reference of the authentication context class which the end-user authentication satisfied.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims which will be embedded in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cc5ce26-d8f5-41da-8cb4-0374313c66f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the end-user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the sub claim that should be used in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The reference of the authentication context class which the end-user authentication satisfied.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims which will be embedded in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd5227f-54d7-4371-b5a2-b05bc8168dfd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the end-user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the sub claim that should be used in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The reference of the authentication context class which the end-user authentication satisfied.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims which will be embedded in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd815b14-c52a-43d5-8d0b-abbae4882e2b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "backchannel",
+                    "authentication",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued by Authlete's `/backchannel/authentication` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The result of the end-user authentication and authorization. One of the following. Details are\ndescribed in the description.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "result",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the end-user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the sub claim that should be used in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "authTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The reference of the authentication context class which the end-user authentication satisfied.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "acr",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims which will be embedded in the ID token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The extra properties associated with the access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Scopes to replace the scopes specified in the original backchannel authentication request with.\nWhen nothing is specified for this parameter, replacement is not performed.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON that represents additional JWS header parameters for ID tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idtHeaderParams",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The description of the error. If this optional request parameter is given, its value is used as\nthe value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.\nTo comply with the specification strictly, the description must not include characters outside\nthe set `%x20-21 / %x23-5B / %x5D-7E`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The URI of a document which describes the error in detail. This corresponds to the `error_uri`\nproperty in the response to the client.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "errorUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the claims that the user has consented for the client application\nto know.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "consentedClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of the `aud` claim of the ID token being issued. Valid values are as follows.\n\n| Value | Description |\n| ----- | ----------- |\n| \"array\" | The type of the aud claim is always an array of strings. |\n| \"string\" | The type of the aud claim is always a single string. |\n| null | The type of the aud claim remains the same as before. |\n\nThis request parameter takes precedence over the `idTokenAudType` property of the service.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "idTokenAudType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "817940ed-6f76-4099-bff3-1680edd861b5",
+    "name": "Authlete Authorization Endpoint CIBA API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

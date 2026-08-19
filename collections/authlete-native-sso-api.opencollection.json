@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Native SSO API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Native SSO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Native SSO Processing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/nativesso",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "715948317",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API should be called by the implementation of a token endpoint to generate the ID token and\ntoken response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\n(Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate\nthe session id and verify or generate the device secret as required by the flow). The token endpoint\nimplementation should retrieve the value of `action` from"
+        },
+        {
+          "info": {
+            "name": "Native SSO Logout Processing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us.authlete.com/api/:serviceId/nativesso/logout",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "A service ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `/nativesso/logout` API is supposed to be used to support the concept of \"logout from all applications\"\nin the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)\n(Native SSO). This is accomplished by deleting access/refresh token records associated with the\nspecified session ID. In Authlete's implementation, access/refresh token records can be associated\nwith a session ID only through the mechanism introduced by Native SSO."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

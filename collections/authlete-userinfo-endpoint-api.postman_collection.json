@@ -1,0 +1,1800 @@
+{
+  "item": [
+    {
+      "id": "96f8dcad-1339-4fd3-b1ed-a4dd3d88c283",
+      "name": "UserInfo Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OpenID Connect UserInfo Endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3860845-0ff7-4887-b33c-c1e159afdfdd",
+          "name": "Process UserInfo Request",
+          "request": {
+            "name": "Process UserInfo Request",
+            "description": {
+              "content": "This API gathers information about a user.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "userinfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) An access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpop",
+                  "value": "<string>",
+                  "description": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htm",
+                  "value": "<string>",
+                  "description": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htu",
+                  "value": "<string>",
+                  "description": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "uri",
+                  "value": "<string>",
+                  "description": "The full URL of the userinfo endpoint.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "The HTTP message body of the request, if present.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "targetUri",
+                  "value": "<string>",
+                  "description": "The target URI of the userinfo request, including the query part, if any.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpopNonceRequired",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "requestBodyContained",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether the userinfo request contains a request body.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ee76ca3-ee55-466c-979e-6c36c2c2f83a",
+              "name": "User info retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the userinfo request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the userinfo request contains a request body.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A091001\",\n  \"resultMessage\": \"[A091001] The access token presented at the userinfo endpoint is valid.\",\n  \"action\": \"OK\",\n  \"clientId\": \"15518267821\",\n  \"clientIdAliasUsed\": false,\n  \"scopes\": [\n    \"openid\"\n  ],\n  \"subject\": \"john\",\n  \"token\": \"Ntm9MDb8WXQAevqrBkd84KTTHbYHVQrTjgUZCOWqEUI\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c2cf9ef-a855-42fd-94b1-068bc1909128",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the userinfo request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the userinfo request contains a request body.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42d29593-75b0-4588-9197-f2d8ed2b6f1d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the userinfo request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the userinfo request contains a request body.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a0aa4db-3dd1-49ff-a42f-6fb8708567f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the userinfo request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the userinfo request contains a request body.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "212cc59a-ac30-49fe-91a4-59de5661fcd5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) An access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Client certificate used in the TLS connection established between the client application and the userinfo endpoint.\n\nThe value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to\na client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]\n(https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the user info endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the user info request. This field is used to validate the DPoP header.\nIn normal cases, the value is either `GET` or `POST`.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the user info endpoint. This field is used to validate the DPoP header.\n\nIf this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The full URL of the userinfo endpoint.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The HTTP message body of the request, if present.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The target URI of the userinfo request, including the query part, if any.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "targetUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.\n\nIf this request parameter is set to `true` or if the service's `dpopNonceRequired` property is\nset to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`\nvalue. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response\nparameter, which should be used as the value of the DPoP-Nonce HTTP header.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether the userinfo request contains a request body.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestBodyContained",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e991147a-2b19-4c0c-b8bf-31e17c748e3f",
+          "name": "Issue UserInfo Response",
+          "request": {
+            "name": "Issue UserInfo Response",
+            "description": {
+              "content": "This API generates an ID token.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "userinfo",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "claims",
+                  "value": "<string>",
+                  "description": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sub",
+                  "value": "<string>",
+                  "description": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "claimsForTx",
+                  "value": "<string>",
+                  "description": "Claim key-value pairs that are used to compute transformed claims.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "requestSignature",
+                  "value": "<string>",
+                  "description": "The Signature header value from the request.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}",
+                  "description": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "verifiedClaimsForTx",
+                  "value": "<string>",
+                  "description": "Values of verified claims requested indirectly by \"transformed claims\".\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "verifiedClaimsForTx",
+                  "value": "<string>",
+                  "description": "Values of verified claims requested indirectly by \"transformed claims\".\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bcc0d209-a65a-485e-a944-c8410de1748c",
+              "name": "User info issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Signature header value from the request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestSignature",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A096001\",\n  \"resultMessage\": \"[A096001] An ID token was generated successfully.\",\n  \"action\": \"JSON\",\n  \"responseContent\": \"{\\\\\\\"exp\\\\\\\":1511600971,\\\\\\\"sub\\\\\\\":\\\\\\\"john\\\\\\\",\\\\\\\"aud\\\\\\\":[\\\\\\\"26478243745571\\\\\\\"],\\\\\\\"iss\\\\\\\":\\\\\\\"https://authlete.com\\\\\\\",\\\\\\\"iat\\\\\\\":1511514571}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa8b1bf8-8412-4e1e-8ad7-72f3c695092f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Signature header value from the request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestSignature",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67c38a4e-157d-4378-911c-b63bbb60caf2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Signature header value from the request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestSignature",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "805b26ec-5133-4c98-bb86-b125194e7766",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Signature header value from the request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestSignature",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef84e549-59ed-4a94-84b4-79ea7a55f4e6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "userinfo",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The access token that has been passed to the userinfo endpoint by the client application. In other words,\nthe access token which was contained in the userinfo request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of\nthe `sub` claim. Otherwise, the value of the subject associated with the access token is used.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "sub",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Claim key-value pairs that are used to compute transformed claims.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "claimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The Signature header value from the request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "requestSignature",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP headers to be included in processing the signature. If this is a signed request, this must include the\nSignature and Signature-Input headers, as well as any additional headers covered by the signature.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Values of verified claims requested indirectly by \"transformed claims\".\n",
+                        "type": "text/plain"
+                      },
+                      "key": "verifiedClaimsForTx",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5366de50-8274-4edb-9562-228cd0b12598",
+    "name": "Authlete Authorization Endpoint UserInfo Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

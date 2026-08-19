@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authlete Authorization Endpoint Utility Endpoints API",
+    "version": "3.0.16"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utility Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Server Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/info"
+          },
+          "docs": "get the server version and enabled features\n"
+        },
+        {
+          "info": {
+            "name": "Echo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us.authlete.com/api/misc/echo"
+          },
+          "docs": "Echo test endpoint. Will return all path parameters in the request\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

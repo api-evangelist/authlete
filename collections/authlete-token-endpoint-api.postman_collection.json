@@ -1,0 +1,3021 @@
+{
+  "item": [
+    {
+      "id": "4a35639c-ee8e-48de-97b8-a3fbb5e1d7d0",
+      "name": "Token Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OAuth 2.0 Token Endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba0f1834-ef22-4b61-8c9e-3915d9dbc769",
+          "name": "Process Token Request",
+          "request": {
+            "name": "Process Token Request",
+            "description": {
+              "content": "This API parses request parameters of an authorization request and returns necessary data for the\nauthorization server implementation to process the authorization request further.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "parameters",
+                  "value": "<string>",
+                  "description": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientId",
+                  "value": "<string>",
+                  "description": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientSecret",
+                  "value": "<string>",
+                  "description": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificate",
+                  "value": "<string>",
+                  "description": "The client certificate from the MTLS of the token request from the client application."
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientCertificatePath",
+                  "value": "<string>",
+                  "description": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpop",
+                  "value": "<string>",
+                  "description": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htm",
+                  "value": "<string>",
+                  "description": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "htu",
+                  "value": "<string>",
+                  "description": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessToken",
+                  "value": "<string>",
+                  "description": "The representation of an access token that may be issued as a result of the Authlete API call.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "jwtAtClaims",
+                  "value": "<string>",
+                  "description": "Additional claims that are added to the payload part of the JWT access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestation",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "oauthClientAttestationPop",
+                  "value": "<string>",
+                  "description": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dpopNonceRequired",
+                  "value": "<boolean>",
+                  "description": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "alwaysRetrieved",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "httpPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "queryPermitted",
+                  "value": "<boolean>",
+                  "description": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "076febb1-6e04-4d74-9c96-71abedc2c8ab",
+              "name": "Token operation completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate from the MTLS of the token request from the client application.",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A050001\",\n  \"resultMessage\": \"[A050001] The token request (grant_type=authorization_code) was processed successfully.\",\n  \"accessToken\": \"C4SrUTijIj2IxqE1xBASr3dxQWgso3BpY49g8CyjGjQ\",\n  \"accessTokenDuration\": 3600,\n  \"accessTokenExpiresAt\": 1640252942736,\n  \"action\": \"OK\",\n  \"clientAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"clientId\": 26478243745571,\n  \"clientIdAlias\": \"my-client\",\n  \"clientIdAliasUsed\": false,\n  \"grantType\": \"AUTHORIZATION_CODE\",\n  \"refreshToken\": \"60k0cZ38sJcpTgdxvG9Sqa-3RG5AmGExGpFB-1imSxo\",\n  \"refreshTokenDuration\": 3600,\n  \"refreshTokenExpiresAt\": 1640252942736,\n  \"responseContent\": \"{\\\\\\\"access_token\\\\\\\":\\\\\\\"C4SrUTijIj2IxqE1xBASr3dxQWgso3BpY49g8CyjGjQ\\\\\\\",\\\\\\\"refresh_token\\\\\\\":\\\\\\\"60k0cZ38sJcpTgdxvG9Sqa-3RG5AmGExGpFB-1imSxo\\\\\\\",\\\\\\\"scope\\\\\\\":\\\\\\\"history.read timeline.read\\\\\\\",\\\\\\\"token_type\\\\\\\":\\\\\\\"Bearer\\\\\\\",\\\\\\\"expires_in\\\\\\\":3600}\",\n  \"scopes\": [\n    \"history.read\",\n    \"timeline.read\"\n  ],\n  \"serviceAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"subject\": \"john\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e085a8d6-3b3f-4499-8b86-2a2d3690a8ba",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate from the MTLS of the token request from the client application.",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ca153eb-7625-4db5-ae66-5775b8bdd63b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate from the MTLS of the token request from the client application.",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e70d4c-a848-409b-8191-deef36910c87",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate from the MTLS of the token request from the client application.",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9d8637a-bd5b-447d-9558-b6403b8b5706",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server\nimplementation received from the client application.\n\nThe value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from\nthe client application.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client ID extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as\na means of client authentication, and the request from the client application contained its client ID\nin `Authorization` header, the value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client secret extracted from `Authorization` header of the token request from the client application.\n\nIf the token endpoint of the authorization server implementation supports basic authentication as a means of\nclient authentication, and the request from the client application contained its client secret in `Authorization` header,\nthe value should be extracted and set to this parameter.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientSecret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The client certificate from the MTLS of the token request from the client application.",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificate",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The certificate path presented by the client during client authentication. These certificates are strings in PEM format.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "clientCertificatePath",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "`DPoP` header presented by the client during the request to the token endpoint.\n\nThe header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "HTTP method of the token request. This field is used to validate the `DPoP` header.\n\nIn normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the token endpoint. This field is used to validate the `DPoP` header.\n\nIf this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.\nSee [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)\nfor details.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "htu",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestation",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification\nof [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).\n",
+                        "type": "text/plain"
+                      },
+                      "key": "oauthClientAttestationPop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if\nthe service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this\n`dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof\nJWT includes the expected `nonce` value.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "dpopNonceRequired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "alwaysRetrieved",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "httpPermitted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).\n\nThese options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "queryPermitted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ba91830-c364-4578-b167-4583f4c92bde",
+          "name": "Fail Token Request",
+          "request": {
+            "name": "Fail Token Request",
+            "description": {
+              "content": "This API generates a content of an error token response that the authorization server implementation\nreturns to the client application.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "token",
+                "fail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued from Authlete `/auth/token` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "reason",
+                  "value": "<string>",
+                  "description": "(Required) The reason of the failure of the token request.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93ca1071-1cc8-4d5d-a0d8-9f681445dbad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the token request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A067301\",\n  \"resultMessage\": \"[A067301] The credentials (username & password) passed to the token endpoint are invalid.\",\n  \"action\": \"BAD_REQUEST\",\n  \"responseContent\": \"{\\\\\\\"error_description\\\\\\\":\\\\\\\"[A067301] The credentials (username & password) passed to the token endpoint are invalid.\\\\\\\",\\\\\\\"error\\\\\\\":\\\\\\\"invalid_request\\\\\\\",\\\\\\\"error_uri\\\\\\\":\\\\\\\"https://docs.authlete.com/#A067301\\\\\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "343d2d8b-24ed-4d4c-8410-17c982f91fd4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the token request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07c3f362-a64c-436c-b90d-2842411f2fb8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the token request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41815287-a1b6-40d2-9f12-c3251c0299e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the token request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28f15a81-9861-421c-991a-5c4029e9eb55",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The reason of the failure of the token request.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68f90d1f-8b2d-41b9-9f61-0f23f4f448ff",
+          "name": "Issue Token Response",
+          "request": {
+            "name": "Issue Token Response",
+            "description": {
+              "content": "This API generates a content of a successful token response that the authorization server implementation\nreturns to the client application.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "auth",
+                "token",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ticket",
+                  "value": "<string>",
+                  "description": "(Required) The ticket issued from Authlete `/auth/token` API.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject",
+                  "value": "<string>",
+                  "description": "(Required) The subject (= unique identifier) of the authenticated user.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}",
+                  "description": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "jwtAtClaims",
+                  "value": "<string>",
+                  "description": "Additional claims that are added to the payload part of the JWT access token.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessToken",
+                  "value": "<string>",
+                  "description": "The representation of an access token that may be issued as a result of the Authlete API call.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "accessTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshTokenDuration",
+                  "value": "<long>",
+                  "description": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e901f236-ea61-44e0-9371-cfa22255a6fa",
+              "name": "Token issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the authenticated user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A054001\",\n  \"resultMessage\": \"[A054001] The token request (grant_type=password) was processed successfully.\",\n  \"accessToken\": \"OthV6TlZ2pPUtlBBvBSGFYzSdgVy87SSIPz2Zjwi-m0\",\n  \"accessTokenDuration\": 3600,\n  \"accessTokenExpiresAt\": 1640331371876,\n  \"action\": \"OK\",\n  \"clientAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"clientId\": 26478243745571,\n  \"clientIdAlias\": \"my-client\",\n  \"clientIdAliasUsed\": false,\n  \"refreshToken\": \"ICPN0-sG3BH4szqiNqaFHZrWUGt7e0zaPuhys3ejQow\",\n  \"refreshTokenDuration\": 3600,\n  \"refreshTokenExpiresAt\": 1640331371876,\n  \"responseContent\": \"{\\\\\\\"access_token\\\\\\\":\\\\\\\"OthV6TlZ2pPUtlBBvBSGFYzSdgVy87SSIPz2Zjwi-m0\\\\\\\",\\\\\\\"refresh_token\\\\\\\":\\\\\\\"ICPN0-sG3BH4szqiNqaFHZrWUGt7e0zaPuhys3ejQow\\\\\\\",\\\\\\\"scope\\\\\\\":null,\\\\\\\"token_type\\\\\\\":\\\\\\\"Bearer\\\\\\\",\\\\\\\"expires_in\\\\\\\":3600}\",\n  \"serviceAttributes\": [\n    {\n      \"key\": \"attribute1-key\",\n      \"value\": \"attribute1-value\"\n    },\n    {\n      \"key\": \"attribute2-key\",\n      \"value\": \"attribute2-value\"\n    }\n  ],\n  \"subject\": \"john\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b73a3d69-e266-422f-8272-393d58f978a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the authenticated user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07f7d37f-bac1-4db8-9fde-b5556e103338",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the authenticated user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40a3d889-d106-4bb1-ac7d-3c757ec7ac09",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the authenticated user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bbde3c4-a5d0-4e84-a1b0-4c7a8cabae31",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "auth",
+                    "token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The ticket issued from Authlete `/auth/token` API.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "ticket",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The subject (= unique identifier) of the authenticated user.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "subject",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Extra properties to associate with a newly created access token. Note that properties parameter is accepted only\nwhen `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`\nif you want to specify properties.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "properties",
+                      "value": "{\"key\":\"<string>\",\"value\":\"<string>\",\"hidden\":\"<boolean>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Additional claims that are added to the payload part of the JWT access token.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "jwtAtClaims",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The representation of an access token that may be issued as a result of the Authlete API call.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the access token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the access\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "accessTokenDuration",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The duration (in seconds) of the refresh token that may be issued as a result of the Authlete\nAPI call.\n\nWhen this request parameter holds a positive integer, it is used as the duration of the refresh\ntoken in. In other cases, this request parameter is ignored.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "refreshTokenDuration",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "735940b5-3158-486d-be9f-75fa337f1fe7",
+          "name": "Reissue ID Token",
+          "request": {
+            "name": "Reissue ID Token",
+            "description": {
+              "content": "The API is expected to be called only when the value of the `action`\nparameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose\nof the `/idtoken/reissue` API is to generate a token response that\nincludes a new ID token together with a new access token and a refresh\ntoken.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "idtoken",
+                "reissue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3be88566-1bb0-484d-8351-379af75e90e4",
+              "name": "ID token reissued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "idtoken",
+                    "reissue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"INTERNAL_SERVER_ERROR\",\n  \"responseContent\": \"string\",\n  \"idToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7ef7d76-bc7e-4832-927c-0ea6e975999a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "idtoken",
+                    "reissue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "333e842f-8713-4dc8-8096-ac0f77131d82",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "idtoken",
+                    "reissue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70d78741-8ab8-41d5-b9b4-98ef6bcff028",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "idtoken",
+                    "reissue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e4680cd-10f7-41c4-9343-5b7fabfe259b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "idtoken",
+                    "reissue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"claims\": \"<string>\",\n  \"idtHeaderParams\": \"<string>\",\n  \"idTokenAudType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a79cad7b-31df-4076-b99e-1c125b6bf0da",
+    "name": "Authlete Authorization Endpoint Token Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}

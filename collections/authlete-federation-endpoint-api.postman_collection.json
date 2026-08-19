@@ -1,0 +1,848 @@
+{
+  "item": [
+    {
+      "id": "e0ae3ce6-6507-4905-9094-9ac6d6f092ed",
+      "name": "Federation Endpoint",
+      "description": {
+        "content": "API endpoints for implementing OpenID Federation using Authlete.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "930cc4d3-fdad-4d84-a656-a9cc077b1b69",
+          "name": "Process Entity Configuration Request",
+          "request": {
+            "name": "Process Entity Configuration Request",
+            "description": {
+              "content": "This API gathers the federation configuration about a service.\nThe authorization server implementation should\nretrieve the value of the `action`\nresponse parameter from the API response and take the following steps\naccording to the value.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "federation",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b30a9a21-7764-4de3-869b-92794a37ad9e",
+              "name": "Federation configuration retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"NOT_FOUND\",\n  \"responseContent\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e65fc9db-0d0b-4259-b844-2fb3a85cefdd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ab372f7-70cd-4298-8e2b-d76b88928dec",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63134c1c-45cc-4289-a438-c3ba10c438ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ffeadf8-d2af-4d61-8431-aa245c6df844",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0963f674-371c-45c1-b09b-919e852df928",
+          "name": "Process Federation Registration Request",
+          "request": {
+            "name": "Process Federation Registration Request",
+            "description": {
+              "content": "The Authlete API is for implementations of the **federation registration\nendpoint** that accepts \"explicit client registration\". Its details are\ndefined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\nThe endpoint accepts `POST` requests whose `Content-Type`\nis either of the following.\n1. `application/entity-statement+jwt`- `application/trust-chain+json`\nWhen the `Content-Type` of a request is\n`application/entity-statement+jwt`, the content of the request is\nthe entity configuration of a relying party that is to be registered.\nIn this case, the implementation of the federation registration endpoint\nshould call Authlete's `/federation/registration` API with the\nentity configuration set to the `entityConfiguration` request\nparameter.\nOn the other hand, when the `Content-Type` of a request is\n`application/trust-chain+json`, the content of the request is a\nJSON array that contains entity statements in JWT format. The sequence\nof the entity statements composes the trust chain of a relying party\nthat is to be registered. In this case, the implementation of the\nfederation registration endpoint should call Authlete's\n`/federation/registration` API with the trust chain set to the\n`trustChain` request parameter.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                ":serviceId",
+                "federation",
+                "registration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) A service ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "entityConfiguration",
+                  "value": "<string>",
+                  "description": "The entity configuration of a relying party.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "trustChain",
+                  "value": "<string>",
+                  "description": "The trust chain of a relying party.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e4a1a52-9fca-45c9-b7be-24913f5c5c3b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The entity configuration of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "entityConfiguration",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The trust chain of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "trustChain",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"string\",\n  \"resultMessage\": \"string\",\n  \"action\": \"OK\",\n  \"responseContent\": \"string\",\n  \"client\": {\n    \"number\": 3270,\n    \"serviceNumber\": 4018,\n    \"clientName\": \"string\",\n    \"clientNames\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"description\": \"string\",\n    \"descriptions\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"clientId\": 9964,\n    \"clientSecret\": \"string\",\n    \"clientIdAlias\": \"string\",\n    \"clientIdAliasEnabled\": true,\n    \"clientType\": \"PUBLIC\",\n    \"applicationType\": \"NATIVE\",\n    \"logoUri\": \"string\",\n    \"logoUris\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"contacts\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tlsClientCertificateBoundAccessTokens\": false,\n    \"dynamicallyRegistered\": true,\n    \"softwareId\": \"string\",\n    \"developer\": \"string\",\n    \"softwareVersion\": \"string\",\n    \"registrationAccessTokenHash\": \"string\",\n    \"createdAt\": 905,\n    \"modifiedAt\": 8621,\n    \"grantTypes\": [\n      \"CIBA\",\n      \"JWT_BEARER\"\n    ],\n    \"responseTypes\": [\n      \"ID_TOKEN\",\n      \"TOKEN\"\n    ],\n    \"redirectUris\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authorizationSignAlg\": \"RS512\",\n    \"authorizationEncryptionAlg\": \"A256GCMKW\",\n    \"authorizationEncryptionEnc\": \"A128GCM\",\n    \"tokenAuthMethod\": \"CLIENT_SECRET_POST\",\n    \"tokenAuthSignAlg\": \"ES384\",\n    \"selfSignedCertificateKeyId\": \"string\",\n    \"tlsClientAuthSubjectDn\": \"string\",\n    \"tlsClientAuthSanDns\": \"string\",\n    \"tlsClientAuthSanUri\": \"string\",\n    \"tlsClientAuthSanIp\": \"string\",\n    \"tlsClientAuthSanEmail\": \"string\",\n    \"parRequired\": true,\n    \"requestObjectRequired\": true,\n    \"requestSignAlg\": \"PS512\",\n    \"requestEncryptionAlg\": \"A192KW\",\n    \"requestEncryptionEnc\": \"A128CBC_HS256\",\n    \"requestUris\": [\n      \"string\",\n      \"string\"\n    ],\n    \"defaultMaxAge\": 3682,\n    \"defaultAcrs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"idTokenSignAlg\": \"ES512\",\n    \"idTokenEncryptionAlg\": \"ECDH_ES\",\n    \"idTokenEncryptionEnc\": \"A192CBC_HS384\",\n    \"authTimeRequired\": false,\n    \"subjectType\": \"PUBLIC\",\n    \"sectorIdentifierUri\": \"string\",\n    \"derivedSectorIdentifier\": \"string\",\n    \"jwksUri\": \"string\",\n    \"jwks\": \"string\",\n    \"userInfoSignAlg\": \"PS512\",\n    \"userInfoEncryptionAlg\": \"DIR\",\n    \"userInfoEncryptionEnc\": \"A128CBC_HS256\",\n    \"loginUri\": \"string\",\n    \"tosUri\": \"string\",\n    \"tosUris\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"policyUri\": \"string\",\n    \"policyUris\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"clientUri\": \"string\",\n    \"clientUris\": [\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"tag\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"bcDeliveryMode\": \"string\",\n    \"bcNotificationEndpoint\": \"string\",\n    \"bcRequestSignAlg\": \"RS384\",\n    \"bcUserCodeRequired\": true,\n    \"attributes\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"extension\": {\n      \"requestableScopes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"requestableScopesEnabled\": true,\n      \"accessTokenDuration\": 6190,\n      \"refreshTokenDuration\": 1042,\n      \"idTokenDuration\": 8497,\n      \"tokenExchangePermitted\": true\n    },\n    \"authorizationDetailsTypes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"customMetadata\": \"string\",\n    \"frontChannelRequestObjectEncryptionRequired\": false,\n    \"requestObjectEncryptionAlgMatchRequired\": true,\n    \"requestObjectEncryptionEncMatchRequired\": false,\n    \"digestAlgorithm\": \"string\",\n    \"singleAccessTokenPerSubject\": true,\n    \"pkceRequired\": false,\n    \"pkceS256Required\": false,\n    \"dpopRequired\": false,\n    \"automaticallyRegistered\": true,\n    \"explicitlyRegistered\": false,\n    \"rsRequestSigned\": false,\n    \"rsSignedRequestKeyId\": \"string\",\n    \"clientRegistrationTypes\": [\n      \"AUTOMATIC\",\n      \"AUTOMATIC\"\n    ],\n    \"organizationName\": \"string\",\n    \"signedJwksUri\": \"string\",\n    \"entityId\": \"string\",\n    \"trustAnchorId\": \"string\",\n    \"trustChain\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trustChainExpiresAt\": 3382,\n    \"trustChainUpdatedAt\": 250,\n    \"locked\": true,\n    \"credentialOfferEndpoint\": \"string\",\n    \"fapiModes\": [\n      \"FAPI1_BASELINE\",\n      \"FAPI1_BASELINE\"\n    ],\n    \"responseModes\": [\n      \"QUERY\",\n      \"QUERY\"\n    ],\n    \"credentialResponseEncryptionRequired\": true,\n    \"mtlsEndpointAliasesUsed\": true,\n    \"inScopeForTokenMigration\": true,\n    \"metadataDocumentLocation\": \"https://MuoireOGLV.xducz5EyBUuEIM\",\n    \"metadataDocumentExpiresAt\": 7179,\n    \"metadataDocumentUpdatedAt\": 252,\n    \"discoveredByMetadataDocument\": false,\n    \"clientSource\": \"EXPLICIT_REGISTRATION\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "427b93af-b517-4a31-88ed-e0ac4fa80b5d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The entity configuration of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "entityConfiguration",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The trust chain of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "trustChain",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001201\",\n  \"resultMessage\": \"[A001201] /auth/authorization, TLS must be used.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "365351ac-5f4f-4828-926b-bb288f029ee2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The entity configuration of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "entityConfiguration",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The trust chain of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "trustChain",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001202\",\n  \"resultMessage\": \"[A001202] /auth/authorization, Authorization header is missing.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c14b85e-ef3c-493a-a756-104ab4f5fa85",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The entity configuration of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "entityConfiguration",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The trust chain of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "trustChain",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001215\",\n  \"resultMessage\": \"[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56fde955-a5de-4346-a671-da07771052c3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    ":serviceId",
+                    "federation",
+                    "registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) A service ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The entity configuration of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "entityConfiguration",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The trust chain of a relying party.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "trustChain",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultCode\": \"A001101\",\n  \"resultMessage\": \"[A001101] /auth/authorization, Authlete Server error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://us.authlete.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e3fe2bfc-5453-4bd8-89a7-54de4f7bd916",
+    "name": "Authlete Authorization Endpoint Federation Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## 🌐 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- 🇺🇸 **US**: `https://us.authlete.com`\n- 🇯🇵 **Japan**: `https://jp.authlete.com`\n- 🇪🇺 **Europe**: `https://eu.authlete.com`\n- 🇧🇷 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## 🔑 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## 🎓 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## 🛠 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n",
+      "type": "text/plain"
+    }
+  }
+}
