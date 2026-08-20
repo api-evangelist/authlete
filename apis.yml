@@ -36,6 +36,16 @@ created: '2026-07-17'
 modified: '2026-07-18'
 tags:
 - Company
+- Authentication
+- OpenID Connect
+- Authorization
+- Identity
+- API Security
+- FAPI
+- Verifiable Credentials
+- CIBA
+tags_raw:
+- Company
 - OAuth 2.0
 - OpenID Connect
 - Authentication
@@ -324,6 +334,8 @@ apis:
   humanURL: https://docs.authlete.com/
   baseURL: https://us.authlete.com
   tags:
+  - Utility endpoints
+  tags_raw:
   - Utility Endpoints
   properties:
   - type: OpenAPI
