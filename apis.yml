@@ -346,7 +346,7 @@ apis:
   humanURL: https://docs.authlete.com/
   baseURL: https://us.authlete.com
   tags:
-  - Utility endpoints
+  - Utility Endpoints
   tags_raw:
   - Utility Endpoints
   properties:
