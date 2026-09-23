@@ -1,25 +1,26 @@
 generated: '2026-07-18'
 method: searched
 host: https://www.authlete.com
-notes: >-
-  Authlete's marketing/company host publishes a signed RFC 9116 security.txt.
-  The regional API clusters (us/jp/eu/br.authlete.com) do not expose OIDC/OAuth
-  discovery for the management API itself (Authlete builds authorization servers
-  for its customers rather than being one at these hosts), so those endpoints 404.
-documents:
-  - path: /.well-known/security.txt          # RFC 9116 (PGP-signed)
-    host: https://www.authlete.com
+notes: Authlete's marketing/company host publishes a signed RFC 9116 security.txt. The regional API clusters
+  (us/jp/eu/br.authlete.com) do not expose OIDC/OAuth discovery for the management API itself (Authlete
+  builds authorization servers for its customers rather than being one at these hosts), so those endpoints
+  404.
+hosts:
+- host: https://www.authlete.com
+  documents:
+  - path: /.well-known/security.txt
     status: 200
     file: authlete-security.txt
-  - path: /.well-known/openid-configuration   # OIDC discovery
-    host: https://us.authlete.com
+  - path: /.well-known/openid-configuration
     status: 404
-  - path: /.well-known/oauth-authorization-server  # RFC 8414
-    host: https://us.authlete.com
+  - path: /.well-known/oauth-authorization-server
     status: 404
-  - path: /.well-known/api-catalog             # RFC 9727
-    host: https://us.authlete.com
+  - path: /.well-known/api-catalog
     status: 404
   - path: /.well-known/ai-plugin.json
-    host: https://www.authlete.com
     status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.

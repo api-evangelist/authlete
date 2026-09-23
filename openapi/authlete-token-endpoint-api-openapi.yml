@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Authlete Authorization Endpoint Token Endpoint API
-  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  title: Authlete Token Endpoint API
+  description: Welcome to the **Authlete API documentation**.
   version: 3.0.16
   license:
     name: Apache 2.0
@@ -27,9 +27,7 @@ paths:
       summary: Process Token Request
       description: 'This API parses request parameters of an authorization request and returns necessary data for the
 
-        authorization server implementation to process the authorization request further.
-
-        '
+        authorization server implementation to process the authorization request further.'
       x-mint:
         metadata:
           description: This API parses request parameters of an authorization request and returns necessary data for the authorization server implementation to process the authorization request further.
@@ -902,9 +900,7 @@ paths:
       summary: Fail Token Request
       description: 'This API generates a content of an error token response that the authorization server implementation
 
-        returns to the client application.
-
-        '
+        returns to the client application.'
       x-mint:
         metadata:
           description: This API generates a content of an error token response that the authorization server implementation returns to the client application.
@@ -1103,9 +1099,7 @@ paths:
       summary: Issue Token Response
       description: 'This API generates a content of a successful token response that the authorization server implementation
 
-        returns to the client application.
-
-        '
+        returns to the client application.'
       x-mint:
         metadata:
           description: This API generates a content of a successful token response that the authorization server implementation returns to the client application.
@@ -1320,15 +1314,13 @@ paths:
       summary: Reissue ID Token
       description: 'The API is expected to be called only when the value of the `action`
 
-        parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose
+        parameter in a response from the `/auth/token` API is ID_TOKEN_REISSUABLE. The purpose
 
         of the `/idtoken/reissue` API is to generate a token response that
 
         includes a new ID token together with a new access token and a refresh
 
-        token.
-
-        '
+        token.'
       parameters:
       - in: path
         name: serviceId
@@ -1361,294 +1353,58 @@ paths:
       - Token Endpoint
 components:
   schemas:
-    token_issue_request:
+    cimd_options:
       type: object
-      required:
-      - ticket
-      - subject
+      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+
+        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+
+        '
       properties:
-        ticket:
-          type: string
-          description: 'The ticket issued from Authlete `/auth/token` API.
-
-            '
-        subject:
-          type: string
-          description: 'The subject (= unique identifier) of the authenticated user.
-
-            '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'Extra properties to associate with a newly created access token. Note that properties parameter is accepted only
-
-            when `Content-Type` of the request is `application/json`, so don''t use `application/x-www-form-urlencoded`
-
-            if you want to specify properties.
-
-            '
-        jwtAtClaims:
-          type: string
-          description: 'Additional claims that are added to the payload part of the JWT access token.
-
-            '
-        accessToken:
-          type: string
-          description: 'The representation of an access token that may be issued as a result of the Authlete API call.
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
-
-            API call.
-
-
-            When this request parameter holds a positive integer, it is used as the duration of the access
-
-            token in. In other cases, this request parameter is ignored.
-
-            '
-        refreshTokenDuration:
-          type: integer
-          format: int64
-          description: 'The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
-
-            API call.
-
-
-            When this request parameter holds a positive integer, it is used as the duration of the refresh
-
-            token in. In other cases, this request parameter is ignored.
-
-            '
-    token_issue_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - OK
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format is JSON.
-
-            '
-        accessToken:
-          type: string
-          description: The newly issued access token. This parameter is a non-null value only when the value of `action` parameter is `OK`.
-        accessTokenExpiresAt:
-          type: integer
-          format: int64
-          description: 'The datetime at which the newly issued access token will expire.
-
-            The value is represented in milliseconds since the Unix epoch (1970-01-01).
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: The duration of the newly issued access token in seconds.
-        refreshToken:
-          type: string
-          description: 'The refresh token. This parameter is a non-null value only when `action` is `OK` and the service supports the refresh token flow.
-
-            If `refreshTokenKept` is set to `false`, a new refresh token is issued and the old refresh token used in the refresh token flow
-
-            is invalidated. On the contrary, if `refreshTokenKept` is set to `true`, the refresh token itself is not refreshed.
-
-            '
-        refreshTokenExpiresAt:
-          type: integer
-          format: int64
-          description: 'The datetime at which the newly issued refresh token will expire.
-
-            The value is represented in milliseconds since the Unix epoch (1970-01-01).
-
-            '
-        refreshTokenDuration:
-          type: integer
-          format: int64
-          description: The duration of the newly issued refresh token in seconds.
-        clientId:
-          type: integer
-          format: int64
-          description: The client ID.
-        clientIdAlias:
-          type: string
-          description: 'The client ID alias. If the client did not have an alias, this parameter is `null`.
-
-            '
-        clientIdAliasUsed:
+        alwaysRetrieved:
           type: boolean
-          description: 'The flag which indicates whether the client ID alias was used when the token request was made.
+          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
 
-            `true` if the client ID alias was used when the token request was made.
 
-            '
-        subject:
-          type: string
-          description: 'The subject (= resource owner''s ID) of the access token.
+            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
 
-            Even if an access token has been issued by calling `/api/auth/token` API, this parameter is `null` if the flow of the token request was
 
-            [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means
+            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
 
-            the access token is not associated with any specific end-user.
 
-            '
-        scopes:
-          type: array
-          items:
-            type: string
-          description: The scopes covered by the access token.
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'The extra properties associated with the access token.
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
 
-            This parameter is `null` when no extra property is associated with the issued access token.
+
+            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
+
+
+            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
 
             '
-        jwtAccessToken:
-          type: string
-          description: 'The newly issued access token in JWT format. If the authorization server is configured to issue JWT-based access tokens
-
-            (= if the service''s `accessTokenSignAlg` value is a non-null value), a JWT-based access token is issued along with the
-
-            original random-string one.
-
-            '
-        accessTokenResources:
-          type: array
-          items:
-            type: string
-          description: 'The target resources of the access token being issued. See "Resource Indicators for OAuth 2.0" for details.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
-        serviceAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/pair'
-          description: 'The attributes of this service that the client application belongs to.
-
-            '
-        clientAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/pair'
-          description: 'The attributes of the client.
-
-            '
-        clientEntityId:
-          type: string
-          description: 'The entity ID of the client.
-
-            '
-        clientEntityIdUsed:
+        httpPermitted:
           type: boolean
-          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
+
+
+            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
+
+
+            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
 
             '
-        refreshTokenScopes:
-          type: array
-          items:
-            type: string
-          description: 'The scopes associated with the refresh token. May be null.
-
-            '
-        metadataDocumentLocation:
-          type: string
-          format: uri
-          description: 'The location of the client''s metadata document that was used to resolve client metadata.
-
-
-            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
-
-            '
-        metadataDocumentUsed:
+        queryPermitted:
           type: boolean
-          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
+          description: 'Whether to allow a query component in client IDs in the CIMD context.
 
 
-            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
-
-            '
-    token_info:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          description: The client id.
-        clientIdAlias:
-          type: string
-          description: The alias of the client.
-        clientIdAliasUsed:
-          type: boolean
-          description: Flag specifying if the alias was used to identify the client
-        subject:
-          type: string
-          description: the resource owner unique id
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/scope'
-          description: The scopes granted on the token
-        expiresAt:
-          type: integer
-          description: time which the token expires.
-        properties:
-          type: array
-          description: Extra properties associated with the token
-          items:
-            $ref: '#/components/schemas/property'
-        resources:
-          type: array
-          description: The array of the resources of the token.
-          items:
-            type: string
-        authorizationDetails:
-          $ref: '#/components/schemas/authorization_details_element'
-        clientEntityId:
-          type: string
-          description: 'The entity ID of the client.
-
-            '
-        clientEntityIdUsed:
-          type: boolean
-          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
-
-            '
-        metadataDocumentLocation:
-          type: string
-          format: uri
-          description: 'The location of the client''s metadata document that was used to resolve client metadata.
+            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
 
 
-            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
-
-            '
-        metadataDocumentUsed:
-          type: boolean
-          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
-
-
-            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
 
             '
     idtoken_reissue_response:
@@ -1679,16 +1435,24 @@ components:
           description: 'The reissued ID token
 
             '
-    tagged_value:
+    authz_details:
       type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
+
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
       properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    token_fail_response:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
+
+            '
+    result:
       type: object
       properties:
         resultCode:
@@ -1697,33 +1461,108 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter. See description for details.
-
-            '
-    property:
+    scope:
       type: object
       properties:
-        key:
+        name:
           type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
+          description: The name of the scope.
+        defaultEntry:
           type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
+        description:
+          type: string
+          description: The description about the scope.
+        descriptions:
+          type: array
+          description: The descriptions about this scope in multiple languages.
+          items:
+            $ref: '#/components/schemas/tagged_value'
+        attributes:
+          type: array
+          description: The attributes of the scope.
+          items:
+            $ref: '#/components/schemas/pair'
+    idtoken_reissue_request:
+      type: object
+      required:
+      - accessToken
+      - refreshToken
+      properties:
+        accessToken:
+          type: string
+          description: 'The value of this parameter should be (a) the value of the
 
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+            "`jwtAccessToken`" parameter in a response from the
+
+            `/auth/token` API when the value is available, or (b)
+
+            the value of the "`accessToken`" parameter in the
+
+            response from the `/auth/token` API when the value of
+
+            the "`jwtAccessToken`" parameter is not available.
+
+            '
+        refreshToken:
+          type: string
+          description: 'The value of this parameter should be the value of the
+
+            "`refreshToken`" parameter in a response from the
+
+            `/auth/token` API.
+
+            '
+        sub:
+          type: string
+          description: 'The value that should be used as the value of the "`sub`"
+
+            claim of the ID token.
+
+            This parameter is optional. When omitted, the value of the subject
+
+            associated with the access token is used.
+
+            '
+        claims:
+          type: string
+          description: 'Additional claims that should be embedded in the payload part of
+
+            the ID token. The format is a JSON object.
+
+            This parameter is optional.
+
+            '
+        idtHeaderParams:
+          type: string
+          description: 'Additional parameters that should be embedded in the JWS header of
+
+            the ID token. The format is a JSON object.
+
+            This parameter is optional.
+
+            '
+        idTokenAudType:
+          type: string
+          description: 'The type of the "`aud`" claim of the ID token being issued.
+
+            Valid values of this parameter are as follows.
+
+            > | Value | Description |
+
+            > | --- | --- |
+
+            > | "`array`" | The type of the `aud` claim becomes an array of strings. |
+
+            > | "`string`" | The type of the `aud` claim becomes a single string. |
+
+            This parameter is optional, and the default value on omission is
+
+            "`array`".
+
+            This parameter takes precedence over the `idTokenAudType` property
+
+            of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
 
             '
     token_response:
@@ -2097,21 +1936,372 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    authz_details:
+    token_info:
       type: object
-      description: 'The authorization details. This represents the value of the `authorization_details`
-
-        request parameter in the preceding device authorization request which is defined in
-
-        "OAuth 2.0 Rich Authorization Requests".
-
-        '
       properties:
-        elements:
+        clientId:
+          type: integer
+          description: The client id.
+        clientIdAlias:
+          type: string
+          description: The alias of the client.
+        clientIdAliasUsed:
+          type: boolean
+          description: Flag specifying if the alias was used to identify the client
+        subject:
+          type: string
+          description: the resource owner unique id
+        scopes:
           type: array
           items:
-            $ref: '#/components/schemas/authorization_details_element'
-          description: 'Elements of this authorization details.
+            $ref: '#/components/schemas/scope'
+          description: The scopes granted on the token
+        expiresAt:
+          type: integer
+          description: time which the token expires.
+        properties:
+          type: array
+          description: Extra properties associated with the token
+          items:
+            $ref: '#/components/schemas/property'
+        resources:
+          type: array
+          description: The array of the resources of the token.
+          items:
+            type: string
+        authorizationDetails:
+          $ref: '#/components/schemas/authorization_details_element'
+        clientEntityId:
+          type: string
+          description: 'The entity ID of the client.
+
+            '
+        clientEntityIdUsed:
+          type: boolean
+          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+
+            '
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: 'The location of the client''s metadata document that was used to resolve client metadata.
+
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+
+            '
+        metadataDocumentUsed:
+          type: boolean
+          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
+
+            '
+    token_fail_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter. See description for details.
+
+            '
+    token_fail_request:
+      type: object
+      required:
+      - ticket
+      - reason
+      properties:
+        ticket:
+          type: string
+          description: 'The ticket issued from Authlete `/auth/token` API.
+
+            '
+        reason:
+          type: string
+          enum:
+          - UNKNOWN
+          - INVALID_RESOURCE_OWNER_CREDENTIALS
+          - INVALID_TARGET
+          description: 'The reason of the failure of the token request.
+
+            '
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+    token_type:
+      type: string
+      description: 'The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+
+        The API returns short codes (enum constant names) in response fields.
+
+        '
+      enum:
+      - JWT
+      - ACCESS_TOKEN
+      - REFRESH_TOKEN
+      - ID_TOKEN
+      - SAML1
+      - SAML2
+      - DEVICE_SECRET
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    token_issue_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - OK
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format is JSON.
+
+            '
+        accessToken:
+          type: string
+          description: The newly issued access token. This parameter is a non-null value only when the value of `action` parameter is `OK`.
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'The datetime at which the newly issued access token will expire.
+
+            The value is represented in milliseconds since the Unix epoch (1970-01-01).
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: The duration of the newly issued access token in seconds.
+        refreshToken:
+          type: string
+          description: 'The refresh token. This parameter is a non-null value only when `action` is `OK` and the service supports the refresh token flow.
+
+            If `refreshTokenKept` is set to `false`, a new refresh token is issued and the old refresh token used in the refresh token flow
+
+            is invalidated. On the contrary, if `refreshTokenKept` is set to `true`, the refresh token itself is not refreshed.
+
+            '
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'The datetime at which the newly issued refresh token will expire.
+
+            The value is represented in milliseconds since the Unix epoch (1970-01-01).
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: The duration of the newly issued refresh token in seconds.
+        clientId:
+          type: integer
+          format: int64
+          description: The client ID.
+        clientIdAlias:
+          type: string
+          description: 'The client ID alias. If the client did not have an alias, this parameter is `null`.
+
+            '
+        clientIdAliasUsed:
+          type: boolean
+          description: 'The flag which indicates whether the client ID alias was used when the token request was made.
+
+            `true` if the client ID alias was used when the token request was made.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= resource owner''s ID) of the access token.
+
+            Even if an access token has been issued by calling `/api/auth/token` API, this parameter is `null` if the flow of the token request was
+
+            [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means
+
+            the access token is not associated with any specific end-user.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: The scopes covered by the access token.
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The extra properties associated with the access token.
+
+            This parameter is `null` when no extra property is associated with the issued access token.
+
+            '
+        jwtAccessToken:
+          type: string
+          description: 'The newly issued access token in JWT format. If the authorization server is configured to issue JWT-based access tokens
+
+            (= if the service''s `accessTokenSignAlg` value is a non-null value), a JWT-based access token is issued along with the
+
+            original random-string one.
+
+            '
+        accessTokenResources:
+          type: array
+          items:
+            type: string
+          description: 'The target resources of the access token being issued. See "Resource Indicators for OAuth 2.0" for details.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        serviceAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/pair'
+          description: 'The attributes of this service that the client application belongs to.
+
+            '
+        clientAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/pair'
+          description: 'The attributes of the client.
+
+            '
+        clientEntityId:
+          type: string
+          description: 'The entity ID of the client.
+
+            '
+        clientEntityIdUsed:
+          type: boolean
+          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+
+            '
+        refreshTokenScopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the refresh token. May be null.
+
+            '
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: 'The location of the client''s metadata document that was used to resolve client metadata.
+
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+
+            '
+        metadataDocumentUsed:
+          type: boolean
+          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
+
+            '
+    token_issue_request:
+      type: object
+      required:
+      - ticket
+      - subject
+      properties:
+        ticket:
+          type: string
+          description: 'The ticket issued from Authlete `/auth/token` API.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique identifier) of the authenticated user.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'Extra properties to associate with a newly created access token. Note that properties parameter is accepted only
+
+            when `Content-Type` of the request is `application/json`, so don''t use `application/x-www-form-urlencoded`
+
+            if you want to specify properties.
+
+            '
+        jwtAtClaims:
+          type: string
+          description: 'Additional claims that are added to the payload part of the JWT access token.
+
+            '
+        accessToken:
+          type: string
+          description: 'The representation of an access token that may be issued as a result of the Authlete API call.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
+
+            API call.
+
+
+            When this request parameter holds a positive integer, it is used as the duration of the access
+
+            token in. In other cases, this request parameter is ignored.
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
+
+            API call.
+
+
+            When this request parameter holds a positive integer, it is used as the duration of the refresh
+
+            token in. In other cases, this request parameter is ignored.
 
             '
     authorization_details_element:
@@ -2205,38 +2395,7 @@ components:
             The content and semantics are specific to the deployment and the use case implemented.
 
             '
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    scope:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the scope.
-        defaultEntry:
-          type: boolean
-          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
-        description:
-          type: string
-          description: The description about the scope.
-        descriptions:
-          type: array
-          description: The descriptions about this scope in multiple languages.
-          items:
-            $ref: '#/components/schemas/tagged_value'
-        attributes:
-          type: array
-          description: The attributes of the scope.
-          items:
-            $ref: '#/components/schemas/pair'
-    pair:
+    property:
       type: object
       properties:
         key:
@@ -2245,78 +2404,13 @@ components:
         value:
           type: string
           description: The value part.
-    cimd_options:
-      type: object
-      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
-
-
-        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
-
-        '
-      properties:
-        alwaysRetrieved:
+        hidden:
           type: boolean
-          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
 
-
-            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
-
-
-            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
-
-
-            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
-
-
-            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
 
             '
-        httpPermitted:
-          type: boolean
-          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
-
-
-            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
-
-
-            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
-
-            '
-        queryPermitted:
-          type: boolean
-          description: 'Whether to allow a query component in client IDs in the CIMD context.
-
-
-            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
-
-            '
-    token_type:
-      type: string
-      description: 'The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
-
-        The API returns short codes (enum constant names) in response fields.
-
-        '
-      enum:
-      - JWT
-      - ACCESS_TOKEN
-      - REFRESH_TOKEN
-      - ID_TOKEN
-      - SAML1
-      - SAML2
-      - DEVICE_SECRET
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
     token_request:
       type: object
       required:
@@ -2482,127 +2576,7 @@ components:
             These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
 
             '
-    idtoken_reissue_request:
-      type: object
-      required:
-      - accessToken
-      - refreshToken
-      properties:
-        accessToken:
-          type: string
-          description: 'The value of this parameter should be (a) the value of the
-
-            "`jwtAccessToken`" parameter in a response from the
-
-            `/auth/token` API when the value is available, or (b)
-
-            the value of the "`accessToken`" parameter in the
-
-            response from the `/auth/token` API when the value of
-
-            the "`jwtAccessToken`" parameter is not available.
-
-            '
-        refreshToken:
-          type: string
-          description: 'The value of this parameter should be the value of the
-
-            "`refreshToken`" parameter in a response from the
-
-            `/auth/token` API.
-
-            '
-        sub:
-          type: string
-          description: 'The value that should be used as the value of the "`sub`"
-
-            claim of the ID token.
-
-            This parameter is optional. When omitted, the value of the subject
-
-            associated with the access token is used.
-
-            '
-        claims:
-          type: string
-          description: 'Additional claims that should be embedded in the payload part of
-
-            the ID token. The format is a JSON object.
-
-            This parameter is optional.
-
-            '
-        idtHeaderParams:
-          type: string
-          description: 'Additional parameters that should be embedded in the JWS header of
-
-            the ID token. The format is a JSON object.
-
-            This parameter is optional.
-
-            '
-        idTokenAudType:
-          type: string
-          description: 'The type of the "`aud`" claim of the ID token being issued.
-
-            Valid values of this parameter are as follows.
-
-            > | Value | Description |
-
-            > | --- | --- |
-
-            > | "`array`" | The type of the `aud` claim becomes an array of strings. |
-
-            > | "`string`" | The type of the `aud` claim becomes a single string. |
-
-            This parameter is optional, and the default value on omission is
-
-            "`array`".
-
-            This parameter takes precedence over the `idTokenAudType` property
-
-            of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
-
-            '
-    token_fail_request:
-      type: object
-      required:
-      - ticket
-      - reason
-      properties:
-        ticket:
-          type: string
-          description: 'The ticket issued from Authlete `/auth/token` API.
-
-            '
-        reason:
-          type: string
-          enum:
-          - UNKNOWN
-          - INVALID_RESOURCE_OWNER_CREDENTIALS
-          - INVALID_TARGET
-          description: 'The reason of the failure of the token request.
-
-            '
   responses:
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
     '400':
       description: ''
       content:
@@ -2621,6 +2595,24 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http

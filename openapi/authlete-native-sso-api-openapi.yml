@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Authlete Authorization Endpoint Native SSO API
-  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  title: Authlete Native SSO API
+  description: Welcome to the **Authlete API documentation**.
   version: 3.0.16
   license:
     name: Apache 2.0
@@ -27,7 +27,7 @@ paths:
       summary: Native SSO Processing
       description: 'This API should be called by the implementation of a token endpoint to generate the ID token and
 
-        token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+        token response that comply with OpenID Connect Native SSO for Mobile Apps 1.0
 
         (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate
 
@@ -35,9 +35,7 @@ paths:
 
         implementation should retrieve the value of `action` from the response and take the following steps
 
-        according to the value.
-
-        '
+        according to the value.'
       x-mint:
         metadata:
           description: This API should be called by the implementation of a token endpoint to generate the ID token and token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate the session id and verify or generate the device secret as required by the flow). The token endpoint implementation should retrieve the value of `action` from the response and take the following steps according to the value.
@@ -206,15 +204,13 @@ paths:
       summary: Native SSO Logout Processing
       description: 'The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications"
 
-        in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+        in the context of OpenID Connect Native SSO for Mobile Apps 1.0
 
         (Native SSO). This is accomplished by deleting access/refresh token records associated with the
 
         specified session ID. In Authlete''s implementation, access/refresh token records can be associated
 
-        with a session ID only through the mechanism introduced by Native SSO.
-
-        '
+        with a session ID only through the mechanism introduced by Native SSO.'
       x-mint:
         metadata:
           description: The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications" in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO). This is accomplished by deleting access/refresh token records associated with the specified session ID. In Authlete's implementation, access/refresh token records can be associated with a session ID only through the mechanism introduced by Native SSO.
@@ -316,6 +312,43 @@ paths:
       tags:
       - Native SSO
 components:
+  responses:
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
   schemas:
     native_sso_request:
       type: object
@@ -410,16 +443,15 @@ components:
             is omitted, the value of the `deviceSecret` request parameter is used to compute the hash.
 
             '
-    native_sso_logout_request:
+    result:
       type: object
-      required:
-      - sessionId
       properties:
-        sessionId:
+        resultCode:
           type: string
-          description: 'The session ID of a user''s authentication session.
-
-            '
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
     native_sso_logout_response:
       type: object
       properties:
@@ -441,6 +473,16 @@ components:
         count:
           type: integer
           description: 'The number of deleted access/refresh token records.
+
+            '
+    native_sso_logout_request:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+          description: 'The session ID of a user''s authentication session.
 
             '
     native_sso_response:
@@ -473,52 +515,6 @@ components:
           description: 'The issued ID token.
 
             '
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-  responses:
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
   links:
     token_exchange:
       operationId: auth_token_api

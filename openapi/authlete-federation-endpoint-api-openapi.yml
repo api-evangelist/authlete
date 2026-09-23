@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Authlete Authorization Endpoint Federation Endpoint API
-  description: "Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the \nplatform is configurable via API. This documentation will help you authenticate and integrate with Authlete to \nbuild powerful OAuth 2.0 and OpenID Connect servers.\n\nAt a high level, the Authlete API is grouped into two categories:\n\n- **Management APIs**: Enable you to manage services and clients.\n- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.\n\n## \U0001F310 API Servers\n\nAuthlete is a global service with clusters available in multiple regions across the world:\n\n- \U0001F1FA\U0001F1F8 **US**: `https://us.authlete.com`\n- \U0001F1EF\U0001F1F5 **Japan**: `https://jp.authlete.com`\n- \U0001F1EA\U0001F1FA **Europe**: `https://eu.authlete.com`\n- \U0001F1E7\U0001F1F7 **Brazil**: `https://br.authlete.com`\n\nOur customers can host their data in the region that best meets their requirements.\n\n## \U0001F511 Authentication\n\nAll API endpoints are secured using **Bearer token authentication**. You must include an access token in every request:\n\n```\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n```\n\n### Getting Your Access Token\n\nAuthlete supports two types of access tokens:\n\n**Service Access Token** - Scoped to a single service (authorization server instance)\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to your service → **Settings** → **Access Tokens**\n3. Click **Create Token** and select permissions (e.g., `service.read`, `client.write`)\n4. Copy the generated token\n\n**Organization Token** - Scoped to your entire organization\n\n1. Log in to [Authlete Console](https://console.authlete.com)\n2. Navigate to **Organization Settings** → **Access Tokens**\n3. Click **Create Token** and select org-level permissions\n4. Copy the generated token\n\n> ⚠️ **Important Note**: Tokens inherit the permissions of the account that creates them. Service tokens can only \n> access their specific service, while organization tokens can access all services within your org.\n\n### Token Security Best Practices\n\n- **Never commit tokens to version control** - Store in environment variables or secure secret managers\n- **Rotate regularly** - Generate new tokens periodically and revoke old ones\n- **Scope appropriately** - Request only the permissions your application needs\n- **Revoke unused tokens** - Delete tokens you're no longer using from the console\n\n### Quick Test\n\nVerify your token works with a simple API call:\n\n```bash\ncurl -X GET https://us.authlete.com/api/service/get/list \\\n  -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\"\n```\n\n## \U0001F393 Tutorials\n\nIf you're new to Authlete or want to see sample implementations, these resources will help you get started:\n\n- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)\n- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)\n\n## \U0001F6E0 Contact Us\n\nIf you have any questions or need assistance, our team is here to help:\n\n- [Contact Page](https://www.authlete.com/contact/)\n"
+  title: Authlete Federation Endpoint API
+  description: Welcome to the **Authlete API documentation**.
   version: 3.0.16
   license:
     name: Apache 2.0
@@ -33,9 +33,7 @@ paths:
 
         response parameter from the API response and take the following steps
 
-        according to the value.
-
-        '
+        according to the value.'
       x-mint:
         metadata:
           description: This API gathers the federation configuration about a service. The authorization server implementation should retrieve the value of the `action` response parameter from the API response and take the following steps according to the value.
@@ -224,7 +222,7 @@ paths:
 
         endpoint** that accepts "explicit client registration". Its details are
 
-        defined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).
+        defined in OpenID Connect Federation 1.0.
 
         The endpoint accepts `POST` requests whose `Content-Type`
 
@@ -260,9 +258,7 @@ paths:
 
         `/federation/registration` API with the trust chain set to the
 
-        `trustChain` request parameter.
-
-        '
+        `trustChain` request parameter.'
       parameters:
       - in: path
         name: serviceId
@@ -299,28 +295,97 @@ paths:
       - Federation Endpoint
 components:
   schemas:
-    grant_type:
+    federation_registration_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - BAD_REQUEST
+          - NOT_FOUND
+          - INTERNAL_SERVER_ERROR
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+
+            header on errors.
+
+            '
+        client:
+          $ref: '#/components/schemas/client'
+    federation_registration_request:
+      type: object
+      properties:
+        entityConfiguration:
+          type: string
+          description: 'The entity configuration of a relying party.
+
+            '
+        trustChain:
+          type: string
+          description: 'The trust chain of a relying party.
+
+            '
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    jws_alg:
+      type:
+      - string
+      - 'null'
+      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
+      enum:
+      - NONE
+      - HS256
+      - HS384
+      - HS512
+      - RS256
+      - RS384
+      - RS512
+      - ES256
+      - ES384
+      - ES512
+      - PS256
+      - PS384
+      - PS512
+      - ES256K
+      - EdDSA
+    application_type:
       type: string
-      description: 'The grant type of the access token when the access token was created.
+      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
+
+        See the description about `redirectUris` property for more details.
 
         '
       enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
-    client_registration_type:
-      type: string
-      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
+      - WEB
+      - NATIVE
+    jwe_enc:
+      type:
+      - string
+      - 'null'
+      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
       enum:
-      - AUTOMATIC
-      - EXPLICIT
+      - A128CBC_HS256
+      - A192CBC_HS384
+      - A256CBC_HS512
+      - A128GCM
+      - A192GCM
+      - A256GCM
     client_extension:
       type: object
       properties:
@@ -410,6 +475,103 @@ components:
             permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
 
             '
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    jwe_alg:
+      type:
+      - string
+      - 'null'
+      description: 'this is the ''alg'' header value for encrypted JWT tokens.
+
+        Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
+
+        - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
+
+        - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
+
+        - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
+
+
+        **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
+
+        '
+      enum:
+      - RSA1_5
+      - RSA_OAEP
+      - RSA_OAEP_256
+      - A128KW
+      - A192KW
+      - A256KW
+      - DIR
+      - ECDH_ES
+      - ECDH_ES_A128KW
+      - ECDH_ES_A192KW
+      - ECDH_ES_A256KW
+      - A128GCMKW
+      - A192GCMKW
+      - A256GCMKW
+      - PBES2_HS256_A128KW
+      - PBES2_HS384_A192KW
+      - PBES2_HS512_A256KW
+    client_registration_type:
+      type: string
+      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
+      enum:
+      - AUTOMATIC
+      - EXPLICIT
+    client_type:
+      type: string
+      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+
+        for details.
+
+        '
+      enum:
+      - PUBLIC
+      - CONFIDENTIAL
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    response_type:
+      type: string
+      enum:
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
     client:
       type: object
       additionalProperties: true
@@ -964,13 +1126,10 @@ components:
 
               '
         userInfoSignAlg:
-          nullable: true
           $ref: '#/components/schemas/jws_alg'
         userInfoEncryptionAlg:
-          nullable: true
           $ref: '#/components/schemas/jwe_alg'
         userInfoEncryptionEnc:
-          nullable: true
           $ref: '#/components/schemas/jwe_enc'
         loginUri:
           type: string
@@ -1458,52 +1617,24 @@ components:
           - EXPLICIT_REGISTRATION
           - METADATA_DOCUMENT
           - STATIC_REGISTRATION
-    response_type:
+    client_auth_method:
       type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    jwe_alg:
-      type: string
-      nullable: true
-      description: 'this is the ''alg'' header value for encrypted JWT tokens.
+      description: 'The client authentication method that the client application declares that it uses at the token
 
-        Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
 
-        - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
-
-        - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
-
-        - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
-
-
-        **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
 
         '
       enum:
-      - RSA1_5
-      - RSA_OAEP
-      - RSA_OAEP_256
-      - A128KW
-      - A192KW
-      - A256KW
-      - DIR
-      - ECDH_ES
-      - ECDH_ES_A128KW
-      - ECDH_ES_A192KW
-      - ECDH_ES_A256KW
-      - A128GCMKW
-      - A192GCMKW
-      - A256GCMKW
-      - PBES2_HS256_A128KW
-      - PBES2_HS384_A192KW
-      - PBES2_HS512_A256KW
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
     tagged_value:
       type: object
       properties:
@@ -1536,141 +1667,6 @@ components:
             Its format varies depending on the value of `action` parameter.
 
             '
-    jws_alg:
-      type: string
-      nullable: true
-      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
-      enum:
-      - NONE
-      - HS256
-      - HS384
-      - HS512
-      - RS256
-      - RS384
-      - RS512
-      - ES256
-      - ES384
-      - ES512
-      - PS256
-      - PS384
-      - PS512
-      - ES256K
-      - EdDSA
-    application_type:
-      type: string
-      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
-
-        See the description about `redirectUris` property for more details.
-
-        '
-      enum:
-      - WEB
-      - NATIVE
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    federation_registration_request:
-      type: object
-      properties:
-        entityConfiguration:
-          type: string
-          description: 'The entity configuration of a relying party.
-
-            '
-        trustChain:
-          type: string
-          description: 'The trust chain of a relying party.
-
-            '
-    federation_registration_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - BAD_REQUEST
-          - NOT_FOUND
-          - INTERNAL_SERVER_ERROR
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
-
-            header on errors.
-
-            '
-        client:
-          $ref: '#/components/schemas/client'
-    client_type:
-      type: string
-      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
-
-        for details.
-
-        '
-      enum:
-      - PUBLIC
-      - CONFIDENTIAL
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    jwe_enc:
-      type: string
-      nullable: true
-      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
-      enum:
-      - A128CBC_HS256
-      - A192CBC_HS384
-      - A256CBC_HS512
-      - A128GCM
-      - A192GCM
-      - A256GCM
-    client_auth_method:
-      type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    pair:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
     subject_type:
       type: string
       description: 'The subject type that the client application requests. Details about the subject type are described in
@@ -1687,24 +1683,6 @@ components:
       - PUBLIC
       - PAIRWISE
   responses:
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
     '400':
       description: ''
       content:
@@ -1723,6 +1701,24 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http

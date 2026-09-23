@@ -1,27 +1,7 @@
 {
   "provider": "authlete",
   "sources": [
-    "authlete-authorization-endpoint-api-openapi.yml",
-    "authlete-ciba-api-openapi.yml",
-    "authlete-client-management-api-openapi.yml",
-    "authlete-device-flow-api-openapi.yml",
-    "authlete-dynamic-client-registration-api-openapi.yml",
-    "authlete-federation-endpoint-api-openapi.yml",
-    "authlete-grant-management-endpoint-api-openapi.yml",
-    "authlete-hardware-security-key-api-openapi.yml",
-    "authlete-introspection-endpoint-api-openapi.yml",
-    "authlete-jose-object-api-openapi.yml",
-    "authlete-jwk-set-endpoint-api-openapi.yml",
-    "authlete-lifecycle-api-openapi.yml",
-    "authlete-native-sso-api-openapi.yml",
-    "authlete-pushed-authorization-endpoint-api-openapi.yml",
-    "authlete-revocation-endpoint-api-openapi.yml",
-    "authlete-service-management-api-openapi.yml",
-    "authlete-token-endpoint-api-openapi.yml",
-    "authlete-token-operations-api-openapi.yml",
-    "authlete-userinfo-endpoint-api-openapi.yml",
-    "authlete-utility-endpoints-api-openapi.yml",
-    "authlete-verifiable-credential-issuer-api-openapi.yml"
+    "_original/authlete-openapi-original.yml"
   ],
   "outputs": [
     "authlete-authorization-endpoint-api-openapi.yml",
@@ -33,8 +13,8 @@
     "authlete-grant-management-endpoint-api-openapi.yml",
     "authlete-hardware-security-key-api-openapi.yml",
     "authlete-introspection-endpoint-api-openapi.yml",
-    "authlete-jose-object-api-openapi.yml",
     "authlete-jwk-set-endpoint-api-openapi.yml",
+    "authlete-jose-object-api-openapi.yml",
     "authlete-lifecycle-api-openapi.yml",
     "authlete-native-sso-api-openapi.yml",
     "authlete-pushed-authorization-endpoint-api-openapi.yml",
@@ -49,6 +29,33 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "authlete-openapi-original.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "authlete-openapi-original.yml: declared missing tag: Lifecycle",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "authlete-authorization-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-ciba-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-client-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-device-flow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-dynamic-client-registration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-federation-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-grant-management-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-hardware-security-key-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-introspection-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-jose-object-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-jwk-set-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-lifecycle-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-native-sso-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-pushed-authorization-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-revocation-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-service-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-token-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-token-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-userinfo-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-utility-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authlete-verifiable-credential-issuer-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
