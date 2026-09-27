@@ -1301,6 +1301,190 @@ paths:
       - Service Management
 components:
   schemas:
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    sns_credentials:
+      type: object
+      properties:
+        sns:
+          type: string
+          description: SNS.
+        apiKey:
+          type: string
+          description: API key.
+        apiSecret:
+          type: string
+          description: API secret.
+    named_uri:
+      type: object
+      properties:
+        name:
+          type: string
+        uri:
+          type: string
+          format: uri
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    delivery_mode:
+      type: string
+      enum:
+      - PING
+      - POLL
+      - PUSH
+    client_auth_method:
+      type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
+    client_registration_type:
+      type: string
+      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
+      enum:
+      - AUTOMATIC
+      - EXPLICIT
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    prompt:
+      type: string
+      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
+
+
+        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
+
+
+        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
+
+        '
+      enum:
+      - NONE
+      - LOGIN
+      - CONSENT
+      - SELECT_ACCOUNT
+      - CREATE
+    user_code_charset:
+      type: string
+      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
+
+        '
+      enum:
+      - BASE20
+      - NUMERIC
+    credential_issuer_metadata:
+      type: object
+      properties:
+        authorizationServers:
+          type: array
+          items:
+            type: string
+          description: 'The identifiers of the authorization servers that the credential issuer relies on for authorization.
+
+            This property corresponds to the authorization_servers metadata. When the credential issuer works
+
+            as an authorization server for itself, this property should be omitted.
+
+            '
+        credentialIssuer:
+          type: string
+          description: The identifier of a credential request.
+        credentialEndpoint:
+          type: string
+          format: uri
+          description: The URL of the credential endpoint of the credential issuer.
+        batchCredentialEndpoint:
+          type: string
+          format: uri
+          description: The URL of the batch credential endpoint of the credential issuer.
+        deferredCredentialEndpoint:
+          type: string
+          description: The URL of the deferred credential endpoint of the credential issuer.
+        credentialsSupported:
+          type: string
+          description: 'A JSON object describing supported credential configurations.
+
+            This property corresponds to the credential_configurations_supported metadata.
+
+            Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
+
+            '
+        credentialResponseEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+          description: 'The supported JWE `alg` algorithms for credential response encryption. This property corresponds
+
+            to the `credential_response_encryption.alg_values_supported` metadata.
+
+            '
+        credentialResponseEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+          description: 'The supported JWE `enc` algorithms for credential response encryption. This property corresponds
+
+            to the `credential_response_encryption.enc_values_supported` metadata.
+
+            '
+        requireCredentialResponseEncryption:
+          type: boolean
+          description: 'The boolean flag indicating whether credential response encryption is required. This property
+
+            corresponds to the `credential_response_encryption.encryption_required metadata`. If this flag
+
+            is `true`, every credential request to the credential issuer must include the `credential_response_encryption`
+
+            property.
+
+            '
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
     hsk:
       type: object
       description: 'Holds information about a key managed in an HSM (Hardware Security Module)
@@ -1354,6 +1538,62 @@ components:
             encryption algorithm such as `"RSA-OAEP-256"`.
 
             '
+    response_type:
+      type: string
+      enum:
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    claim_type:
+      type: string
+      enum:
+      - NORMAL
+      - AGGREGATED
+      - DISTRIBUTED
+    trust_anchor:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: 'the entity ID of the trust anchor
+
+            '
+        jwks:
+          type: string
+          description: 'the JWK Set document containing public keys of the trust anchor
+
+            '
+    service_profile:
+      type: string
+      enum:
+      - FAPI
+      - OPEN_BANKING
+    jws_alg:
+      type:
+      - string
+      - 'null'
+      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
+      enum:
+      - NONE
+      - HS256
+      - HS384
+      - HS512
+      - RS256
+      - RS384
+      - RS512
+      - ES256
+      - ES384
+      - ES512
+      - PS256
+      - PS384
+      - PS512
+      - ES256K
+      - EdDSA
     service:
       type: object
       example:
@@ -3709,143 +3949,14 @@ components:
             OAuth 2.0 Attestation-Based Client Authentication.
 
             '
-    prompt:
+    verified_claims_validation_schema:
       type: string
-      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
-
-
-        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
-
-
-        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
+      description: 'The verified claims validation schema set.
 
         '
       enum:
-      - NONE
-      - LOGIN
-      - CONSENT
-      - SELECT_ACCOUNT
-      - CREATE
-    user_code_charset:
-      type: string
-      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
-
-        '
-      enum:
-      - BASE20
-      - NUMERIC
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    credential_issuer_metadata:
-      type: object
-      properties:
-        authorizationServers:
-          type: array
-          items:
-            type: string
-          description: 'The identifiers of the authorization servers that the credential issuer relies on for authorization.
-
-            This property corresponds to the authorization_servers metadata. When the credential issuer works
-
-            as an authorization server for itself, this property should be omitted.
-
-            '
-        credentialIssuer:
-          type: string
-          description: The identifier of a credential request.
-        credentialEndpoint:
-          type: string
-          format: uri
-          description: The URL of the credential endpoint of the credential issuer.
-        batchCredentialEndpoint:
-          type: string
-          format: uri
-          description: The URL of the batch credential endpoint of the credential issuer.
-        deferredCredentialEndpoint:
-          type: string
-          description: The URL of the deferred credential endpoint of the credential issuer.
-        credentialsSupported:
-          type: string
-          description: 'A JSON object describing supported credential configurations.
-
-            This property corresponds to the credential_configurations_supported metadata.
-
-            Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
-
-            '
-        credentialResponseEncryptionAlgValuesSupported:
-          type: array
-          items:
-            type: string
-          description: 'The supported JWE `alg` algorithms for credential response encryption. This property corresponds
-
-            to the `credential_response_encryption.alg_values_supported` metadata.
-
-            '
-        credentialResponseEncryptionEncValuesSupported:
-          type: array
-          items:
-            type: string
-          description: 'The supported JWE `enc` algorithms for credential response encryption. This property corresponds
-
-            to the `credential_response_encryption.enc_values_supported` metadata.
-
-            '
-        requireCredentialResponseEncryption:
-          type: boolean
-          description: 'The boolean flag indicating whether credential response encryption is required. This property
-
-            corresponds to the `credential_response_encryption.encryption_required metadata`. If this flag
-
-            is `true`, every credential request to the credential issuer must include the `credential_response_encryption`
-
-            property.
-
-            '
-    jws_alg:
-      type:
-      - string
-      - 'null'
-      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
-      enum:
-      - NONE
-      - HS256
-      - HS384
-      - HS512
-      - RS256
-      - RS384
-      - RS512
-      - ES256
-      - ES384
-      - ES512
-      - PS256
-      - PS384
-      - PS512
-      - ES256K
-      - EdDSA
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
+      - standard
+      - standard+id_document
     scope:
       type: object
       properties:
@@ -3868,75 +3979,6 @@ components:
           description: The attributes of the scope.
           items:
             $ref: '#/components/schemas/pair'
-    delivery_mode:
-      type: string
-      enum:
-      - PING
-      - POLL
-      - PUSH
-    trust_anchor:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: 'the entity ID of the trust anchor
-
-            '
-        jwks:
-          type: string
-          description: 'the JWK Set document containing public keys of the trust anchor
-
-            '
-    claim_type:
-      type: string
-      enum:
-      - NORMAL
-      - AGGREGATED
-      - DISTRIBUTED
-    client_registration_type:
-      type: string
-      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
-      enum:
-      - AUTOMATIC
-      - EXPLICIT
-    attachment_type:
-      type: string
-      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
-      enum:
-      - EMBEDDED
-      - EXTERNAL
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    response_type:
-      type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    sns_credentials:
-      type: object
-      properties:
-        sns:
-          type: string
-          description: SNS.
-        apiKey:
-          type: string
-          description: API key.
-        apiSecret:
-          type: string
-          description: API secret.
     pair:
       type: object
       properties:
@@ -3970,54 +4012,12 @@ components:
       - POPUP
       - TOUCH
       - WAP
-    client_auth_method:
+    attachment_type:
       type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
+      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
       enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    named_uri:
-      type: object
-      properties:
-        name:
-          type: string
-        uri:
-          type: string
-          format: uri
-    service_profile:
-      type: string
-      enum:
-      - FAPI
-      - OPEN_BANKING
-    verified_claims_validation_schema:
-      type: string
-      description: 'The verified claims validation schema set.
-
-        '
-      enum:
-      - standard
-      - standard+id_document
+      - EMBEDDED
+      - EXTERNAL
     service_get_list_response:
       type: object
       properties:
@@ -4053,33 +4053,6 @@ components:
 
             '
   responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
     '403':
       description: ''
       content:
@@ -4089,19 +4062,46 @@ components:
           example:
             resultCode: A001215
             resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
   links:
-    service_create:
-      operationId: service_create_api
+    service_update:
+      operationId: service_update_api
+      parameters:
+        serviceId: $request.path.serviceId
     service_delete:
       operationId: service_delete_api
       parameters:
         serviceId: $request.path.serviceId
     service_get_list:
       operationId: service_get_list_api
-    service_update:
-      operationId: service_update_api
-      parameters:
-        serviceId: $request.path.serviceId
+    service_create:
+      operationId: service_create_api
   securitySchemes:
     bearer:
       type: http

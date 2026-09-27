@@ -65,94 +65,7 @@ paths:
       tags:
       - Grant Management Endpoint
 components:
-  responses:
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
   schemas:
-    g_m_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - NO_CONTENT
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - NOT_FOUND
-          - CALLER_ERROR
-          - AUTHLETE_ERROR
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter.
-
-            '
-        dpopNonce:
-          type: string
-          description: 'Get the expected nonce value for DPoP proof JWT, which should be used
-
-            as the value of the `DPoP-Nonce` HTTP header.
-
-            '
-    grant_management_action:
-      type: string
-      description: 'The grant management action of the device authorization request.
-
-
-        The `grant_management_action` request parameter is defined in
-
-        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
-
-        '
-      enum:
-      - CREATE
-      - QUERY
-      - REPLACE
-      - REVOKE
-      - MERGE
     result:
       type: object
       properties:
@@ -236,6 +149,93 @@ components:
             JWT includes the expected `nonce` value.
 
             '
+    g_m_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - NO_CONTENT
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - NOT_FOUND
+          - CALLER_ERROR
+          - AUTHLETE_ERROR
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter.
+
+            '
+        dpopNonce:
+          type: string
+          description: 'Get the expected nonce value for DPoP proof JWT, which should be used
+
+            as the value of the `DPoP-Nonce` HTTP header.
+
+            '
+    grant_management_action:
+      type: string
+      description: 'The grant management action of the device authorization request.
+
+
+        The `grant_management_action` request parameter is defined in
+
+        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+
+        '
+      enum:
+      - CREATE
+      - QUERY
+      - REPLACE
+      - REVOKE
+      - MERGE
+  responses:
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
   securitySchemes:
     bearer:
       type: http

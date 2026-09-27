@@ -331,45 +331,8 @@ paths:
       tags:
       - Revocation Endpoint
 components:
-  responses:
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
   schemas:
-    revocation_response:
+    result:
       type: object
       properties:
         resultCode:
@@ -378,21 +341,6 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - INVALID_CLIENT
-          - BAD_REQUEST
-          - OK
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter.
-
-            '
     revocation_request:
       type: object
       required:
@@ -462,7 +410,7 @@ components:
             of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
 
             '
-    result:
+    revocation_response:
       type: object
       properties:
         resultCode:
@@ -471,6 +419,58 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - INVALID_CLIENT
+          - BAD_REQUEST
+          - OK
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter.
+
+            '
+  responses:
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
   securitySchemes:
     bearer:
       type: http

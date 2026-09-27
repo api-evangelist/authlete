@@ -167,6 +167,138 @@ paths:
       - Hardware Security Key
 components:
   schemas:
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    hsk_delete_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    hsk_create_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call.
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    hsk_get_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - NOT_FOUND
+          - SERVER_ERROR
+          description: Result of the API call
+        hsk:
+          $ref: '#/components/schemas/hsk'
+    hsk_get_list_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - SUCCESS
+          - INVALID_REQUEST
+          - SERVER_ERROR
+          description: Result of the API call
+        hsks:
+          type: array
+          items:
+            $ref: '#/components/schemas/hsk'
+          description: List of HSK
+    hsk_create_request:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: 'The key type (EC or RSA)
+
+            '
+        use:
+          type: string
+          description: 'The key on the HSM.
+
+            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
+
+            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
+
+            '
+        kid:
+          type: string
+          description: 'Key ID for the key on the HSM.
+
+            '
+        hsmName:
+          type: string
+          description: 'The name of the HSM.
+
+            The identifier for the HSM that sits behind the Authlete server. For example, "google".
+
+            '
+        alg:
+          type: string
+          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a signing
+
+            algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an encryption
+
+            algorithm such as `"RSA-OAEP-256"`.
+
+
+            It is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).
+
+            When the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API
+
+            fails.
+
+            '
     hsk:
       type: object
       description: 'Holds information about a key managed in an HSM (Hardware Security Module)
@@ -220,139 +352,16 @@ components:
             encryption algorithm such as `"RSA-OAEP-256"`.
 
             '
-    hsk_get_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - SUCCESS
-          - INVALID_REQUEST
-          - NOT_FOUND
-          - SERVER_ERROR
-          description: Result of the API call
-        hsk:
-          $ref: '#/components/schemas/hsk'
-    hsk_create_request:
-      type: object
-      properties:
-        kty:
-          type: string
-          description: 'The key type (EC or RSA)
-
-            '
-        use:
-          type: string
-          description: 'The key on the HSM.
-
-            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
-
-            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
-
-            '
-        kid:
-          type: string
-          description: 'Key ID for the key on the HSM.
-
-            '
-        hsmName:
-          type: string
-          description: 'The name of the HSM.
-
-            The identifier for the HSM that sits behind the Authlete server. For example, "google".
-
-            '
-        alg:
-          type: string
-          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a signing
-
-            algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an encryption
-
-            algorithm such as `"RSA-OAEP-256"`.
-
-
-            It is rare that HSMs support all the algorithms listed in [RFC 7518 JSON Web Algorithms (JWA)](https://www.rfc-editor.org/rfc/rfc7518.html).
-
-            When the specified algorithm is not supported by the HSM, the request to the `/hsk/create` API
-
-            fails.
-
-            '
-    hsk_create_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - SUCCESS
-          - INVALID_REQUEST
-          - NOT_FOUND
-          - SERVER_ERROR
-          description: Result of the API call.
-        hsk:
-          $ref: '#/components/schemas/hsk'
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    hsk_get_list_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - SUCCESS
-          - INVALID_REQUEST
-          - SERVER_ERROR
-          description: Result of the API call
-        hsks:
-          type: array
-          items:
-            $ref: '#/components/schemas/hsk'
-          description: List of HSK
-    hsk_delete_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - SUCCESS
-          - INVALID_REQUEST
-          - NOT_FOUND
-          - SERVER_ERROR
-          description: Result of the API call
-        hsk:
-          $ref: '#/components/schemas/hsk'
   responses:
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
     '500':
       description: ''
       content:
@@ -371,15 +380,6 @@ components:
           example:
             resultCode: A001215
             resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
     '401':
       description: ''
       content:
