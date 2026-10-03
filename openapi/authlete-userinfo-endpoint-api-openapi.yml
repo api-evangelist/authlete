@@ -665,63 +665,67 @@ paths:
       - UserInfo Endpoint
 components:
   schemas:
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    property:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
-    userinfo_issue_request:
+    userinfo_request:
       type: object
       required:
       - token
       properties:
         token:
           type: string
-          description: 'The access token that has been passed to the userinfo endpoint by the client application. In other words,
-
-            the access token which was contained in the userinfo request.
+          description: 'An access token.
 
             '
-        claims:
+        clientCertificate:
           type: string
-          description: 'Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
+          description: 'Client certificate used in the TLS connection established between the client application and the userinfo endpoint.
+
+
+            The value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to
+
+            a client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]
+
+            (https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.
 
             '
-        sub:
+        dpop:
           type: string
-          description: 'The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of
+          description: '`DPoP` header presented by the client during the request to the user info endpoint.
 
-            the `sub` claim. Otherwise, the value of the subject associated with the access token is used.
+
+            The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.
+
+            See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
+
+            for details.
 
             '
-        claimsForTx:
+        htm:
           type: string
-          description: 'Claim key-value pairs that are used to compute transformed claims.
+          description: 'HTTP method of the user info request. This field is used to validate the DPoP header.
+
+            In normal cases, the value is either `GET` or `POST`.
 
             '
-        requestSignature:
+        htu:
           type: string
-          description: 'The Signature header value from the request.
+          description: 'URL of the user info endpoint. This field is used to validate the DPoP header.
+
+
+            If this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.
+
+            See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
+
+            for details.
+
+            '
+        uri:
+          type: string
+          description: 'The full URL of the userinfo endpoint.
+
+            '
+        message:
+          type: string
+          description: 'The HTTP message body of the request, if present.
 
             '
         headers:
@@ -733,26 +737,138 @@ components:
             Signature and Signature-Input headers, as well as any additional headers covered by the signature.
 
             '
-        verifiedClaimsForTx:
-          type: array
-          items:
-            type: string
-          description: 'Values of verified claims requested indirectly by "transformed claims".
+        targetUri:
+          type: string
+          description: 'The target URI of the userinfo request, including the query part, if any.
 
             '
           x-mint:
             metadata:
-              description: Values of verified claims requested indirectly by "transformed claims".
-            content: "<Accordion title=\"Full description\" defaultOpen={false}>\nA client application may request \"transformed claims\". Each of transformed claims uses an existing\nclaim as input. As a result, to compute the value of a transformed claim, the value of the referenced\nexisting claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide\nvalues of existing claims for computation of transformed claims.\n\nA response from the `/auth/userinfo` API may include the `requestedVerifiedClaimsForTx` response\nparameter which is a list of verified claims that are referenced indirectly by transformed claims\n(cf. `requestedVerifiedClaimsForTx` in `/auth/userinfo` API response). The authorization server\nimplementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`\nand pass them as the value of this `verifiedClaimsForTx` request parameter.\n\nThe following is an example of the value of this request parameter.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\",\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n\nThe reason that this `verifiedClaimsForTx` property is an array is that the `\"verified_claims\"`\nproperty in the claims request parameter of an authorization request can be an array like below.\n\n```\n&#123;\n  \"transformed_claims\": &#123;\n    \"nationality_usa\": &#123;\n      \"claim\": \"nationalities\",\n      \"fn\": [\n        [ \"eq\", \"USA\" ],\n        \"any\"\n      ]\n    &#125;\n  &#125;,\n  \"userinfo\": &#123;\n    \"verified_claims\": [\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"gold\" &#125; &#125;,\n        \"claims\": &#123; \"::18_or_above\": null &#125;\n      &#125;,\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"silver\" &#125; &#125;,\n        \"claims\": &#123; \":nationality_usa\": null &#125;\n      &#125;\n    ]\n  &#125;\n&#125;\n```\n\nFor the example above, the value of this `verifiedClaimsForTx` property should be an array of\nsize 2 and look like below. The first element is JSON including claims which have been verified\nunder the trust framework `\"gold\"`, and the second element is JSON including claims which have\nbeen verified under the trust framework `\"silver\"`.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\"&#125;\",\n  \"&#123;\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n</Accordion>\n"
-    pair:
+              description: The target URI of the userinfo request, including the query part, if any.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              This parameter is used as the value of the `@target-uri` derived component for HTTP message signatures
+
+              ([RFC 9421 HTTP Message Signatures, Section 2.2.2. Target URI](https://www.rfc-editor.org/rfc/rfc9421.html#section-2.2.2)).
+
+              Additionally, other derived components such as `@authority`, `@scheme`, `@path`, `@query` and
+
+              `@query-param` are computed from this parameter.
+
+
+              When this parameter is omitted, the value of the `htu` parameter is used. The `htu` parameter
+
+              represents the URL of the userinfo endpoint, which usually serves as the target URI of the userinfo request.
+
+              The only exception is when the access token is specified as a query parameter, as defined in
+
+              [RFC 6750 Section 2.3](https://www.rfc-editor.org/rfc/rfc6750.html#section-2.3). However, RFC 6750
+
+              states that this method "SHOULD NOT be used" unless other methods are not viable.
+
+
+              If neither this `targetUri` parameter nor the `htu` parameter is specified, the `userInfoEndpoint`
+
+              property of the service is used as a fallback.
+
+              </Accordion>
+
+              '
+        dpopNonceRequired:
+          type: boolean
+          description: 'The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.
+
+
+            If this request parameter is set to `true` or if the service''s `dpopNonceRequired` property is
+
+            set to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`
+
+            value. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response
+
+            parameter, which should be used as the value of the DPoP-Nonce HTTP header.
+
+            '
+        requestBodyContained:
+          type: boolean
+          description: 'The flag indicating whether the userinfo request contains a request body.
+
+            '
+          x-mint:
+            metadata:
+              description: The flag indicating whether the userinfo request contains a request body.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              When the userinfo request must comply with the HTTP message signing requirements defined in the
+
+              FAPI 2.0 Message Signing specification, the `"content-digest"` component identifier must be included
+
+              in the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))
+
+              if the userinfo request contains a request body.
+
+
+              When this `requestBodyContained` parameter is set to `true`, Authlete checks whether `"content-digest"`
+
+              is included in the signature base, if the FAPI profile applies to the userinfo request.
+
+
+              NOTE: The FAPI 2.0 Message Signing specification is not applied to the userinfo endpoint until
+
+              its necessity is agreed upon by the industry (cf. [FAPI Issue 723](https://bitbucket.org/openid/fapi/issues/723)).
+
+              </Accordion>
+
+              '
+    result:
       type: object
       properties:
-        key:
+        resultCode:
           type: string
-          description: The key part.
-        value:
+          description: The code which represents the result of the API call.
+        resultMessage:
           type: string
-          description: The value part.
+          description: A short message which explains the result of the API call.
+    userinfo_issue_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - JSON
+          - JWT
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+
+            header on errors.
+
+            '
+        signature:
+          type: string
+          description: 'The signature header of the response message.
+
+            '
+        signatureInput:
+          type: string
+          description: 'The signature-input header of the response message
+
+            '
+        contentDigest:
+          type: string
+          description: 'The content-digest header of the response message
+
+            '
     userinfo_response:
       type: object
       properties:
@@ -1032,108 +1148,47 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    userinfo_issue_response:
+    pair:
       type: object
       properties:
-        resultCode:
+        key:
           type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
+          description: The key part.
+        value:
           type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - JSON
-          - JWT
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
-
-            header on errors.
-
-            '
-        signature:
-          type: string
-          description: 'The signature header of the response message.
-
-            '
-        signatureInput:
-          type: string
-          description: 'The signature-input header of the response message
-
-            '
-        contentDigest:
-          type: string
-          description: 'The content-digest header of the response message
-
-            '
-    userinfo_request:
+          description: The value part.
+    userinfo_issue_request:
       type: object
       required:
       - token
       properties:
         token:
           type: string
-          description: 'An access token.
+          description: 'The access token that has been passed to the userinfo endpoint by the client application. In other words,
+
+            the access token which was contained in the userinfo request.
 
             '
-        clientCertificate:
+        claims:
           type: string
-          description: 'Client certificate used in the TLS connection established between the client application and the userinfo endpoint.
-
-
-            The value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to
-
-            a client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]
-
-            (https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.
+          description: 'Claims in JSON format. As for the format, see [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
 
             '
-        dpop:
+        sub:
           type: string
-          description: '`DPoP` header presented by the client during the request to the user info endpoint.
+          description: 'The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of
 
-
-            The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.
-
-            See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-
-            for details.
+            the `sub` claim. Otherwise, the value of the subject associated with the access token is used.
 
             '
-        htm:
+        claimsForTx:
           type: string
-          description: 'HTTP method of the user info request. This field is used to validate the DPoP header.
-
-            In normal cases, the value is either `GET` or `POST`.
+          description: 'Claim key-value pairs that are used to compute transformed claims.
 
             '
-        htu:
+        requestSignature:
           type: string
-          description: 'URL of the user info endpoint. This field is used to validate the DPoP header.
-
-
-            If this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.
-
-            See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-
-            for details.
-
-            '
-        uri:
-          type: string
-          description: 'The full URL of the userinfo endpoint.
-
-            '
-        message:
-          type: string
-          description: 'The HTTP message body of the request, if present.
+          description: 'The Signature header value from the request.
 
             '
         headers:
@@ -1145,88 +1200,33 @@ components:
             Signature and Signature-Input headers, as well as any additional headers covered by the signature.
 
             '
-        targetUri:
+        verifiedClaimsForTx:
+          type: array
+          items:
+            type: string
+          description: 'Values of verified claims requested indirectly by "transformed claims".
+
+            '
+          x-mint:
+            metadata:
+              description: Values of verified claims requested indirectly by "transformed claims".
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\nA client application may request \"transformed claims\". Each of transformed claims uses an existing\nclaim as input. As a result, to compute the value of a transformed claim, the value of the referenced\nexisting claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide\nvalues of existing claims for computation of transformed claims.\n\nA response from the `/auth/userinfo` API may include the `requestedVerifiedClaimsForTx` response\nparameter which is a list of verified claims that are referenced indirectly by transformed claims\n(cf. `requestedVerifiedClaimsForTx` in `/auth/userinfo` API response). The authorization server\nimplementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`\nand pass them as the value of this `verifiedClaimsForTx` request parameter.\n\nThe following is an example of the value of this request parameter.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\",\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n\nThe reason that this `verifiedClaimsForTx` property is an array is that the `\"verified_claims\"`\nproperty in the claims request parameter of an authorization request can be an array like below.\n\n```\n&#123;\n  \"transformed_claims\": &#123;\n    \"nationality_usa\": &#123;\n      \"claim\": \"nationalities\",\n      \"fn\": [\n        [ \"eq\", \"USA\" ],\n        \"any\"\n      ]\n    &#125;\n  &#125;,\n  \"userinfo\": &#123;\n    \"verified_claims\": [\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"gold\" &#125; &#125;,\n        \"claims\": &#123; \"::18_or_above\": null &#125;\n      &#125;,\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"silver\" &#125; &#125;,\n        \"claims\": &#123; \":nationality_usa\": null &#125;\n      &#125;\n    ]\n  &#125;\n&#125;\n```\n\nFor the example above, the value of this `verifiedClaimsForTx` property should be an array of\nsize 2 and look like below. The first element is JSON including claims which have been verified\nunder the trust framework `\"gold\"`, and the second element is JSON including claims which have\nbeen verified under the trust framework `\"silver\"`.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\"&#125;\",\n  \"&#123;\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n</Accordion>\n"
+    property:
+      type: object
+      properties:
+        key:
           type: string
-          description: 'The target URI of the userinfo request, including the query part, if any.
-
-            '
-          x-mint:
-            metadata:
-              description: The target URI of the userinfo request, including the query part, if any.
-            content: '<Accordion title="Full description" defaultOpen={false}>
-
-              This parameter is used as the value of the `@target-uri` derived component for HTTP message signatures
-
-              ([RFC 9421 HTTP Message Signatures, Section 2.2.2. Target URI](https://www.rfc-editor.org/rfc/rfc9421.html#section-2.2.2)).
-
-              Additionally, other derived components such as `@authority`, `@scheme`, `@path`, `@query` and
-
-              `@query-param` are computed from this parameter.
-
-
-              When this parameter is omitted, the value of the `htu` parameter is used. The `htu` parameter
-
-              represents the URL of the userinfo endpoint, which usually serves as the target URI of the userinfo request.
-
-              The only exception is when the access token is specified as a query parameter, as defined in
-
-              [RFC 6750 Section 2.3](https://www.rfc-editor.org/rfc/rfc6750.html#section-2.3). However, RFC 6750
-
-              states that this method "SHOULD NOT be used" unless other methods are not viable.
-
-
-              If neither this `targetUri` parameter nor the `htu` parameter is specified, the `userInfoEndpoint`
-
-              property of the service is used as a fallback.
-
-              </Accordion>
-
-              '
-        dpopNonceRequired:
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
           type: boolean
-          description: 'The flag indicating whether to check if the DPoP proof JWT includes the expected `nonce` value.
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
 
-
-            If this request parameter is set to `true` or if the service''s `dpopNonceRequired` property is
-
-            set to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`
-
-            value. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response
-
-            parameter, which should be used as the value of the DPoP-Nonce HTTP header.
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
 
             '
-        requestBodyContained:
-          type: boolean
-          description: 'The flag indicating whether the userinfo request contains a request body.
-
-            '
-          x-mint:
-            metadata:
-              description: The flag indicating whether the userinfo request contains a request body.
-            content: '<Accordion title="Full description" defaultOpen={false}>
-
-              When the userinfo request must comply with the HTTP message signing requirements defined in the
-
-              FAPI 2.0 Message Signing specification, the `"content-digest"` component identifier must be included
-
-              in the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))
-
-              if the userinfo request contains a request body.
-
-
-              When this `requestBodyContained` parameter is set to `true`, Authlete checks whether `"content-digest"`
-
-              is included in the signature base, if the FAPI profile applies to the userinfo request.
-
-
-              NOTE: The FAPI 2.0 Message Signing specification is not applied to the userinfo endpoint until
-
-              its necessity is agreed upon by the industry (cf. [FAPI Issue 723](https://bitbucket.org/openid/fapi/issues/723)).
-
-              </Accordion>
-
-              '
   responses:
     '400':
       description: ''
@@ -1237,15 +1237,6 @@ components:
           example:
             resultCode: A001201
             resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
     '403':
       description: ''
       content:
@@ -1264,6 +1255,15 @@ components:
           example:
             resultCode: A001202
             resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
   securitySchemes:
     bearer:
       type: http

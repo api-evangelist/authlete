@@ -1961,60 +1961,17 @@ paths:
       - Client Management
 components:
   schemas:
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    application_type:
+    response_type:
       type: string
-      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
-
-        See the description about `redirectUris` property for more details.
-
-        '
       enum:
-      - WEB
-      - NATIVE
-    client_secret_refresh_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        newClientSecret:
-          type: string
-          description: 'The new client secret.
-
-            '
-        oldClientSecret:
-          type: string
-          description: 'The old client secret.
-
-            '
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
     client_authorization_get_list_request:
       type: object
       properties:
@@ -2034,280 +1991,6 @@ components:
           description: End index of search results (exclusive).
       required:
       - subject
-    client_authorization_update_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    client_auth_method:
-      type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    client_registration_type:
-      type: string
-      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
-      enum:
-      - AUTOMATIC
-      - EXPLICIT
-    client_extension_requestable_scopes_update_response:
-      type: object
-      properties:
-        requestableScopes:
-          type: array
-          items:
-            type: string
-    client_flag_update_response:
-      type: object
-      required:
-      - resultCode
-      - resultMessage
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    subject_type:
-      type: string
-      description: 'The subject type that the client application requests. Details about the subject type are described in
-
-        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
-
-
-        This property corresponds to `subject_type` in
-
-        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - PUBLIC
-      - PAIRWISE
-    client_authorization_delete_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        serviceApiKey:
-          type: integer
-          format: int64
-          description: A short message which explains the result of the API call.
-        clientId:
-          type: integer
-          format: int64
-          description: Get the client ID.
-        subject:
-          type: string
-          description: 'Get the subject (= unique identifier) of the user
-
-            who has granted authorization to the client.
-
-            '
-        latestGrantedScopes:
-          type: array
-          items:
-            type: string
-          description: 'Get the scopes granted to the client application by the last
-
-            authorization process by the user (who is identified by the
-
-            subject).
-
-            '
-        mergedGrantedScopes:
-          type: array
-          items:
-            type: string
-          description: 'Get the scopes granted to the client application by all the
-
-            past authorization processes. Note that revoked scopes are
-
-            not included.
-
-            '
-        modifiedAt:
-          type: integer
-          format: int64
-          description: 'Get the timestamp in milliseconds since Unix epoch
-
-            at which this record was modified.
-
-            '
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    client_extension_requestable_scopes_update_request:
-      type: object
-      properties:
-        requestableScopes:
-          type: array
-          items:
-            type: string
-          description: 'The set of scopes that the client application is allowed to request.
-
-            This parameter will be one of the following. Details are described in the description.
-
-
-
-            - an empty set
-
-            - a set with at least one element
-
-
-            If this parameter contains scopes that the service does not support, those scopes are just
-
-            ignored. Also, if this parameter is `null` or is not included in the request, it is equivalent
-
-            to calling `/client/extension/requestable_scopes/delete` API.
-
-            '
-    client_extension:
-      type: object
-      properties:
-        requestableScopes:
-          type: array
-          items:
-            type: string
-          description: 'The set of scopes that the client application is allowed to request. This paramter will be one
-
-            of the following.
-
-            '
-          x-mint:
-            metadata:
-              description: The set of scopes that the client application is allowed to request. This paramter will be one of the following.
-            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n  - `null`\n  - an empty set\n  - a set with at least one element\n\nWhen the value of this parameter is `null`, it means that the set of scopes that the client\napplication is allowed to request is the set of the scopes that the service supports. When the\nvalue of this parameter is an empty set, it means that the client application is not allowed to\nrequest any scopes. When the value of this parameter is a set with at least one element, it means\nthat the set is the set of scopes that the client application is allowed to request.\n</Accordion>\n"
-        requestableScopesEnabled:
-          type: boolean
-          description: 'The flag to indicate whether "Requestable Scopes per Client" is enabled or not. If `true`, you
-
-            can define the set of scopes which this client application can request. If `false`, this client
-
-            application can request any scope which is supported by the authorization server.
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of access tokens per client in seconds. In normal cases, the value of
-
-            the service''s `accessTokenDuration` property is used as the duration of access tokens issued by
-
-            the service. However, if this `accessTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of access tokens issued to the client application.
-
-
-            Note that the duration of access tokens can be controlled by the scope attribute `access_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        refreshTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of refresh tokens per client in seconds. In normal cases, the value
-
-            of the service''s `refreshTokenDuration` property is used as the duration of refresh tokens issued
-
-            by the service. However, if this `refreshTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of refresh tokens issued to the client application.
-
-
-            Note that the duration of refresh tokens can be controlled by the scope attribute `refresh_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        idTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of ID tokens per client in seconds. In normal cases, the value
-
-            of the service''s `idTokenDuration` property is used as the duration of ID tokens issued
-
-            by the service. However, if this `idTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of ID tokens issued to the client application.
-
-
-            Note that the duration of refresh tokens can be controlled by the scope attribute `id_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        tokenExchangePermitted:
-          type: boolean
-          description: 'Get the flag indicating whether the client is explicitly given a
-
-            permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
-
-            '
-    client_get_list_response:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-          description: 'Start index (inclusive) of the result set of the query.
-
-            '
-        end:
-          type: integer
-          format: int32
-          description: 'End index (exclusive) of the result set of the query.
-
-            '
-        totalCount:
-          type: integer
-          format: int32
-          description: 'Total number of clients that belong to the service. This doesn''t mean the number of clients
-
-            contained in the response.
-
-            '
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/client'
-          description: 'An array of clients.
-
-            '
     jwe_alg:
       type:
       - string
@@ -2344,28 +2027,7 @@ components:
       - PBES2_HS256_A128KW
       - PBES2_HS384_A192KW
       - PBES2_HS512_A256KW
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    client_secret_update_request:
-      type: object
-      required:
-      - clientSecret
-      properties:
-        clientSecret:
-          type: string
-          description: 'The new value of the client secret. Valid characters for a client secret are `A-Z`, `a-z`, `0-9`,
-
-            `-`, and `_`. The maximum length of a client secret is 86.
-
-            '
-    client_granted_scopes_delete_response:
+    result:
       type: object
       properties:
         resultCode:
@@ -2374,39 +2036,119 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-    client_flag_update_request:
+    client_secret_update_response:
       type: object
-      required:
-      - clientLocked
       properties:
-        clientLocked:
-          type: boolean
-          description: 'The flag value to be set
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        newClientSecret:
+          type: string
+          description: 'The new client secret.
 
             '
-    response_type:
+        oldClientSecret:
+          type: string
+          description: 'The old client secret.
+
+            '
+    client_limited:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          readOnly: true
+          description: 'The sequential number of the client. The value of this property is assigned by Authlete.
+
+            '
+        clientName:
+          type: string
+          description: 'The name of the client application. This property corresponds to `client_name` in
+
+            [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+            '
+        clientNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Client names with language tags. If the client application has different names for different
+
+            languages, this property can be used to register the names.
+
+            '
+        description:
+          type: string
+          description: The description about the client application.
+        descriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Descriptions about the client application with language tags. If the client application has different
+
+            descriptions for different languages, this property can be used to register the descriptions.
+
+            '
+        clientId:
+          type: integer
+          format: int64
+          readOnly: true
+          description: The client identifier used in Authlete API calls. The value of this property is assigned by Authlete.
+        clientIdAlias:
+          type: string
+          description: 'The value of the client''s `client_id` property used in OAuth and OpenID Connect calls. By
+
+            default, this is a string version of the `clientId` property.
+
+            '
+        clientIdAliasEnabled:
+          type: boolean
+          description: Deprecated. Always set to `true`.
+        clientType:
+          $ref: '#/components/schemas/client_type'
+    client_auth_method:
       type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
       enum:
       - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    jwe_enc:
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
+    jws_alg:
       type:
       - string
       - 'null'
-      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
+      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
       enum:
-      - A128CBC_HS256
-      - A192CBC_HS384
-      - A256CBC_HS512
-      - A128GCM
-      - A192GCM
-      - A256GCM
+      - NONE
+      - HS256
+      - HS384
+      - HS512
+      - RS256
+      - RS384
+      - RS512
+      - ES256
+      - ES384
+      - ES512
+      - PS256
+      - PS384
+      - PS512
+      - ES256K
+      - EdDSA
     client_authorization_get_list_response:
       type: object
       properties:
@@ -2445,27 +2187,101 @@ components:
           description: 'An array of clients.
 
             '
-    jws_alg:
-      type:
-      - string
-      - 'null'
-      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
+    application_type:
+      type: string
+      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
+
+        See the description about `redirectUris` property for more details.
+
+        '
       enum:
-      - NONE
-      - HS256
-      - HS384
-      - HS512
-      - RS256
-      - RS384
-      - RS512
-      - ES256
-      - ES384
-      - ES512
-      - PS256
-      - PS384
-      - PS512
-      - ES256K
-      - EdDSA
+      - WEB
+      - NATIVE
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    client_secret_refresh_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        newClientSecret:
+          type: string
+          description: 'The new client secret.
+
+            '
+        oldClientSecret:
+          type: string
+          description: 'The old client secret.
+
+            '
+    client_type:
+      type: string
+      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+
+        for details.
+
+        '
+      enum:
+      - PUBLIC
+      - CONFIDENTIAL
+    client_registration_type:
+      type: string
+      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
+      enum:
+      - AUTOMATIC
+      - EXPLICIT
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    client_extension_requestable_scopes_update_request:
+      type: object
+      properties:
+        requestableScopes:
+          type: array
+          items:
+            type: string
+          description: 'The set of scopes that the client application is allowed to request.
+
+            This parameter will be one of the following. Details are described in the description.
+
+
+
+            - an empty set
+
+            - a set with at least one element
+
+
+            If this parameter contains scopes that the service does not support, those scopes are just
+
+            ignored. Also, if this parameter is `null` or is not included in the request, it is equivalent
+
+            to calling `/client/extension/requestable_scopes/delete` API.
+
+            '
     client:
       type: object
       additionalProperties: true
@@ -3511,73 +3327,23 @@ components:
           - EXPLICIT_REGISTRATION
           - METADATA_DOCUMENT
           - STATIC_REGISTRATION
-    client_limited:
-      type: object
-      properties:
-        number:
-          type: integer
-          format: int32
-          readOnly: true
-          description: 'The sequential number of the client. The value of this property is assigned by Authlete.
-
-            '
-        clientName:
-          type: string
-          description: 'The name of the client application. This property corresponds to `client_name` in
-
-            [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-            '
-        clientNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/tagged_value'
-          description: 'Client names with language tags. If the client application has different names for different
-
-            languages, this property can be used to register the names.
-
-            '
-        description:
-          type: string
-          description: The description about the client application.
-        descriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/tagged_value'
-          description: 'Descriptions about the client application with language tags. If the client application has different
-
-            descriptions for different languages, this property can be used to register the descriptions.
-
-            '
-        clientId:
-          type: integer
-          format: int64
-          readOnly: true
-          description: The client identifier used in Authlete API calls. The value of this property is assigned by Authlete.
-        clientIdAlias:
-          type: string
-          description: 'The value of the client''s `client_id` property used in OAuth and OpenID Connect calls. By
-
-            default, this is a string version of the `clientId` property.
-
-            '
-        clientIdAliasEnabled:
-          type: boolean
-          description: Deprecated. Always set to `true`.
-        clientType:
-          $ref: '#/components/schemas/client_type'
-    client_type:
-      type: string
-      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
-
-        for details.
-
-        '
+    jwe_enc:
+      type:
+      - string
+      - 'null'
+      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
       enum:
-      - PUBLIC
-      - CONFIDENTIAL
-    client_secret_update_response:
+      - A128CBC_HS256
+      - A192CBC_HS384
+      - A256CBC_HS512
+      - A128GCM
+      - A192GCM
+      - A256GCM
+    client_flag_update_response:
       type: object
+      required:
+      - resultCode
+      - resultMessage
       properties:
         resultCode:
           type: string
@@ -3585,16 +3351,6 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-        newClientSecret:
-          type: string
-          description: 'The new client secret.
-
-            '
-        oldClientSecret:
-          type: string
-          description: 'The old client secret.
-
-            '
     client_authorization_update_request:
       type: object
       required:
@@ -3641,16 +3397,251 @@ components:
         value:
           type: string
           description: The value part.
+    client_authorization_update_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    client_secret_update_request:
+      type: object
+      required:
+      - clientSecret
+      properties:
+        clientSecret:
+          type: string
+          description: 'The new value of the client secret. Valid characters for a client secret are `A-Z`, `a-z`, `0-9`,
+
+            `-`, and `_`. The maximum length of a client secret is 86.
+
+            '
+    client_get_list_response:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+          description: 'Start index (inclusive) of the result set of the query.
+
+            '
+        end:
+          type: integer
+          format: int32
+          description: 'End index (exclusive) of the result set of the query.
+
+            '
+        totalCount:
+          type: integer
+          format: int32
+          description: 'Total number of clients that belong to the service. This doesn''t mean the number of clients
+
+            contained in the response.
+
+            '
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/client'
+          description: 'An array of clients.
+
+            '
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    client_extension:
+      type: object
+      properties:
+        requestableScopes:
+          type: array
+          items:
+            type: string
+          description: 'The set of scopes that the client application is allowed to request. This paramter will be one
+
+            of the following.
+
+            '
+          x-mint:
+            metadata:
+              description: The set of scopes that the client application is allowed to request. This paramter will be one of the following.
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n  - `null`\n  - an empty set\n  - a set with at least one element\n\nWhen the value of this parameter is `null`, it means that the set of scopes that the client\napplication is allowed to request is the set of the scopes that the service supports. When the\nvalue of this parameter is an empty set, it means that the client application is not allowed to\nrequest any scopes. When the value of this parameter is a set with at least one element, it means\nthat the set is the set of scopes that the client application is allowed to request.\n</Accordion>\n"
+        requestableScopesEnabled:
+          type: boolean
+          description: 'The flag to indicate whether "Requestable Scopes per Client" is enabled or not. If `true`, you
+
+            can define the set of scopes which this client application can request. If `false`, this client
+
+            application can request any scope which is supported by the authorization server.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of access tokens per client in seconds. In normal cases, the value of
+
+            the service''s `accessTokenDuration` property is used as the duration of access tokens issued by
+
+            the service. However, if this `accessTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of access tokens issued to the client application.
+
+
+            Note that the duration of access tokens can be controlled by the scope attribute `access_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of refresh tokens per client in seconds. In normal cases, the value
+
+            of the service''s `refreshTokenDuration` property is used as the duration of refresh tokens issued
+
+            by the service. However, if this `refreshTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of refresh tokens issued to the client application.
+
+
+            Note that the duration of refresh tokens can be controlled by the scope attribute `refresh_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        idTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of ID tokens per client in seconds. In normal cases, the value
+
+            of the service''s `idTokenDuration` property is used as the duration of ID tokens issued
+
+            by the service. However, if this `idTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of ID tokens issued to the client application.
+
+
+            Note that the duration of refresh tokens can be controlled by the scope attribute `id_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        tokenExchangePermitted:
+          type: boolean
+          description: 'Get the flag indicating whether the client is explicitly given a
+
+            permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
+
+            '
+    subject_type:
+      type: string
+      description: 'The subject type that the client application requests. Details about the subject type are described in
+
+        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
+
+
+        This property corresponds to `subject_type` in
+
+        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - PUBLIC
+      - PAIRWISE
+    client_flag_update_request:
+      type: object
+      required:
+      - clientLocked
+      properties:
+        clientLocked:
+          type: boolean
+          description: 'The flag value to be set
+
+            '
+    client_authorization_delete_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        serviceApiKey:
+          type: integer
+          format: int64
+          description: A short message which explains the result of the API call.
+        clientId:
+          type: integer
+          format: int64
+          description: Get the client ID.
+        subject:
+          type: string
+          description: 'Get the subject (= unique identifier) of the user
+
+            who has granted authorization to the client.
+
+            '
+        latestGrantedScopes:
+          type: array
+          items:
+            type: string
+          description: 'Get the scopes granted to the client application by the last
+
+            authorization process by the user (who is identified by the
+
+            subject).
+
+            '
+        mergedGrantedScopes:
+          type: array
+          items:
+            type: string
+          description: 'Get the scopes granted to the client application by all the
+
+            past authorization processes. Note that revoked scopes are
+
+            not included.
+
+            '
+        modifiedAt:
+          type: integer
+          format: int64
+          description: 'Get the timestamp in milliseconds since Unix epoch
+
+            at which this record was modified.
+
+            '
+    client_granted_scopes_delete_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    client_extension_requestable_scopes_update_response:
+      type: object
+      properties:
+        requestableScopes:
+          type: array
+          items:
+            type: string
   responses:
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '400':
       description: ''
       content:
@@ -3660,6 +3651,15 @@ components:
           example:
             resultCode: A001201
             resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '401':
       description: ''
       content:
