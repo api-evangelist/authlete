@@ -1,0 +1,154 @@
+slug: authlete
+provider: Authlete
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 14
+edges:
+- tag: Authorization Endpoint
+  spec_file: authlete-authorization-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /api/{serviceId}/auth/authorization  Process Authorization Request; schemas authorization_request,
+    grant_scope, client_auth_method, authorization_issue_response
+  reason: Core OAuth 2.0/OIDC authorization-request processing, failure handling and response issuance
+    for a headless authorization server — authentication/authorisation decisioning, i.e. Identity & Access
+    Management.
+- tag: Native SSO
+  spec_file: authlete-native-sso-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: '"Native SSO Processing", "Native SSO Logout Processing", schema native_sso_logout_request'
+  reason: Single sign-on session establishment and logout for native applications — federation and session
+    management squarely within Identity & Access Management.
+- tag: CIBA
+  spec_file: authlete-ciba-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/{serviceId}/backchannel/authentication — "Process Backchannel Authentication Request";
+    "Complete Backchannel Authentication"
+  reason: Operations implement the OpenID CIBA backchannel user-authentication and authorization flow
+    for an authorization server — identity and access management protocol machinery, not a business-domain
+    capability.
+- tag: Device Flow
+  spec_file: authlete-device-flow-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"Process Device Authorization Request", "Process Device Verification Request", "Complete
+    Device Authorization"'
+  reason: Implements the OAuth 2.0 device authorization grant — authentication/authorization flow handling,
+    i.e. identity and access management.
+- tag: Introspection Endpoint
+  spec_file: authlete-introspection-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"Process Introspection Request", "Process OAuth 2.0 Introspection Request", schema introspection_response'
+  reason: Token introspection resolves whether an access token is valid and what scopes it carries — runtime
+    access decisioning within identity and access management.
+- tag: Token Endpoint
+  spec_file: authlete-token-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"Process Token Request", "Issue Token Response", "Reissue ID Token"; schemas token_request,
+    token_info, scope'
+  reason: Issuing OAuth access tokens and OIDC ID tokens is the core credential-issuance step of access
+    management, so Identity & Access Management is the honest mapping for this protocol endpoint.
+- tag: Token Operations
+  spec_file: authlete-token-operations-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"List Issued Tokens", "Create Access Token", "Update Access Token", "Delete Access Token",
+    "Revoke Access Token"'
+  reason: Administrative lifecycle management of issued access tokens — creation, inspection, revocation
+    — is access credential administration, squarely Identity & Access Management rather than any business-domain
+    capability.
+- tag: Federation Endpoint
+  spec_file: authlete-federation-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: '"Process Entity Configuration Request", "Process Federation Registration Request"'
+  reason: OpenID Federation entity configuration and registration endpoints — identity federation, explicitly
+    within Identity & Access Management.
+- tag: Client Management
+  spec_file: authlete-client-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: '"Create Client", "Rotate Client Secret", "Get Authorized Applications", schema client_auth_method'
+  reason: Manages OAuth client registrations, secrets and granted authorizations — access management of
+    relying-party identities. Could arguably be developer credential management, hence moderate confidence
+    on the sub-capability.
+- tag: Pushed Authorization Endpoint
+  spec_file: authlete-pushed-authorization-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /api/{serviceId}/pushed_auth_req — "Process Pushed Authorization Request"; schemas pushed_authorization_request/response
+  reason: The operation implements the OAuth 2.0 PAR endpoint of an authorization server — i.e. handling
+    authorization requests that gate access to protected resources. That is identity and access management
+    plumbing, realised as a service by this vendor; no narrower candidate fits an OAuth protocol endpoint.
+- tag: Revocation Endpoint
+  spec_file: authlete-revocation-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /api/{serviceId}/auth/revocation  auth_revocation_api  "Process Revocation Request"
+  reason: Token revocation is part of the access-credential lifecycle of an authorization server, which
+    maps to Identity & Access Management. Not a business-domain capability of any other kind.
+- tag: Grant Management Endpoint
+  spec_file: authlete-grant-management-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /api/{serviceId}/gm — "Process Grant Management Request"; schema grant_management_action
+  reason: Manages OAuth grants (consented authorizations) for a subject — access grant lifecycle, part
+    of identity and access management.
+- tag: Dynamic Client Registration
+  spec_file: authlete-dynamic-client-registration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /api/{serviceId}/client/registration — "Register Client"; schema client_registration_request
+  reason: OAuth dynamic client registration lifecycle (register/get/update/delete client) is issuance
+    and stewardship of client identities, i.e. access management; ambiguity with developer credential
+    management keeps confidence moderate.
+- tag: UserInfo Endpoint
+  spec_file: authlete-userinfo-endpoint-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /api/{serviceId}/auth/userinfo  "Process UserInfo Request"; schemas userinfo_request,
+    userinfo_issue_response
+  reason: The OIDC UserInfo endpoint returns authenticated-subject claims to a relying party. This is
+    identity assertion within the IAM stack, not customer master data management — the claims are scoped
+    by an access token, not a CRM record.

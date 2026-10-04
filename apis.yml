@@ -381,6 +381,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/authlete-capability-edges.yml
+  name: Authlete Business Capability Map
 - type: DeveloperPortal
   url: https://www.authlete.com/developers/
 - type: Documentation
