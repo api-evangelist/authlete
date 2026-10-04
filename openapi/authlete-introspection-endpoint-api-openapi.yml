@@ -636,30 +636,31 @@ paths:
       - Introspection Endpoint
 components:
   schemas:
-    grant_scope:
+    pair:
       type: object
       properties:
-        scope:
+        key:
           type: string
-          description: 'Space-delimited scopes.
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
 
-            '
-        resource:
-          type: array
-          items:
-            type: string
-          description: 'List of resource indicators.
-
-            '
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
     standard_introspection_request:
       type: object
       required:
@@ -827,119 +828,6 @@ components:
             application.
 
             '
-    scope:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the scope.
-        defaultEntry:
-          type: boolean
-          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
-        description:
-          type: string
-          description: The description about the scope.
-        descriptions:
-          type: array
-          description: The descriptions about this scope in multiple languages.
-          items:
-            $ref: '#/components/schemas/tagged_value'
-        attributes:
-          type: array
-          description: The attributes of the scope.
-          items:
-            $ref: '#/components/schemas/pair'
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
-
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
     authz_details:
       type: object
       description: 'The authorization details. This represents the value of the `authorization_details`
@@ -957,22 +845,6 @@ components:
           description: 'Elements of this authorization details.
 
             '
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
     introspection_response:
       type: object
       properties:
@@ -1245,7 +1117,7 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    pair:
+    property:
       type: object
       properties:
         key:
@@ -1254,22 +1126,144 @@ components:
         value:
           type: string
           description: The value part.
-    grant:
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
+    scope:
       type: object
       properties:
-        scopes:
+        name:
+          type: string
+          description: The name of the scope.
+        defaultEntry:
+          type: boolean
+          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
+        description:
+          type: string
+          description: The description about the scope.
+        descriptions:
           type: array
+          description: The descriptions about this scope in multiple languages.
           items:
-            $ref: '#/components/schemas/grant_scope'
-        claims:
+            $ref: '#/components/schemas/tagged_value'
+        attributes:
+          type: array
+          description: The attributes of the scope.
+          items:
+            $ref: '#/components/schemas/pair'
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
           type: array
           items:
             type: string
-          description: 'The claims associated with the Grant.
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
 
             '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
     introspection_request:
       type: object
       required:
@@ -1471,59 +1465,38 @@ components:
             is included in the signature base, if the FAPI profile applies to the resource request.
 
             '
-    property:
+    grant_scope:
       type: object
       properties:
-        key:
+        scope:
           type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+          description: 'Space-delimited scopes.
 
             '
-    tagged_value:
+        resource:
+          type: array
+          items:
+            type: string
+          description: 'List of resource indicators.
+
+            '
+    grant:
       type: object
       properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/grant_scope'
+        claims:
+          type: array
+          items:
+            type: string
+          description: 'The claims associated with the Grant.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
   responses:
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '401':
       description: ''
       content:
@@ -1533,6 +1506,33 @@ components:
           example:
             resultCode: A001202
             resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http

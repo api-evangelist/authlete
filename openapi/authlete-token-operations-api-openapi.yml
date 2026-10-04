@@ -548,7 +548,19 @@ paths:
       - Token Operations
 components:
   schemas:
-    token_update_response:
+    token_revoke_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        count:
+          type: integer
+          description: The number of tokens revoked
+    token_create_response:
       type: object
       properties:
         resultCode:
@@ -563,16 +575,32 @@ components:
           - INTERNAL_SERVER_ERROR
           - BAD_REQUEST
           - FORBIDDEN
-          - NOT_FOUND
           - OK
           description: The next action that the authorization server implementation should take.
         accessToken:
           type: string
-          description: The access token which has been specified by the request.
-        accessTokenExpiresAt:
+          description: The newly issued access token.
+        clientId:
           type: integer
           format: int64
-          description: 'The date at which the access token will expire.
+          description: 'The ID of the client application associated with the access token.
+
+            '
+        expiresAt:
+          type: integer
+          format: int64
+          description: 'The time at which the access token expires.
+
+            '
+        expiresIn:
+          type: integer
+          format: int64
+          description: 'The duration of the newly issued access token in seconds.
+
+            '
+        grantType:
+          type: string
+          description: 'The grant type for the newly issued access token.
 
             '
         properties:
@@ -582,20 +610,41 @@ components:
           description: 'The extra properties associated with the access token.
 
             '
+        refreshToken:
+          type: string
+          description: 'The newly issued refresh token.
+
+            '
         scopes:
           type: array
           items:
             type: string
-          description: 'The scopes associated with the access token.
+          description: 'Scopes which are associated with the access token.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique identifier) of the user associated with the newly issued access
+
+            token.
+
+            '
+        tokenType:
+          type: string
+          description: 'The token type of the access token.
+
+            '
+        jwtAccessToken:
+          type: string
+          description: 'If the authorization server is configured to issue JWT-based access tokens (= if `Service.accessTokenSignAlg`
+
+            is set to a `non-null` value), a JWT-based access token is issued along with the original
+
+            random-string one.
 
             '
         authorizationDetails:
           $ref: '#/components/schemas/authz_details'
-        tokenType:
-          type: string
-          description: 'The token type associated with the access token.
-
-            '
         forExternalAttachment:
           type: boolean
           description: 'the flag which indicates whether the access token is for an external
@@ -608,12 +657,28 @@ components:
           description: 'Set the unique token identifier.
 
             '
-        refreshTokenExpiresAt:
-          type: integer
-          format: int64
-          description: 'The datetime at which the newly issued refresh token will expire.
+        refreshTokenScopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the refresh token. May be null.
 
-            The value is represented in milliseconds since the Unix epoch (1970-01-01).
+            '
+        clientIdentifier:
+          type: string
+          description: 'The client Identifier that will be associated with a newly created access token.
+
+            '
+        sessionId:
+          type: string
+          description: 'The session ID associated with a newly created access token.
+
+
+            NOTE: A refresh token must be associated with a session ID, which is the ID of the user''s authentication
+
+            session, in order to be used to obtain a [Native SSO](https://openid.net/specs/openid-connect-native-sso-1_0.html)-compliant
+
+            ID token in the refresh token flow.
 
             '
     result:
@@ -625,6 +690,461 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
+    client_limited:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          readOnly: true
+          description: 'The sequential number of the client. The value of this property is assigned by Authlete.
+
+            '
+        clientName:
+          type: string
+          description: 'The name of the client application. This property corresponds to `client_name` in
+
+            [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+            '
+        clientNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Client names with language tags. If the client application has different names for different
+
+            languages, this property can be used to register the names.
+
+            '
+        description:
+          type: string
+          description: The description about the client application.
+        descriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tagged_value'
+          description: 'Descriptions about the client application with language tags. If the client application has different
+
+            descriptions for different languages, this property can be used to register the descriptions.
+
+            '
+        clientId:
+          type: integer
+          format: int64
+          readOnly: true
+          description: The client identifier used in Authlete API calls. The value of this property is assigned by Authlete.
+        clientIdAlias:
+          type: string
+          description: 'The value of the client''s `client_id` property used in OAuth and OpenID Connect calls. By
+
+            default, this is a string version of the `clientId` property.
+
+            '
+        clientIdAliasEnabled:
+          type: boolean
+          description: Deprecated. Always set to `true`.
+        clientType:
+          $ref: '#/components/schemas/client_type'
+    authz_details:
+      type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
+
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
+
+            '
+    token_revoke_request:
+      type: object
+      properties:
+        accessTokenIdentifier:
+          type: string
+          description: 'The identifier of an access token to revoke
+
+
+            The hash of an access token is recognized as an identifier as well as the access token itself.
+
+            '
+        refreshTokenIdentifier:
+          type: string
+          description: 'The identifier of a refresh token to revoke.
+
+
+            The hash of a refresh token is recognized as an identifier as well as the refresh token itself.
+
+            '
+        clientIdentifier:
+          type: string
+          description: 'The client ID of the access token to be revoked.
+
+
+            Both the numeric client ID and the alias are recognized as an identifier
+
+            of a client.
+
+            '
+        subject:
+          type: string
+          description: 'The subject of a resource owner.
+
+            '
+    token_get_list_response:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+          description: 'Start index of search results (inclusive).
+
+            '
+        end:
+          type: integer
+          format: int32
+          description: 'End index of search results (exclusive).
+
+            '
+        totalCount:
+          type: integer
+          format: int32
+          description: 'Unique ID of a client developer.
+
+            '
+        client:
+          $ref: '#/components/schemas/client_limited'
+        subject:
+          type: string
+          description: 'Unique user ID of an end-user.
+
+            '
+        accessTokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/access_token'
+          description: 'An array of access tokens.
+
+            '
+    token_update_request:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: 'An access token.
+
+            '
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
+
+            If the `accessTokenExpiresAt` request parameter is not included in a request or its value is 0
+
+            (or negative), the expiration date of the access token is not changed.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'A new set of scopes assigned to the access token. Scopes that are not supported by the service
+
+            and those that the client application associated with the access token is not allowed to request
+
+            are ignored on the server side. If the `scopes` request parameter is not included in a request or
+
+            its value is `null`, the scopes of the access token are not changed. Note that `properties` parameter
+
+            is accepted only when `Content-Type` of the request is `application/json`, so don''t use `application/x-www-form-urlencoded`
+
+            if you want to specify `properties`.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'A new set of properties assigned to the access token. If the `properties` request parameter is
+
+            not included in a request or its value is null, the properties of the access token are not changed.
+
+            '
+        accessTokenExpiresAtUpdatedOnScopeUpdate:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
+
+            date of the access token when the scopes linked to the access token are changed by this request.
+
+            '
+        accessTokenHash:
+          type: string
+          description: 'The hash of the access token value. Used when the hash of the token is known (perhaps from lookup)
+
+            but the value of the token itself is not. The value of the `accessToken` parameter takes precedence.
+
+            '
+        accessTokenValueUpdated:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether to update the value of the access token in
+
+            the data store. If this parameter is set to `true` then a new access token value is generated
+
+            by the server and returned in the response.
+
+            '
+        accessTokenPersistent:
+          type: boolean
+          description: 'The flag which indicates whether the access token expires or not. By default, all access tokens
+
+            expire after a period of time determined by their service. If this request parameter is `true`
+
+            then the access token will not automatically expire and must be revoked or deleted manually at
+
+            the service.
+
+
+            If this request parameter is `true`, the `accessTokenExpiresAt` request parameter is ignored.
+
+            If this request parameter is `false`, the `accessTokenExpiresAt` request parameter is processed
+
+            normally.
+
+            '
+        certificateThumbprint:
+          type: string
+          description: 'The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate
+
+            with the corresponding value MUST be presented with the access token when it is used by a client.
+
+            The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
+
+            '
+        dpopKeyThumbprint:
+          type: string
+          description: 'The thumbprint of the public key used for DPoP presentation of this token. If this property is
+
+            set, a DPoP proof signed with the corresponding private key MUST be presented with the access
+
+            token when it is used by a client. Additionally, the token''s `token_type` will be set to ''DPoP''.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
+
+            '
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
+
+            If the `refreshTokenExpiresAt` request parameter is not included in a request or its value is 0
+
+            (or negative), the expiration date of the refresh token is not changed.
+
+            '
+        refreshTokenExpiresAtUpdatedOnScopeUpdate:
+          type: boolean
+          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
+
+            date of the refresh token when the scopes linked to the refresh token are changed by this request.
+
+            '
+        tokenId:
+          type: string
+          description: 'The token identifier.
+
+            '
+    client_type:
+      type: string
+      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+
+        for details.
+
+        '
+      enum:
+      - PUBLIC
+      - CONFIDENTIAL
+    access_token:
+      type: object
+      properties:
+        accessTokenHash:
+          type: string
+          description: The hash of the access token.
+        accessTokenExpiresAt:
+          type: integer
+          format: int64
+          description: The timestamp at which the access token will expire.
+        refreshTokenHash:
+          type: string
+          description: The hash of the refresh token.
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: The timestamp at which the refresh token will expire.
+        createdAt:
+          type: integer
+          format: int64
+          description: 'The timestamp at which the access token was first created.
+
+            '
+        lastRefreshedAt:
+          type: integer
+          format: int64
+          description: 'The timestamp at which the access token was last refreshed using the refresh token.
+
+            '
+        clientId:
+          type: integer
+          format: int64
+          description: 'The ID of the client associated with the access token.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique user ID) associated with the access token.
+
+            '
+        grantType:
+          $ref: '#/components/schemas/grant_type'
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the access token.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The properties associated with the access token.
+
+            '
+        refreshTokenScopes:
+          type: array
+          items:
+            type: string
+          description: 'The scopes associated with the refresh token.
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
     token_create_request:
       type: object
       required:
@@ -882,78 +1402,16 @@ components:
             When `true`, the client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism rather than from the Authlete database.
 
             '
-    property:
+    tagged_value:
       type: object
       properties:
-        key:
+        tag:
           type: string
-          description: The key part.
+          description: The language tag part.
         value:
           type: string
           description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
-    client_limited:
-      type: object
-      properties:
-        number:
-          type: integer
-          format: int32
-          readOnly: true
-          description: 'The sequential number of the client. The value of this property is assigned by Authlete.
-
-            '
-        clientName:
-          type: string
-          description: 'The name of the client application. This property corresponds to `client_name` in
-
-            [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-            '
-        clientNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/tagged_value'
-          description: 'Client names with language tags. If the client application has different names for different
-
-            languages, this property can be used to register the names.
-
-            '
-        description:
-          type: string
-          description: The description about the client application.
-        descriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/tagged_value'
-          description: 'Descriptions about the client application with language tags. If the client application has different
-
-            descriptions for different languages, this property can be used to register the descriptions.
-
-            '
-        clientId:
-          type: integer
-          format: int64
-          readOnly: true
-          description: The client identifier used in Authlete API calls. The value of this property is assigned by Authlete.
-        clientIdAlias:
-          type: string
-          description: 'The value of the client''s `client_id` property used in OAuth and OpenID Connect calls. By
-
-            default, this is a string version of the `clientId` property.
-
-            '
-        clientIdAliasEnabled:
-          type: boolean
-          description: Deprecated. Always set to `true`.
-        clientType:
-          $ref: '#/components/schemas/client_type'
-    token_revoke_response:
+    token_update_response:
       type: object
       properties:
         resultCode:
@@ -962,51 +1420,31 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-        count:
-          type: integer
-          description: The number of tokens revoked
-    access_token:
-      type: object
-      properties:
-        accessTokenHash:
+        action:
           type: string
-          description: The hash of the access token.
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - FORBIDDEN
+          - NOT_FOUND
+          - OK
+          description: The next action that the authorization server implementation should take.
+        accessToken:
+          type: string
+          description: The access token which has been specified by the request.
         accessTokenExpiresAt:
           type: integer
           format: int64
-          description: The timestamp at which the access token will expire.
-        refreshTokenHash:
-          type: string
-          description: The hash of the refresh token.
-        refreshTokenExpiresAt:
-          type: integer
-          format: int64
-          description: The timestamp at which the refresh token will expire.
-        createdAt:
-          type: integer
-          format: int64
-          description: 'The timestamp at which the access token was first created.
+          description: 'The date at which the access token will expire.
 
             '
-        lastRefreshedAt:
-          type: integer
-          format: int64
-          description: 'The timestamp at which the access token was last refreshed using the refresh token.
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The extra properties associated with the access token.
 
             '
-        clientId:
-          type: integer
-          format: int64
-          description: 'The ID of the client associated with the access token.
-
-            '
-        subject:
-          type: string
-          description: 'The subject (= unique user ID) associated with the access token.
-
-            '
-        grantType:
-          $ref: '#/components/schemas/grant_type'
         scopes:
           type: array
           items:
@@ -1014,35 +1452,31 @@ components:
           description: 'The scopes associated with the access token.
 
             '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'The properties associated with the access token.
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        tokenType:
+          type: string
+          description: 'The token type associated with the access token.
 
             '
-        refreshTokenScopes:
-          type: array
-          items:
-            type: string
-          description: 'The scopes associated with the refresh token.
+        forExternalAttachment:
+          type: boolean
+          description: 'the flag which indicates whether the access token is for an external
+
+            attachment.
 
             '
-    authz_details:
-      type: object
-      description: 'The authorization details. This represents the value of the `authorization_details`
+        tokenId:
+          type: string
+          description: 'Set the unique token identifier.
 
-        request parameter in the preceding device authorization request which is defined in
+            '
+        refreshTokenExpiresAt:
+          type: integer
+          format: int64
+          description: 'The datetime at which the newly issued refresh token will expire.
 
-        "OAuth 2.0 Rich Authorization Requests".
-
-        '
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization_details_element'
-          description: 'Elements of this authorization details.
+            The value is represented in milliseconds since the Unix epoch (1970-01-01).
 
             '
     grant_type:
@@ -1061,450 +1495,7 @@ components:
       - TOKEN_EXCHANGE
       - JWT_BEARER
       - PRE_AUTHORIZED_CODE
-    token_update_request:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          description: 'An access token.
-
-            '
-        accessTokenExpiresAt:
-          type: integer
-          format: int64
-          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
-
-            If the `accessTokenExpiresAt` request parameter is not included in a request or its value is 0
-
-            (or negative), the expiration date of the access token is not changed.
-
-            '
-        scopes:
-          type: array
-          items:
-            type: string
-          description: 'A new set of scopes assigned to the access token. Scopes that are not supported by the service
-
-            and those that the client application associated with the access token is not allowed to request
-
-            are ignored on the server side. If the `scopes` request parameter is not included in a request or
-
-            its value is `null`, the scopes of the access token are not changed. Note that `properties` parameter
-
-            is accepted only when `Content-Type` of the request is `application/json`, so don''t use `application/x-www-form-urlencoded`
-
-            if you want to specify `properties`.
-
-            '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'A new set of properties assigned to the access token. If the `properties` request parameter is
-
-            not included in a request or its value is null, the properties of the access token are not changed.
-
-            '
-        accessTokenExpiresAtUpdatedOnScopeUpdate:
-          type: boolean
-          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
-
-            date of the access token when the scopes linked to the access token are changed by this request.
-
-            '
-        accessTokenHash:
-          type: string
-          description: 'The hash of the access token value. Used when the hash of the token is known (perhaps from lookup)
-
-            but the value of the token itself is not. The value of the `accessToken` parameter takes precedence.
-
-            '
-        accessTokenValueUpdated:
-          type: boolean
-          description: 'A boolean request parameter which indicates whether to update the value of the access token in
-
-            the data store. If this parameter is set to `true` then a new access token value is generated
-
-            by the server and returned in the response.
-
-            '
-        accessTokenPersistent:
-          type: boolean
-          description: 'The flag which indicates whether the access token expires or not. By default, all access tokens
-
-            expire after a period of time determined by their service. If this request parameter is `true`
-
-            then the access token will not automatically expire and must be revoked or deleted manually at
-
-            the service.
-
-
-            If this request parameter is `true`, the `accessTokenExpiresAt` request parameter is ignored.
-
-            If this request parameter is `false`, the `accessTokenExpiresAt` request parameter is processed
-
-            normally.
-
-            '
-        certificateThumbprint:
-          type: string
-          description: 'The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate
-
-            with the corresponding value MUST be presented with the access token when it is used by a client.
-
-            The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
-
-            '
-        dpopKeyThumbprint:
-          type: string
-          description: 'The thumbprint of the public key used for DPoP presentation of this token. If this property is
-
-            set, a DPoP proof signed with the corresponding private key MUST be presented with the access
-
-            token when it is used by a client. Additionally, the token''s `token_type` will be set to ''DPoP''.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
-        forExternalAttachment:
-          type: boolean
-          description: 'the flag which indicates whether the access token is for an external
-
-            attachment.
-
-            '
-        refreshTokenExpiresAt:
-          type: integer
-          format: int64
-          description: 'A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
-
-            If the `refreshTokenExpiresAt` request parameter is not included in a request or its value is 0
-
-            (or negative), the expiration date of the refresh token is not changed.
-
-            '
-        refreshTokenExpiresAtUpdatedOnScopeUpdate:
-          type: boolean
-          description: 'A boolean request parameter which indicates whether the API attempts to update the expiration
-
-            date of the refresh token when the scopes linked to the refresh token are changed by this request.
-
-            '
-        tokenId:
-          type: string
-          description: 'The token identifier.
-
-            '
-    client_type:
-      type: string
-      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
-
-        for details.
-
-        '
-      enum:
-      - PUBLIC
-      - CONFIDENTIAL
-    token_revoke_request:
-      type: object
-      properties:
-        accessTokenIdentifier:
-          type: string
-          description: 'The identifier of an access token to revoke
-
-
-            The hash of an access token is recognized as an identifier as well as the access token itself.
-
-            '
-        refreshTokenIdentifier:
-          type: string
-          description: 'The identifier of a refresh token to revoke.
-
-
-            The hash of a refresh token is recognized as an identifier as well as the refresh token itself.
-
-            '
-        clientIdentifier:
-          type: string
-          description: 'The client ID of the access token to be revoked.
-
-
-            Both the numeric client ID and the alias are recognized as an identifier
-
-            of a client.
-
-            '
-        subject:
-          type: string
-          description: 'The subject of a resource owner.
-
-            '
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
-
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
-    token_create_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          - FORBIDDEN
-          - OK
-          description: The next action that the authorization server implementation should take.
-        accessToken:
-          type: string
-          description: The newly issued access token.
-        clientId:
-          type: integer
-          format: int64
-          description: 'The ID of the client application associated with the access token.
-
-            '
-        expiresAt:
-          type: integer
-          format: int64
-          description: 'The time at which the access token expires.
-
-            '
-        expiresIn:
-          type: integer
-          format: int64
-          description: 'The duration of the newly issued access token in seconds.
-
-            '
-        grantType:
-          type: string
-          description: 'The grant type for the newly issued access token.
-
-            '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'The extra properties associated with the access token.
-
-            '
-        refreshToken:
-          type: string
-          description: 'The newly issued refresh token.
-
-            '
-        scopes:
-          type: array
-          items:
-            type: string
-          description: 'Scopes which are associated with the access token.
-
-            '
-        subject:
-          type: string
-          description: 'The subject (= unique identifier) of the user associated with the newly issued access
-
-            token.
-
-            '
-        tokenType:
-          type: string
-          description: 'The token type of the access token.
-
-            '
-        jwtAccessToken:
-          type: string
-          description: 'If the authorization server is configured to issue JWT-based access tokens (= if `Service.accessTokenSignAlg`
-
-            is set to a `non-null` value), a JWT-based access token is issued along with the original
-
-            random-string one.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
-        forExternalAttachment:
-          type: boolean
-          description: 'the flag which indicates whether the access token is for an external
-
-            attachment.
-
-            '
-        tokenId:
-          type: string
-          description: 'Set the unique token identifier.
-
-            '
-        refreshTokenScopes:
-          type: array
-          items:
-            type: string
-          description: 'The scopes associated with the refresh token. May be null.
-
-            '
-        clientIdentifier:
-          type: string
-          description: 'The client Identifier that will be associated with a newly created access token.
-
-            '
-        sessionId:
-          type: string
-          description: 'The session ID associated with a newly created access token.
-
-
-            NOTE: A refresh token must be associated with a session ID, which is the ID of the user''s authentication
-
-            session, in order to be used to obtain a [Native SSO](https://openid.net/specs/openid-connect-native-sso-1_0.html)-compliant
-
-            ID token in the refresh token flow.
-
-            '
-    token_get_list_response:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-          description: 'Start index of search results (inclusive).
-
-            '
-        end:
-          type: integer
-          format: int32
-          description: 'End index of search results (exclusive).
-
-            '
-        totalCount:
-          type: integer
-          format: int32
-          description: 'Unique ID of a client developer.
-
-            '
-        client:
-          $ref: '#/components/schemas/client_limited'
-        subject:
-          type: string
-          description: 'Unique user ID of an end-user.
-
-            '
-        accessTokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/access_token'
-          description: 'An array of access tokens.
-
-            '
   responses:
-    '404':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: 404
-            resultMessage: ''
     '400':
       description: ''
       content:
@@ -1514,15 +1505,15 @@ components:
           example:
             resultCode: A001201
             resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
+    '404':
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/result'
           example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+            resultCode: 404
+            resultMessage: ''
     '401':
       description: ''
       content:
@@ -1541,6 +1532,15 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   links:
     token_issue:
       operationId: auth_token_issue_api

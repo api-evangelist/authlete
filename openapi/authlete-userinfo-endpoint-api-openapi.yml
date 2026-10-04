@@ -665,6 +665,15 @@ paths:
       - UserInfo Endpoint
 components:
   schemas:
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
     userinfo_request:
       type: object
       required:
@@ -819,54 +828,20 @@ components:
               </Accordion>
 
               '
-    result:
+    property:
       type: object
       properties:
-        resultCode:
+        key:
           type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
+          description: The key part.
+        value:
           type: string
-          description: A short message which explains the result of the API call.
-    userinfo_issue_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - JSON
-          - JWT
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
 
-            header on errors.
-
-            '
-        signature:
-          type: string
-          description: 'The signature header of the response message.
-
-            '
-        signatureInput:
-          type: string
-          description: 'The signature-input header of the response message
-
-            '
-        contentDigest:
-          type: string
-          description: 'The content-digest header of the response message
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
 
             '
     userinfo_response:
@@ -1148,15 +1123,56 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    pair:
+    userinfo_issue_response:
       type: object
       properties:
-        key:
+        resultCode:
           type: string
-          description: The key part.
-        value:
+          description: The code which represents the result of the API call.
+        resultMessage:
           type: string
-          description: The value part.
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - JSON
+          - JWT
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+
+            header on errors.
+
+            '
+        signature:
+          type: string
+          description: 'The signature header of the response message.
+
+            '
+        signatureInput:
+          type: string
+          description: 'The signature-input header of the response message
+
+            '
+        contentDigest:
+          type: string
+          description: 'The content-digest header of the response message
+
+            '
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
     userinfo_issue_request:
       type: object
       required:
@@ -1211,41 +1227,7 @@ components:
             metadata:
               description: Values of verified claims requested indirectly by "transformed claims".
             content: "<Accordion title=\"Full description\" defaultOpen={false}>\nA client application may request \"transformed claims\". Each of transformed claims uses an existing\nclaim as input. As a result, to compute the value of a transformed claim, the value of the referenced\nexisting claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide\nvalues of existing claims for computation of transformed claims.\n\nA response from the `/auth/userinfo` API may include the `requestedVerifiedClaimsForTx` response\nparameter which is a list of verified claims that are referenced indirectly by transformed claims\n(cf. `requestedVerifiedClaimsForTx` in `/auth/userinfo` API response). The authorization server\nimplementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`\nand pass them as the value of this `verifiedClaimsForTx` request parameter.\n\nThe following is an example of the value of this request parameter.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\",\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n\nThe reason that this `verifiedClaimsForTx` property is an array is that the `\"verified_claims\"`\nproperty in the claims request parameter of an authorization request can be an array like below.\n\n```\n&#123;\n  \"transformed_claims\": &#123;\n    \"nationality_usa\": &#123;\n      \"claim\": \"nationalities\",\n      \"fn\": [\n        [ \"eq\", \"USA\" ],\n        \"any\"\n      ]\n    &#125;\n  &#125;,\n  \"userinfo\": &#123;\n    \"verified_claims\": [\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"gold\" &#125; &#125;,\n        \"claims\": &#123; \"::18_or_above\": null &#125;\n      &#125;,\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"silver\" &#125; &#125;,\n        \"claims\": &#123; \":nationality_usa\": null &#125;\n      &#125;\n    ]\n  &#125;\n&#125;\n```\n\nFor the example above, the value of this `verifiedClaimsForTx` property should be an array of\nsize 2 and look like below. The first element is JSON including claims which have been verified\nunder the trust framework `\"gold\"`, and the second element is JSON including claims which have\nbeen verified under the trust framework `\"silver\"`.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\"&#125;\",\n  \"&#123;\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n</Accordion>\n"
-    property:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
   responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '401':
       description: ''
       content:
@@ -1255,6 +1237,15 @@ components:
           example:
             resultCode: A001202
             resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
     '500':
       description: ''
       content:
@@ -1264,6 +1255,15 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http

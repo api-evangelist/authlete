@@ -133,16 +133,90 @@ paths:
       tags:
       - Jose Object
 components:
+  responses:
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+  links:
+    token_introspect:
+      operationId: auth_introspection_api
+      parameters:
+        serviceId: $request.path.serviceId
+    token_exchange:
+      operationId: auth_token_api
+      parameters:
+        serviceId: $request.path.serviceId
   schemas:
-    result:
+    jose_verify_request:
       type: object
+      required:
+      - jose
       properties:
-        resultCode:
+        jose:
           type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
+          description: 'A JOSE object.
+
+            '
+        mandatoryClaims:
+          type: array
+          items:
+            type: string
+          description: 'Mandatory claims that are required to be included in the JOSE object.
+
+            '
+        clockSkew:
+          type: integer
+          format: int32
+          description: 'Allowable clock skew in seconds.
+
+            '
+        clientIdentifier:
           type: string
-          description: A short message which explains the result of the API call.
+          description: 'The identifier of the client application whose keys are required for verification of the JOSE
+
+            object.
+
+            '
+        signedByClient:
+          type: boolean
+          description: 'The flag which indicates whether the signature of the JOSE object has been signed by a client
+
+            application with the client''s private key or a shared symmetric key.
+
+            '
     jose_verify_response:
       type: object
       properties:
@@ -183,89 +257,15 @@ components:
           description: 'The list of error messages.
 
             '
-    jose_verify_request:
+    result:
       type: object
-      required:
-      - jose
       properties:
-        jose:
+        resultCode:
           type: string
-          description: 'A JOSE object.
-
-            '
-        mandatoryClaims:
-          type: array
-          items:
-            type: string
-          description: 'Mandatory claims that are required to be included in the JOSE object.
-
-            '
-        clockSkew:
-          type: integer
-          format: int32
-          description: 'Allowable clock skew in seconds.
-
-            '
-        clientIdentifier:
+          description: The code which represents the result of the API call.
+        resultMessage:
           type: string
-          description: 'The identifier of the client application whose keys are required for verification of the JOSE
-
-            object.
-
-            '
-        signedByClient:
-          type: boolean
-          description: 'The flag which indicates whether the signature of the JOSE object has been signed by a client
-
-            application with the client''s private key or a shared symmetric key.
-
-            '
-  links:
-    token_exchange:
-      operationId: auth_token_api
-      parameters:
-        serviceId: $request.path.serviceId
-    token_introspect:
-      operationId: auth_introspection_api
-      parameters:
-        serviceId: $request.path.serviceId
-  responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+          description: A short message which explains the result of the API call.
   securitySchemes:
     bearer:
       type: http

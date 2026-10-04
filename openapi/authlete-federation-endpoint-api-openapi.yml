@@ -295,80 +295,30 @@ paths:
       - Federation Endpoint
 components:
   schemas:
-    response_type:
-      type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    jwe_alg:
-      type:
-      - string
-      - 'null'
-      description: 'this is the ''alg'' header value for encrypted JWT tokens.
-
-        Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
-
-        - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
-
-        - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
-
-        - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
-
-
-        **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
-
-        '
-      enum:
-      - RSA1_5
-      - RSA_OAEP
-      - RSA_OAEP_256
-      - A128KW
-      - A192KW
-      - A256KW
-      - DIR
-      - ECDH_ES
-      - ECDH_ES_A128KW
-      - ECDH_ES_A192KW
-      - ECDH_ES_A256KW
-      - A128GCMKW
-      - A192GCMKW
-      - A256GCMKW
-      - PBES2_HS256_A128KW
-      - PBES2_HS384_A192KW
-      - PBES2_HS512_A256KW
-    result:
+    pair:
       type: object
       properties:
-        resultCode:
+        key:
           type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
+          description: The key part.
+        value:
           type: string
-          description: A short message which explains the result of the API call.
-    client_auth_method:
+          description: The value part.
+    subject_type:
       type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
+      description: 'The subject type that the client application requests. Details about the subject type are described in
 
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
 
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        This property corresponds to `subject_type` in
+
+        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
 
         '
       enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
+      - PUBLIC
+      - PAIRWISE
     jws_alg:
       type:
       - string
@@ -390,32 +340,128 @@ components:
       - PS512
       - ES256K
       - EdDSA
-    application_type:
+    client_extension:
+      type: object
+      properties:
+        requestableScopes:
+          type: array
+          items:
+            type: string
+          description: 'The set of scopes that the client application is allowed to request. This paramter will be one
+
+            of the following.
+
+            '
+          x-mint:
+            metadata:
+              description: The set of scopes that the client application is allowed to request. This paramter will be one of the following.
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n  - `null`\n  - an empty set\n  - a set with at least one element\n\nWhen the value of this parameter is `null`, it means that the set of scopes that the client\napplication is allowed to request is the set of the scopes that the service supports. When the\nvalue of this parameter is an empty set, it means that the client application is not allowed to\nrequest any scopes. When the value of this parameter is a set with at least one element, it means\nthat the set is the set of scopes that the client application is allowed to request.\n</Accordion>\n"
+        requestableScopesEnabled:
+          type: boolean
+          description: 'The flag to indicate whether "Requestable Scopes per Client" is enabled or not. If `true`, you
+
+            can define the set of scopes which this client application can request. If `false`, this client
+
+            application can request any scope which is supported by the authorization server.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of access tokens per client in seconds. In normal cases, the value of
+
+            the service''s `accessTokenDuration` property is used as the duration of access tokens issued by
+
+            the service. However, if this `accessTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of access tokens issued to the client application.
+
+
+            Note that the duration of access tokens can be controlled by the scope attribute `access_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of refresh tokens per client in seconds. In normal cases, the value
+
+            of the service''s `refreshTokenDuration` property is used as the duration of refresh tokens issued
+
+            by the service. However, if this `refreshTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of refresh tokens issued to the client application.
+
+
+            Note that the duration of refresh tokens can be controlled by the scope attribute `refresh_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        idTokenDuration:
+          type: integer
+          format: int64
+          description: 'The value of the duration of ID tokens per client in seconds. In normal cases, the value
+
+            of the service''s `idTokenDuration` property is used as the duration of ID tokens issued
+
+            by the service. However, if this `idTokenDuration` property holds a non-zero positive number
+
+            and its value is less than the duration configured by the service, the value is used as the duration
+
+            of ID tokens issued to the client application.
+
+
+            Note that the duration of refresh tokens can be controlled by the scope attribute `id_token.duration`,
+
+            too. Authlete chooses the minimum value among the candidates.
+
+            '
+        tokenExchangePermitted:
+          type: boolean
+          description: 'Get the flag indicating whether the client is explicitly given a
+
+            permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
+
+            '
+    response_type:
       type: string
-      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
-
-        See the description about `redirectUris` property for more details.
-
-        '
       enum:
-      - WEB
-      - NATIVE
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    federation_registration_request:
+      type: object
+      properties:
+        entityConfiguration:
+          type: string
+          description: 'The entity configuration of a relying party.
 
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
+            '
+        trustChain:
+          type: string
+          description: 'The trust chain of a relying party.
+
+            '
     client_type:
       type: string
       description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
@@ -426,21 +472,6 @@ components:
       enum:
       - PUBLIC
       - CONFIDENTIAL
-    client_registration_type:
-      type: string
-      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
-      enum:
-      - AUTOMATIC
-      - EXPLICIT
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
     client:
       type: object
       additionalProperties: true
@@ -1486,40 +1517,79 @@ components:
           - EXPLICIT_REGISTRATION
           - METADATA_DOCUMENT
           - STATIC_REGISTRATION
-    jwe_enc:
+    jwe_alg:
       type:
       - string
       - 'null'
-      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
+      description: 'this is the ''alg'' header value for encrypted JWT tokens.
+
+        Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
+
+        - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
+
+        - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
+
+        - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
+
+
+        **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
+
+        '
       enum:
-      - A128CBC_HS256
-      - A192CBC_HS384
-      - A256CBC_HS512
-      - A128GCM
-      - A192GCM
-      - A256GCM
-    pair:
+      - RSA1_5
+      - RSA_OAEP
+      - RSA_OAEP_256
+      - A128KW
+      - A192KW
+      - A256KW
+      - DIR
+      - ECDH_ES
+      - ECDH_ES_A128KW
+      - ECDH_ES_A192KW
+      - ECDH_ES_A256KW
+      - A128GCMKW
+      - A192GCMKW
+      - A256GCMKW
+      - PBES2_HS256_A128KW
+      - PBES2_HS384_A192KW
+      - PBES2_HS512_A256KW
+    client_auth_method:
+      type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
+    tagged_value:
       type: object
       properties:
-        key:
+        tag:
           type: string
-          description: The key part.
+          description: The language tag part.
         value:
           type: string
           description: The value part.
-    federation_registration_request:
-      type: object
-      properties:
-        entityConfiguration:
-          type: string
-          description: 'The entity configuration of a relying party.
+    application_type:
+      type: string
+      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
 
-            '
-        trustChain:
-          type: string
-          description: 'The trust chain of a relying party.
+        See the description about `redirectUris` property for more details.
 
-            '
+        '
+      enum:
+      - WEB
+      - NATIVE
     federation_configuration_response:
       type: object
       properties:
@@ -1552,95 +1622,6 @@ components:
       - FAPI2_MESSAGE_SIGNING_AUTH_RES
       - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
       - FAPI2_SECURITY
-    client_extension:
-      type: object
-      properties:
-        requestableScopes:
-          type: array
-          items:
-            type: string
-          description: 'The set of scopes that the client application is allowed to request. This paramter will be one
-
-            of the following.
-
-            '
-          x-mint:
-            metadata:
-              description: The set of scopes that the client application is allowed to request. This paramter will be one of the following.
-            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n  - `null`\n  - an empty set\n  - a set with at least one element\n\nWhen the value of this parameter is `null`, it means that the set of scopes that the client\napplication is allowed to request is the set of the scopes that the service supports. When the\nvalue of this parameter is an empty set, it means that the client application is not allowed to\nrequest any scopes. When the value of this parameter is a set with at least one element, it means\nthat the set is the set of scopes that the client application is allowed to request.\n</Accordion>\n"
-        requestableScopesEnabled:
-          type: boolean
-          description: 'The flag to indicate whether "Requestable Scopes per Client" is enabled or not. If `true`, you
-
-            can define the set of scopes which this client application can request. If `false`, this client
-
-            application can request any scope which is supported by the authorization server.
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of access tokens per client in seconds. In normal cases, the value of
-
-            the service''s `accessTokenDuration` property is used as the duration of access tokens issued by
-
-            the service. However, if this `accessTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of access tokens issued to the client application.
-
-
-            Note that the duration of access tokens can be controlled by the scope attribute `access_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        refreshTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of refresh tokens per client in seconds. In normal cases, the value
-
-            of the service''s `refreshTokenDuration` property is used as the duration of refresh tokens issued
-
-            by the service. However, if this `refreshTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of refresh tokens issued to the client application.
-
-
-            Note that the duration of refresh tokens can be controlled by the scope attribute `refresh_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        idTokenDuration:
-          type: integer
-          format: int64
-          description: 'The value of the duration of ID tokens per client in seconds. In normal cases, the value
-
-            of the service''s `idTokenDuration` property is used as the duration of ID tokens issued
-
-            by the service. However, if this `idTokenDuration` property holds a non-zero positive number
-
-            and its value is less than the duration configured by the service, the value is used as the duration
-
-            of ID tokens issued to the client application.
-
-
-            Note that the duration of refresh tokens can be controlled by the scope attribute `id_token.duration`,
-
-            too. Authlete chooses the minimum value among the candidates.
-
-            '
-        tokenExchangePermitted:
-          type: boolean
-          description: 'Get the flag indicating whether the client is explicitly given a
-
-            permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
-
-            '
     federation_registration_response:
       type: object
       properties:
@@ -1667,21 +1648,40 @@ components:
             '
         client:
           $ref: '#/components/schemas/client'
-    subject_type:
+    jwe_enc:
+      type:
+      - string
+      - 'null'
+      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
+      enum:
+      - A128CBC_HS256
+      - A192CBC_HS384
+      - A256CBC_HS512
+      - A128GCM
+      - A192GCM
+      - A256GCM
+    client_registration_type:
       type: string
-      description: 'The subject type that the client application requests. Details about the subject type are described in
-
-        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
-
-
-        This property corresponds to `subject_type` in
-
-        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+      description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
+      enum:
+      - AUTOMATIC
+      - EXPLICIT
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
 
         '
       enum:
-      - PUBLIC
-      - PAIRWISE
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
   responses:
     '400':
       description: ''
@@ -1692,15 +1692,6 @@ components:
           example:
             resultCode: A001201
             resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '401':
       description: ''
       content:
@@ -1719,6 +1710,15 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http

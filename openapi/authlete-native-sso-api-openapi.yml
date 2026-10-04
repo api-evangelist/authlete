@@ -312,7 +312,107 @@ paths:
       tags:
       - Native SSO
 components:
+  responses:
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   schemas:
+    native_sso_logout_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - SERVER_ERROR
+          - CALLER_ERROR
+          description: 'The next action that the API caller should take.
+
+            '
+        count:
+          type: integer
+          description: 'The number of deleted access/refresh token records.
+
+            '
+    native_sso_logout_request:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+          description: 'The session ID of a user''s authentication session.
+
+            '
+    native_sso_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - INTERNAL_SERVER_ERROR
+          - CALLER_ERROR
+          description: 'The next action that the implementation of the token endpoint should take.
+
+            '
+        responseContent:
+          type: string
+          description: 'The response content that can be used as the message body of the token response that should be
+
+            returned from the token endpoint.
+
+            '
+        idToken:
+          type: string
+          description: 'The issued ID token.
+
+            '
     result:
       type: object
       properties:
@@ -415,115 +515,15 @@ components:
             is omitted, the value of the `deviceSecret` request parameter is used to compute the hash.
 
             '
-    native_sso_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - INTERNAL_SERVER_ERROR
-          - CALLER_ERROR
-          description: 'The next action that the implementation of the token endpoint should take.
-
-            '
-        responseContent:
-          type: string
-          description: 'The response content that can be used as the message body of the token response that should be
-
-            returned from the token endpoint.
-
-            '
-        idToken:
-          type: string
-          description: 'The issued ID token.
-
-            '
-    native_sso_logout_request:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-          description: 'The session ID of a user''s authentication session.
-
-            '
-    native_sso_logout_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - SERVER_ERROR
-          - CALLER_ERROR
-          description: 'The next action that the API caller should take.
-
-            '
-        count:
-          type: integer
-          description: 'The number of deleted access/refresh token records.
-
-            '
   links:
-    token_exchange:
-      operationId: auth_token_api
-      parameters:
-        serviceId: $request.path.serviceId
     authz_process:
       operationId: auth_authorization_api
       parameters:
         serviceId: $request.path.serviceId
-  responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    token_exchange:
+      operationId: auth_token_api
+      parameters:
+        serviceId: $request.path.serviceId
   securitySchemes:
     bearer:
       type: http

@@ -1353,6 +1353,15 @@ paths:
       - Token Endpoint
 components:
   schemas:
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
     result:
       type: object
       properties:
@@ -1362,28 +1371,107 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-    token_fail_response:
+    token_info:
       type: object
       properties:
-        resultCode:
+        clientId:
+          type: integer
+          description: The client id.
+        clientIdAlias:
           type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
+          description: The alias of the client.
+        clientIdAliasUsed:
+          type: boolean
+          description: Flag specifying if the alias was used to identify the client
+        subject:
           type: string
-          description: A short message which explains the result of the API call.
-        action:
+          description: the resource owner unique id
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/scope'
+          description: The scopes granted on the token
+        expiresAt:
+          type: integer
+          description: time which the token expires.
+        properties:
+          type: array
+          description: Extra properties associated with the token
+          items:
+            $ref: '#/components/schemas/property'
+        resources:
+          type: array
+          description: The array of the resources of the token.
+          items:
+            type: string
+        authorizationDetails:
+          $ref: '#/components/schemas/authorization_details_element'
+        clientEntityId:
           type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter. See description for details.
+          description: 'The entity ID of the client.
 
             '
+        clientEntityIdUsed:
+          type: boolean
+          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+
+            '
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: 'The location of the client''s metadata document that was used to resolve client metadata.
+
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+
+            '
+        metadataDocumentUsed:
+          type: boolean
+          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
+
+            '
+    authz_details:
+      type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
+
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
+
+            '
+    scope:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the scope.
+        defaultEntry:
+          type: boolean
+          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
+        description:
+          type: string
+          description: The description about the scope.
+        descriptions:
+          type: array
+          description: The descriptions about this scope in multiple languages.
+          items:
+            $ref: '#/components/schemas/tagged_value'
+        attributes:
+          type: array
+          description: The attributes of the scope.
+          items:
+            $ref: '#/components/schemas/pair'
     token_response:
       type: object
       properties:
@@ -1755,22 +1843,6 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    property:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
     idtoken_reissue_response:
       type: object
       properties:
@@ -1799,114 +1871,135 @@ components:
           description: 'The reissued ID token
 
             '
-    authz_details:
-      type: object
-      description: 'The authorization details. This represents the value of the `authorization_details`
-
-        request parameter in the preceding device authorization request which is defined in
-
-        "OAuth 2.0 Rich Authorization Requests".
-
-        '
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization_details_element'
-          description: 'Elements of this authorization details.
-
-            '
-    idtoken_reissue_request:
-      type: object
-      required:
-      - accessToken
-      - refreshToken
-      properties:
-        accessToken:
-          type: string
-          description: 'The value of this parameter should be (a) the value of the
-
-            "`jwtAccessToken`" parameter in a response from the
-
-            `/auth/token` API when the value is available, or (b)
-
-            the value of the "`accessToken`" parameter in the
-
-            response from the `/auth/token` API when the value of
-
-            the "`jwtAccessToken`" parameter is not available.
-
-            '
-        refreshToken:
-          type: string
-          description: 'The value of this parameter should be the value of the
-
-            "`refreshToken`" parameter in a response from the
-
-            `/auth/token` API.
-
-            '
-        sub:
-          type: string
-          description: 'The value that should be used as the value of the "`sub`"
-
-            claim of the ID token.
-
-            This parameter is optional. When omitted, the value of the subject
-
-            associated with the access token is used.
-
-            '
-        claims:
-          type: string
-          description: 'Additional claims that should be embedded in the payload part of
-
-            the ID token. The format is a JSON object.
-
-            This parameter is optional.
-
-            '
-        idtHeaderParams:
-          type: string
-          description: 'Additional parameters that should be embedded in the JWS header of
-
-            the ID token. The format is a JSON object.
-
-            This parameter is optional.
-
-            '
-        idTokenAudType:
-          type: string
-          description: 'The type of the "`aud`" claim of the ID token being issued.
-
-            Valid values of this parameter are as follows.
-
-            > | Value | Description |
-
-            > | --- | --- |
-
-            > | "`array`" | The type of the `aud` claim becomes an array of strings. |
-
-            > | "`string`" | The type of the `aud` claim becomes a single string. |
-
-            This parameter is optional, and the default value on omission is
-
-            "`array`".
-
-            This parameter takes precedence over the `idTokenAudType` property
-
-            of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
-
-            '
-    tagged_value:
+    token_fail_response:
       type: object
       properties:
-        tag:
+        resultCode:
           type: string
-          description: The language tag part.
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter. See description for details.
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
         value:
           type: string
           description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
     token_issue_response:
       type: object
       properties:
@@ -2072,117 +2165,24 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
+    token_type:
+      type: string
+      description: 'The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
 
+        The API returns short codes (enum constant names) in response fields.
 
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
-
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
-    token_fail_request:
-      type: object
-      required:
-      - ticket
-      - reason
-      properties:
-        ticket:
-          type: string
-          description: 'The ticket issued from Authlete `/auth/token` API.
-
-            '
-        reason:
-          type: string
-          enum:
-          - UNKNOWN
-          - INVALID_RESOURCE_OWNER_CREDENTIALS
-          - INVALID_TARGET
-          description: 'The reason of the failure of the token request.
-
-            '
+        '
+      enum:
+      - JWT
+      - ACCESS_TOKEN
+      - REFRESH_TOKEN
+      - ID_TOKEN
+      - SAML1
+      - SAML2
+      - DEVICE_SECRET
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
     cimd_options:
       type: object
       description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
@@ -2237,33 +2237,97 @@ components:
             If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
 
             '
-    pair:
+    tagged_value:
       type: object
       properties:
-        key:
+        tag:
           type: string
-          description: The key part.
+          description: The language tag part.
         value:
           type: string
           description: The value part.
-    token_type:
-      type: string
-      description: 'The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+    idtoken_reissue_request:
+      type: object
+      required:
+      - accessToken
+      - refreshToken
+      properties:
+        accessToken:
+          type: string
+          description: 'The value of this parameter should be (a) the value of the
 
-        The API returns short codes (enum constant names) in response fields.
+            "`jwtAccessToken`" parameter in a response from the
 
-        '
-      enum:
-      - JWT
-      - ACCESS_TOKEN
-      - REFRESH_TOKEN
-      - ID_TOKEN
-      - SAML1
-      - SAML2
-      - DEVICE_SECRET
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
+            `/auth/token` API when the value is available, or (b)
+
+            the value of the "`accessToken`" parameter in the
+
+            response from the `/auth/token` API when the value of
+
+            the "`jwtAccessToken`" parameter is not available.
+
+            '
+        refreshToken:
+          type: string
+          description: 'The value of this parameter should be the value of the
+
+            "`refreshToken`" parameter in a response from the
+
+            `/auth/token` API.
+
+            '
+        sub:
+          type: string
+          description: 'The value that should be used as the value of the "`sub`"
+
+            claim of the ID token.
+
+            This parameter is optional. When omitted, the value of the subject
+
+            associated with the access token is used.
+
+            '
+        claims:
+          type: string
+          description: 'Additional claims that should be embedded in the payload part of
+
+            the ID token. The format is a JSON object.
+
+            This parameter is optional.
+
+            '
+        idtHeaderParams:
+          type: string
+          description: 'Additional parameters that should be embedded in the JWS header of
+
+            the ID token. The format is a JSON object.
+
+            This parameter is optional.
+
+            '
+        idTokenAudType:
+          type: string
+          description: 'The type of the "`aud`" claim of the ID token being issued.
+
+            Valid values of this parameter are as follows.
+
+            > | Value | Description |
+
+            > | --- | --- |
+
+            > | "`array`" | The type of the `aud` claim becomes an array of strings. |
+
+            > | "`string`" | The type of the `aud` claim becomes a single string. |
+
+            This parameter is optional, and the default value on omission is
+
+            "`array`".
+
+            This parameter takes precedence over the `idTokenAudType` property
+
+            of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
+
+            '
     token_request:
       type: object
       required:
@@ -2429,90 +2493,6 @@ components:
             These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
 
             '
-    scope:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the scope.
-        defaultEntry:
-          type: boolean
-          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
-        description:
-          type: string
-          description: The description about the scope.
-        descriptions:
-          type: array
-          description: The descriptions about this scope in multiple languages.
-          items:
-            $ref: '#/components/schemas/tagged_value'
-        attributes:
-          type: array
-          description: The attributes of the scope.
-          items:
-            $ref: '#/components/schemas/pair'
-    token_info:
-      type: object
-      properties:
-        clientId:
-          type: integer
-          description: The client id.
-        clientIdAlias:
-          type: string
-          description: The alias of the client.
-        clientIdAliasUsed:
-          type: boolean
-          description: Flag specifying if the alias was used to identify the client
-        subject:
-          type: string
-          description: the resource owner unique id
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/scope'
-          description: The scopes granted on the token
-        expiresAt:
-          type: integer
-          description: time which the token expires.
-        properties:
-          type: array
-          description: Extra properties associated with the token
-          items:
-            $ref: '#/components/schemas/property'
-        resources:
-          type: array
-          description: The array of the resources of the token.
-          items:
-            type: string
-        authorizationDetails:
-          $ref: '#/components/schemas/authorization_details_element'
-        clientEntityId:
-          type: string
-          description: 'The entity ID of the client.
-
-            '
-        clientEntityIdUsed:
-          type: boolean
-          description: 'Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
-
-            '
-        metadataDocumentLocation:
-          type: string
-          format: uri
-          description: 'The location of the client''s metadata document that was used to resolve client metadata.
-
-
-            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
-
-            '
-        metadataDocumentUsed:
-          type: boolean
-          description: 'Flag indicating whether a metadata document was used to resolve client metadata for this request.
-
-
-            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
-
-            '
     token_issue_request:
       type: object
       required:
@@ -2576,6 +2556,26 @@ components:
             token in. In other cases, this request parameter is ignored.
 
             '
+    token_fail_request:
+      type: object
+      required:
+      - ticket
+      - reason
+      properties:
+        ticket:
+          type: string
+          description: 'The ticket issued from Authlete `/auth/token` API.
+
+            '
+        reason:
+          type: string
+          enum:
+          - UNKNOWN
+          - INVALID_RESOURCE_OWNER_CREDENTIALS
+          - INVALID_TARGET
+          description: 'The reason of the failure of the token request.
+
+            '
   responses:
     '400':
       description: ''
@@ -2586,15 +2586,6 @@ components:
           example:
             resultCode: A001201
             resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
     '401':
       description: ''
       content:
@@ -2613,6 +2604,15 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   securitySchemes:
     bearer:
       type: http
