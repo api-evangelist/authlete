@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/authlete/openapi/HEAD/spec_next.yaml",
+ "requested_url": "https://raw.githubusercontent.com/authlete/openapi/HEAD/spec_next.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 924618,
+ "sha256": "7ad74ab647499d0214f0ebaa520637b13f9e379037c9efbc061f0f744260db82",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.945), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
