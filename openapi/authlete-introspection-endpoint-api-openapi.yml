@@ -636,31 +636,6 @@ paths:
       - Introspection Endpoint
 components:
   schemas:
-    pair:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
     standard_introspection_request:
       type: object
       required:
@@ -804,47 +779,22 @@ components:
             requested to be encrypted with an asymmetric algorithm.
 
             '
-    standard_introspection_response:
+    grant:
       type: object
       properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          - OK
-          - JWT
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client
-
-            application.
-
-            '
-    authz_details:
-      type: object
-      description: 'The authorization details. This represents the value of the `authorization_details`
-
-        request parameter in the preceding device authorization request which is defined in
-
-        "OAuth 2.0 Rich Authorization Requests".
-
-        '
-      properties:
-        elements:
+        scopes:
           type: array
           items:
-            $ref: '#/components/schemas/authorization_details_element'
-          description: 'Elements of this authorization details.
+            $ref: '#/components/schemas/grant_scope'
+        claims:
+          type: array
+          items:
+            type: string
+          description: 'The claims associated with the Grant.
 
             '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
     introspection_response:
       type: object
       properties:
@@ -1117,7 +1067,23 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    property:
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    pair:
       type: object
       properties:
         key:
@@ -1126,11 +1092,21 @@ components:
         value:
           type: string
           description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+    authz_details:
+      type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
 
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
 
             '
     scope:
@@ -1155,97 +1131,6 @@ components:
           description: The attributes of the scope.
           items:
             $ref: '#/components/schemas/pair'
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
-
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
     tagged_value:
       type: object
       properties:
@@ -1264,6 +1149,30 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
+    standard_introspection_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - OK
+          - JWT
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client
+
+            application.
+
+            '
     introspection_request:
       type: object
       required:
@@ -1465,6 +1374,113 @@ components:
             is included in the signature base, if the FAPI profile applies to the resource request.
 
             '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
     grant_scope:
       type: object
       properties:
@@ -1480,32 +1496,7 @@ components:
           description: 'List of resource indicators.
 
             '
-    grant:
-      type: object
-      properties:
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/grant_scope'
-        claims:
-          type: array
-          items:
-            type: string
-          description: 'The claims associated with the Grant.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
   responses:
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
     '400':
       description: ''
       content:
@@ -1524,6 +1515,15 @@ components:
           example:
             resultCode: A001101
             resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
     '403':
       description: ''
       content:

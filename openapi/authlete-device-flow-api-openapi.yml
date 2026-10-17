@@ -670,35 +670,7 @@ paths:
       - Device Flow
 components:
   schemas:
-    pair:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-    device_verification_request:
-      type: object
-      required:
-      - userCode
-      properties:
-        userCode:
-          type: string
-          description: 'A user code.
-
-            '
-    dynamic_scope:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The scope name.
-        value:
-          type: string
-          description: The scope value.
-    result:
+    device_complete_response:
       type: object
       properties:
         resultCode:
@@ -707,108 +679,15 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-    device_authorization_request:
-      type: object
-      required:
-      - parameters
-      properties:
-        parameters:
+        action:
           type: string
-          description: 'Parameters of a device authorization request which are the request parameters that the device
-
-            authorization endpoint of the authorization server implementation received from the client application.
-
-
-            The value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)
-
-            of the request from the client application.
-
-            '
-        clientId:
-          type: string
-          description: 'The client ID extracted from Authorization header of the device authorization request from the
-
-            client application.
-
-
-            If the device authorization endpoint of the authorization server implementation supports Basic
-
-            `Authentication` as a means of client authentication, and the request from the client application
-
-            contained its client ID in `Authorization` header, the value should be extracted and set to this
-
-            parameter.
-
-            '
-        clientSecret:
-          type: string
-          description: 'The client secret extracted from `Authorization` header of the device authorization request from
-
-            the client application.
-
-
-            If the device authorization endpoint of the authorization server implementation supports Basic
-
-            Authentication as a means of client authentication, and the request from the client application
-
-            contained its client secret in `Authorization` header, the value should be extracted and set to
-
-            this parameter.
-
-            '
-        clientCertificate:
-          type: string
-          description: 'The client certificate used in the TLS connection between the client application and the device
-
-            authorization endpoint of the authorization server.
-
-            '
-        clientCertificatePath:
-          type: array
-          items:
-            type: string
-          description: 'The client certificate path presented by the client during client authentication. Each element
-
-            is a string in PEM format.
-
-            '
-        oauthClientAttestation:
-          type: string
-          description: 'The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification
-
-            of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
-
-            '
-        oauthClientAttestationPop:
-          type: string
-          description: 'The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
-
-            of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
-
-            '
-        cimdOptions:
-          $ref: '#/components/schemas/cimd_options'
-          description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
-
-
-            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
-
-            '
-    authz_details:
-      type: object
-      description: 'The authorization details. This represents the value of the `authorization_details`
-
-        request parameter in the preceding device authorization request which is defined in
-
-        "OAuth 2.0 Rich Authorization Requests".
-
-        '
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/authorization_details_element'
-          description: 'Elements of this authorization details.
+          enum:
+          - SERVER_ERROR
+          - USER_CODE_NOT_EXIST
+          - USER_CODE_EXPIRED
+          - INVALID_REQUEST
+          - SUCCESS
+          description: 'The next action that the authorization server implementation should take.
 
             '
     scope:
@@ -833,6 +712,277 @@ components:
           description: The attributes of the scope.
           items:
             $ref: '#/components/schemas/pair'
+    authz_details:
+      type: object
+      description: 'The authorization details. This represents the value of the `authorization_details`
+
+        request parameter in the preceding device authorization request which is defined in
+
+        "OAuth 2.0 Rich Authorization Requests".
+
+        '
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/authorization_details_element'
+          description: 'Elements of this authorization details.
+
+            '
+    device_complete_request:
+      type: object
+      required:
+      - userCode
+      - result
+      - subject
+      properties:
+        userCode:
+          type: string
+          description: 'A user code.
+
+            '
+        result:
+          type: string
+          enum:
+          - TRANSACTION_FAILED
+          - ACCESS_DENIED
+          - AUTHORIZED
+          description: 'The result of the end-user authentication and authorization. One of the following. Details are
+
+            described in the description.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= unique identifier) of the end-user.
+
+            '
+        sub:
+          type: string
+          description: 'The value of the sub claim that should be used in the ID token.
+
+            '
+        authTime:
+          type: integer
+          format: int64
+          description: 'The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.
+
+            '
+        acr:
+          type: string
+          description: 'The reference of the authentication context class which the end-user authentication satisfied.
+
+            '
+        claims:
+          type: string
+          description: 'Additional claims which will be embedded in the ID token.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: 'The extra properties associated with the access token.
+
+            '
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'Scopes to replace the scopes specified in the original device authorization request with.
+
+            When nothing is specified for this parameter, replacement is not performed.
+
+            '
+        errorDescription:
+          type: string
+          description: 'The description of the error. If this optional request parameter is given, its value is used as
+
+            the value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.
+
+            To comply with the specification strictly, the description must not include characters outside
+
+            the set `%x20-21 / %x23-5B / %x5D-7E`.
+
+            '
+        errorUri:
+          type: string
+          description: 'The URI of a document which describes the error in detail. This corresponds to the `error_uri`
+
+            property in the response to the client.
+
+            '
+        idtHeaderParams:
+          type: string
+          description: 'JSON that represents additional JWS header parameters for ID tokens.
+
+            '
+        consentedClaims:
+          type: array
+          items:
+            type: string
+          description: 'the claims that the user has consented for the client application
+
+            to know.
+
+            '
+        jwtAtClaims:
+          type: string
+          description: 'Additional claims that are added to the payload part of the JWT access token.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
+
+            API call.
+
+
+            When this request parameter holds a positive integer, it is used as the duration of the access
+
+            token in. In other cases, this request parameter is ignored.
+
+            '
+        refreshTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
+
+            API call.
+
+
+            When this request parameter holds a positive integer, it is used as the duration of the refresh
+
+            token in. In other cases, this request parameter is ignored.
+
+            '
+        idTokenAudType:
+          type: string
+          description: 'The type of the `aud` claim of the ID token being issued. Valid values are as follows.
+
+
+            | Value | Description |
+
+            | ----- | ----------- |
+
+            | "array" | The type of the aud claim is always an array of strings. |
+
+            | "string" | The type of the aud claim is always a single string. |
+
+            | null | The type of the aud claim remains the same as before. |
+
+
+            This request parameter takes precedence over the `idTokenAudType` property of the service.
+
+            '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
     device_verification_response:
       type: object
       properties:
@@ -1034,170 +1184,7 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    device_complete_request:
-      type: object
-      required:
-      - userCode
-      - result
-      - subject
-      properties:
-        userCode:
-          type: string
-          description: 'A user code.
-
-            '
-        result:
-          type: string
-          enum:
-          - TRANSACTION_FAILED
-          - ACCESS_DENIED
-          - AUTHORIZED
-          description: 'The result of the end-user authentication and authorization. One of the following. Details are
-
-            described in the description.
-
-            '
-        subject:
-          type: string
-          description: 'The subject (= unique identifier) of the end-user.
-
-            '
-        sub:
-          type: string
-          description: 'The value of the sub claim that should be used in the ID token.
-
-            '
-        authTime:
-          type: integer
-          format: int64
-          description: 'The time at which the end-user was authenticated. Its value is the number of seconds from `1970-01-01`.
-
-            '
-        acr:
-          type: string
-          description: 'The reference of the authentication context class which the end-user authentication satisfied.
-
-            '
-        claims:
-          type: string
-          description: 'Additional claims which will be embedded in the ID token.
-
-            '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: 'The extra properties associated with the access token.
-
-            '
-        scopes:
-          type: array
-          items:
-            type: string
-          description: 'Scopes to replace the scopes specified in the original device authorization request with.
-
-            When nothing is specified for this parameter, replacement is not performed.
-
-            '
-        errorDescription:
-          type: string
-          description: 'The description of the error. If this optional request parameter is given, its value is used as
-
-            the value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.
-
-            To comply with the specification strictly, the description must not include characters outside
-
-            the set `%x20-21 / %x23-5B / %x5D-7E`.
-
-            '
-        errorUri:
-          type: string
-          description: 'The URI of a document which describes the error in detail. This corresponds to the `error_uri`
-
-            property in the response to the client.
-
-            '
-        idtHeaderParams:
-          type: string
-          description: 'JSON that represents additional JWS header parameters for ID tokens.
-
-            '
-        consentedClaims:
-          type: array
-          items:
-            type: string
-          description: 'the claims that the user has consented for the client application
-
-            to know.
-
-            '
-        jwtAtClaims:
-          type: string
-          description: 'Additional claims that are added to the payload part of the JWT access token.
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
-
-            API call.
-
-
-            When this request parameter holds a positive integer, it is used as the duration of the access
-
-            token in. In other cases, this request parameter is ignored.
-
-            '
-        refreshTokenDuration:
-          type: integer
-          format: int64
-          description: 'The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
-
-            API call.
-
-
-            When this request parameter holds a positive integer, it is used as the duration of the refresh
-
-            token in. In other cases, this request parameter is ignored.
-
-            '
-        idTokenAudType:
-          type: string
-          description: 'The type of the `aud` claim of the ID token being issued. Valid values are as follows.
-
-
-            | Value | Description |
-
-            | ----- | ----------- |
-
-            | "array" | The type of the aud claim is always an array of strings. |
-
-            | "string" | The type of the aud claim is always a single string. |
-
-            | null | The type of the aud claim remains the same as before. |
-
-
-            This request parameter takes precedence over the `idTokenAudType` property of the service.
-
-            '
-    grant_management_action:
-      type: string
-      description: 'The grant management action of the device authorization request.
-
-
-        The `grant_management_action` request parameter is defined in
-
-        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
-
-        '
-      enum:
-      - CREATE
-      - QUERY
-      - REPLACE
-      - REVOKE
-      - MERGE
-    device_complete_response:
+    result:
       type: object
       properties:
         resultCode:
@@ -1206,15 +1193,119 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-        action:
+    dynamic_scope:
+      type: object
+      properties:
+        name:
           type: string
-          enum:
-          - SERVER_ERROR
-          - USER_CODE_NOT_EXIST
-          - USER_CODE_EXPIRED
-          - INVALID_REQUEST
-          - SUCCESS
-          description: 'The next action that the authorization server implementation should take.
+          description: The scope name.
+        value:
+          type: string
+          description: The scope value.
+    device_verification_request:
+      type: object
+      required:
+      - userCode
+      properties:
+        userCode:
+          type: string
+          description: 'A user code.
+
+            '
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    device_authorization_request:
+      type: object
+      required:
+      - parameters
+      properties:
+        parameters:
+          type: string
+          description: 'Parameters of a device authorization request which are the request parameters that the device
+
+            authorization endpoint of the authorization server implementation received from the client application.
+
+
+            The value of `parameters` is the entire entity body (which is formatted in `application/x-www-form-urlencoded`)
+
+            of the request from the client application.
+
+            '
+        clientId:
+          type: string
+          description: 'The client ID extracted from Authorization header of the device authorization request from the
+
+            client application.
+
+
+            If the device authorization endpoint of the authorization server implementation supports Basic
+
+            `Authentication` as a means of client authentication, and the request from the client application
+
+            contained its client ID in `Authorization` header, the value should be extracted and set to this
+
+            parameter.
+
+            '
+        clientSecret:
+          type: string
+          description: 'The client secret extracted from `Authorization` header of the device authorization request from
+
+            the client application.
+
+
+            If the device authorization endpoint of the authorization server implementation supports Basic
+
+            Authentication as a means of client authentication, and the request from the client application
+
+            contained its client secret in `Authorization` header, the value should be extracted and set to
+
+            this parameter.
+
+            '
+        clientCertificate:
+          type: string
+          description: 'The client certificate used in the TLS connection between the client application and the device
+
+            authorization endpoint of the authorization server.
+
+            '
+        clientCertificatePath:
+          type: array
+          items:
+            type: string
+          description: 'The client certificate path presented by the client during client authentication. Each element
+
+            is a string in PEM format.
+
+            '
+        oauthClientAttestation:
+          type: string
+          description: 'The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification
+
+            of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
+
+            '
+        oauthClientAttestationPop:
+          type: string
+          description: 'The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
+
+            of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
+
+            '
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
 
             '
     grant_scope:
@@ -1232,7 +1323,77 @@ components:
           description: 'List of resource indicators.
 
             '
-    property:
+    grant:
+      type: object
+      properties:
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/grant_scope'
+        claims:
+          type: array
+          items:
+            type: string
+          description: 'The claims associated with the Grant.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+    cimd_options:
+      type: object
+      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+
+        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+
+        '
+      properties:
+        alwaysRetrieved:
+          type: boolean
+          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
+
+
+            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
+
+
+            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
+
+
+            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
+
+
+            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
+
+            '
+        httpPermitted:
+          type: boolean
+          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
+
+
+            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
+
+
+            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
+
+            '
+        queryPermitted:
+          type: boolean
+          description: 'Whether to allow a query component in client IDs in the CIMD context.
+
+
+            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
+
+            '
+    pair:
       type: object
       properties:
         key:
@@ -1241,104 +1402,22 @@ components:
         value:
           type: string
           description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
+    grant_management_action:
+      type: string
+      description: 'The grant management action of the device authorization request.
 
 
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+        The `grant_management_action` request parameter is defined in
 
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
 
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
+        '
+      enum:
+      - CREATE
+      - QUERY
+      - REPLACE
+      - REVOKE
+      - MERGE
     device_authorization_response:
       type: object
       properties:
@@ -1619,113 +1698,16 @@ components:
             When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
 
             '
-    cimd_options:
-      type: object
-      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
-
-
-        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
-
-        '
-      properties:
-        alwaysRetrieved:
-          type: boolean
-          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
-
-
-            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
-
-
-            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
-
-
-            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
-
-
-            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
-
-            '
-        httpPermitted:
-          type: boolean
-          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
-
-
-            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
-
-
-            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
-
-            '
-        queryPermitted:
-          type: boolean
-          description: 'Whether to allow a query component in client IDs in the CIMD context.
-
-
-            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
-
-            '
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    grant:
-      type: object
-      properties:
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/grant_scope'
-        claims:
-          type: array
-          items:
-            type: string
-          description: 'The claims associated with the Grant.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
+  links:
+    device_verification:
+      operationId: device_verification_api
+      parameters:
+        serviceId: $request.path.serviceId
+    device_complete:
+      operationId: device_complete_api
+      parameters:
+        serviceId: $request.path.serviceId
   responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
     '403':
       description: ''
       content:
@@ -1735,15 +1717,33 @@ components:
           example:
             resultCode: A001215
             resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
-  links:
-    device_complete:
-      operationId: device_complete_api
-      parameters:
-        serviceId: $request.path.serviceId
-    device_verification:
-      operationId: device_verification_api
-      parameters:
-        serviceId: $request.path.serviceId
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
   securitySchemes:
     bearer:
       type: http

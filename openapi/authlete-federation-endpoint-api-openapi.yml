@@ -295,30 +295,19 @@ paths:
       - Federation Endpoint
 components:
   schemas:
-    pair:
+    federation_registration_request:
       type: object
       properties:
-        key:
+        entityConfiguration:
           type: string
-          description: The key part.
-        value:
+          description: 'The entity configuration of a relying party.
+
+            '
+        trustChain:
           type: string
-          description: The value part.
-    subject_type:
-      type: string
-      description: 'The subject type that the client application requests. Details about the subject type are described in
+          description: 'The trust chain of a relying party.
 
-        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
-
-
-        This property corresponds to `subject_type` in
-
-        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - PUBLIC
-      - PAIRWISE
+            '
     jws_alg:
       type:
       - string
@@ -340,6 +329,24 @@ components:
       - PS512
       - ES256K
       - EdDSA
+    client_auth_method:
+      type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
     client_extension:
       type: object
       properties:
@@ -429,17 +436,6 @@ components:
             permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
 
             '
-    response_type:
-      type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
     result:
       type: object
       properties:
@@ -449,19 +445,6 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
-    federation_registration_request:
-      type: object
-      properties:
-        entityConfiguration:
-          type: string
-          description: 'The entity configuration of a relying party.
-
-            '
-        trustChain:
-          type: string
-          description: 'The trust chain of a relying party.
-
-            '
     client_type:
       type: string
       description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
@@ -472,6 +455,16 @@ components:
       enum:
       - PUBLIC
       - CONFIDENTIAL
+    application_type:
+      type: string
+      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
+
+        See the description about `redirectUris` property for more details.
+
+        '
+      enum:
+      - WEB
+      - NATIVE
     client:
       type: object
       additionalProperties: true
@@ -1517,6 +1510,136 @@ components:
           - EXPLICIT_REGISTRATION
           - METADATA_DOCUMENT
           - STATIC_REGISTRATION
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    jwe_enc:
+      type:
+      - string
+      - 'null'
+      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
+      enum:
+      - A128CBC_HS256
+      - A192CBC_HS384
+      - A256CBC_HS512
+      - A128GCM
+      - A192GCM
+      - A256GCM
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    federation_configuration_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - NOT_FOUND
+          - INTERNAL_SERVER_ERROR
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter.
+
+            '
+    federation_registration_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - OK
+          - BAD_REQUEST
+          - NOT_FOUND
+          - INTERNAL_SERVER_ERROR
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+
+            header on errors.
+
+            '
+        client:
+          $ref: '#/components/schemas/client'
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+    response_type:
+      type: string
+      enum:
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    subject_type:
+      type: string
+      description: 'The subject type that the client application requests. Details about the subject type are described in
+
+        [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
+
+
+        This property corresponds to `subject_type` in
+
+        [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - PUBLIC
+      - PAIRWISE
     jwe_alg:
       type:
       - string
@@ -1553,163 +1676,13 @@ components:
       - PBES2_HS256_A128KW
       - PBES2_HS384_A192KW
       - PBES2_HS512_A256KW
-    client_auth_method:
-      type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    application_type:
-      type: string
-      description: 'The application type. The value of this property affects the validation steps for a redirect URI.
-
-        See the description about `redirectUris` property for more details.
-
-        '
-      enum:
-      - WEB
-      - NATIVE
-    federation_configuration_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - NOT_FOUND
-          - INTERNAL_SERVER_ERROR
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter.
-
-            '
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    federation_registration_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - OK
-          - BAD_REQUEST
-          - NOT_FOUND
-          - INTERNAL_SERVER_ERROR
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation can use as the value of `WWW-Authenticate`
-
-            header on errors.
-
-            '
-        client:
-          $ref: '#/components/schemas/client'
-    jwe_enc:
-      type:
-      - string
-      - 'null'
-      description: "This is the encryption algorithm to be used when encrypting a JWT on client or server side.\nDepending upon the context, this refers to encryption done by the client or by the server. For instance:\n  - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response\n  - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object\n  - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens\n"
-      enum:
-      - A128CBC_HS256
-      - A192CBC_HS384
-      - A256CBC_HS512
-      - A128GCM
-      - A192GCM
-      - A256GCM
     client_registration_type:
       type: string
       description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
       enum:
       - AUTOMATIC
       - EXPLICIT
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
   responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
     '403':
       description: ''
       content:
@@ -1719,6 +1692,33 @@ components:
           example:
             resultCode: A001215
             resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
   securitySchemes:
     bearer:
       type: http

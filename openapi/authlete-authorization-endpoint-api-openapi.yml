@@ -784,307 +784,28 @@ paths:
       - Authorization Endpoint
 components:
   schemas:
-    pair:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-    jws_alg:
-      type:
-      - string
-      - 'null'
-      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
-      enum:
-      - NONE
-      - HS256
-      - HS384
-      - HS512
-      - RS256
-      - RS384
-      - RS512
-      - ES256
-      - ES384
-      - ES512
-      - PS256
-      - PS384
-      - PS512
-      - ES256K
-      - EdDSA
-    response_type:
-      type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    credential_offer_info:
-      type: object
-      properties:
-        identifier:
-          type: string
-          description: The identifier of the credential offer.
-        credentialOffer:
-          type: string
-          description: The credential offer in the JSON format.
-        credentialIssuer:
-          type: string
-          description: The identifier of the credential issuer.
-        authorizationCodeGrantIncluded:
-          type: boolean
-          description: 'The flag indicating whether the `authorization_code` object is
-
-            included in the `grants` object.
-
-            '
-        issuerStateIncluded:
-          type: boolean
-          description: 'The flag indicating whether the `issuer_state` property is
-
-            included in the `authorization_code` object in the `grants`
-
-            object.
-
-            '
-        issuerState:
-          type: string
-          description: 'The value of the `issuer_state` property in the
-
-            `authorization_code` object in the `grants` object.
-
-            '
-        preAuthorizedCodeGrantIncluded:
-          type: boolean
-          description: 'The flag indicating whether the
-
-            `urn:ietf:params:oauth:grant-type:pre-authorized_code` object is
-
-            included in the `grants` object.
-
-            '
-        preAuthorizedCode:
-          type: string
-          description: 'The value of the `pre-authorized_code` property in the
-
-            `urn:ietf:params:oauth:grant-type:pre-authorized_code` object in
-
-            the `grants` object.
-
-            '
-        subject:
-          type: string
-          description: The subject associated with the credential offer.
-        expiresAt:
-          type: integer
-          format: int64
-          description: The time at which the credential offer will expire.
-        context:
-          type: string
-          description: The general-purpose arbitrary string.
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: Extra properties to associate with the credential offer.
-        jwtAtClaims:
-          type: string
-          description: 'Additional claims that are added to the payload part of the JWT
-
-            access token.
-
-            '
-        authTime:
-          type: integer
-          format: int64
-          description: 'The time at which the user authentication was performed during
-
-            the course of issuing the credential offer.
-
-            '
-        acr:
-          type: string
-          description: 'The Authentication Context Class Reference of the user authentication
-
-            performed during the course of issuing the credential offer.
-
-            '
-        credentialConfigurationIds:
-          type: array
-          items:
-            type: string
-          description: 'The value of the `credential_configuration_ids` property of the credential offer.
-
-            '
-          x-mint:
-            metadata:
-              description: The value of the `credential_configuration_ids` property of the credential offer.
-            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n```\n&#123;\n  \"credential_issuer\": \"...\",\n  \"credential_configuration_ids\": [ ... ],\n  \"grants\": &#123; ... &#125;\n&#125;\n```\n</Accordion>\n"
-        txCode:
-          type: string
-          description: 'The transaction code.
-
-            '
-        txCodeInputMode:
-          type: string
-          description: 'The input mode of the transaction code.
-
-            '
-        txCodeDescription:
-          type: string
-          description: 'The description of the transaction code.
-
-            '
-    verified_claims_validation_schema:
-      type: string
-      description: 'The verified claims validation schema set.
-
-        '
-      enum:
-      - standard
-      - standard+id_document
-    authorization_ticket_info_response:
-      type: object
-      properties:
-        info:
-          $ref: '#/components/schemas/authorization_ticket_info'
-          description: Information about the ticket.
-        action:
-          type: string
-          enum:
-          - OK
-          - NOT_FOUND
-          - CALLER_ERROR
-          - AUTHLETE_ERROR
-          description: The result of the `/auth/authorization/ticket/info` API call.
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    authorization_ticket_update_response:
-      type: object
-      properties:
-        info:
-          $ref: '#/components/schemas/authorization_ticket_info'
-          description: Information about the ticket.
-        action:
-          type: string
-          enum:
-          - OK
-          - NOT_FOUND
-          - CALLER_ERROR
-          - AUTHLETE_ERROR
-          description: The result of the /auth/authorization/ticket/info API call.
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    dynamic_scope:
+    scope:
       type: object
       properties:
         name:
           type: string
-          description: The scope name.
-        value:
-          type: string
-          description: The scope value.
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-    credential_issuer_metadata:
-      type: object
-      properties:
-        authorizationServers:
-          type: array
-          items:
-            type: string
-          description: 'The identifiers of the authorization servers that the credential issuer relies on for authorization.
-
-            This property corresponds to the authorization_servers metadata. When the credential issuer works
-
-            as an authorization server for itself, this property should be omitted.
-
-            '
-        credentialIssuer:
-          type: string
-          description: The identifier of a credential request.
-        credentialEndpoint:
-          type: string
-          format: uri
-          description: The URL of the credential endpoint of the credential issuer.
-        batchCredentialEndpoint:
-          type: string
-          format: uri
-          description: The URL of the batch credential endpoint of the credential issuer.
-        deferredCredentialEndpoint:
-          type: string
-          description: The URL of the deferred credential endpoint of the credential issuer.
-        credentialsSupported:
-          type: string
-          description: 'A JSON object describing supported credential configurations.
-
-            This property corresponds to the credential_configurations_supported metadata.
-
-            Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
-
-            '
-        credentialResponseEncryptionAlgValuesSupported:
-          type: array
-          items:
-            type: string
-          description: 'The supported JWE `alg` algorithms for credential response encryption. This property corresponds
-
-            to the `credential_response_encryption.alg_values_supported` metadata.
-
-            '
-        credentialResponseEncryptionEncValuesSupported:
-          type: array
-          items:
-            type: string
-          description: 'The supported JWE `enc` algorithms for credential response encryption. This property corresponds
-
-            to the `credential_response_encryption.enc_values_supported` metadata.
-
-            '
-        requireCredentialResponseEncryption:
+          description: The name of the scope.
+        defaultEntry:
           type: boolean
-          description: 'The boolean flag indicating whether credential response encryption is required. This property
-
-            corresponds to the `credential_response_encryption.encryption_required metadata`. If this flag
-
-            is `true`, every credential request to the credential issuer must include the `credential_response_encryption`
-
-            property.
-
-            '
-    sns_credentials:
-      type: object
-      properties:
-        sns:
+          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
+        description:
           type: string
-          description: SNS.
-        apiKey:
-          type: string
-          description: API key.
-        apiSecret:
-          type: string
-          description: API secret.
+          description: The description about the scope.
+        descriptions:
+          type: array
+          description: The descriptions about this scope in multiple languages.
+          items:
+            $ref: '#/components/schemas/tagged_value'
+        attributes:
+          type: array
+          description: The attributes of the scope.
+          items:
+            $ref: '#/components/schemas/pair'
     authorization_response:
       type: object
       properties:
@@ -1580,6 +1301,551 @@ components:
           description: 'Elements of this authorization details.
 
             '
+    authorization_request:
+      type: object
+      required:
+      - parameters
+      properties:
+        parameters:
+          type: string
+          description: 'OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of
+
+            the authorization server implementation received from the client application.
+
+
+            The value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`
+
+            or (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from
+
+            the client application is `POST`.
+
+            '
+        context:
+          type: string
+          description: 'The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`
+
+            API.
+
+
+            The text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated
+
+            by the `/auth/authorization/ticket/update` API.
+
+
+            The text will be compressed and encrypted when it is saved in the Authlete database.
+
+            '
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+
+            '
+    jws_alg:
+      type:
+      - string
+      - 'null'
+      description: "The signature algorithm for JWT. This value is represented on 'alg' attribute\nof the header of JWT.\n\nit's semantics depends upon where is this defined, for instance:\n  - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).\n  - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).\n  - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).\n"
+      enum:
+      - NONE
+      - HS256
+      - HS384
+      - HS512
+      - RS256
+      - RS384
+      - RS512
+      - ES256
+      - ES384
+      - ES512
+      - PS256
+      - PS384
+      - PS512
+      - ES256K
+      - EdDSA
+    credential_issuer_metadata:
+      type: object
+      properties:
+        authorizationServers:
+          type: array
+          items:
+            type: string
+          description: 'The identifiers of the authorization servers that the credential issuer relies on for authorization.
+
+            This property corresponds to the authorization_servers metadata. When the credential issuer works
+
+            as an authorization server for itself, this property should be omitted.
+
+            '
+        credentialIssuer:
+          type: string
+          description: The identifier of a credential request.
+        credentialEndpoint:
+          type: string
+          format: uri
+          description: The URL of the credential endpoint of the credential issuer.
+        batchCredentialEndpoint:
+          type: string
+          format: uri
+          description: The URL of the batch credential endpoint of the credential issuer.
+        deferredCredentialEndpoint:
+          type: string
+          description: The URL of the deferred credential endpoint of the credential issuer.
+        credentialsSupported:
+          type: string
+          description: 'A JSON object describing supported credential configurations.
+
+            This property corresponds to the credential_configurations_supported metadata.
+
+            Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
+
+            '
+        credentialResponseEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+          description: 'The supported JWE `alg` algorithms for credential response encryption. This property corresponds
+
+            to the `credential_response_encryption.alg_values_supported` metadata.
+
+            '
+        credentialResponseEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+          description: 'The supported JWE `enc` algorithms for credential response encryption. This property corresponds
+
+            to the `credential_response_encryption.enc_values_supported` metadata.
+
+            '
+        requireCredentialResponseEncryption:
+          type: boolean
+          description: 'The boolean flag indicating whether credential response encryption is required. This property
+
+            corresponds to the `credential_response_encryption.encryption_required metadata`. If this flag
+
+            is `true`, every credential request to the credential issuer must include the `credential_response_encryption`
+
+            property.
+
+            '
+    client_auth_method:
+      type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
+    authorization_ticket_info:
+      type: object
+      properties:
+        context:
+          type: string
+          description: 'The arbitrary text attached to the ticket.
+
+            '
+    authorization_details_element:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: 'The type of this element.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
+
+            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+
+
+            This property is always NOT `null`.
+
+            '
+        locations:
+          type: array
+          items:
+            type: string
+          description: 'The resources and/or resource servers. This property may be `null`.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
+
+            the resource or resource server. This is typically composed of URIs."_
+
+
+            This property may be `null`.
+
+            '
+        actions:
+          type: array
+          items:
+            type: string
+          description: 'The actions.
+
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
+
+            to be taken at the resource. The values of the strings are determined by the API being protected."_
+
+
+            This property may be `null`.
+
+            '
+        dataTypes:
+          type: array
+          items:
+            type: string
+          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+
+            from the resource."_
+
+
+            This property may be `null`.
+
+            '
+        identifier:
+          type: string
+          description: 'The identifier of a specific resource.
+
+            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
+
+
+            This property may be `null`.
+
+            '
+        privileges:
+          type: array
+          items:
+            type: string
+          description: 'The types or levels of privilege.
+
+            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
+
+            levels of privilege being requested at the resource."_
+
+
+            This property may be `null`.
+
+            '
+        otherFields:
+          type: string
+          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+
+            The content and semantics are specific to the deployment and the use case implemented.
+
+            '
+    property:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+        hidden:
+          type: boolean
+          description: 'The flag to indicate whether this property hidden from or visible to client applications.
+
+            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
+
+            '
+    authorization_issue_request:
+      type: object
+      required:
+      - ticket
+      - subject
+      properties:
+        ticket:
+          type: string
+          description: 'The ticket issued from Authlete `/auth/authorization` API.
+
+            '
+        subject:
+          type: string
+          description: 'The subject (= a user account managed by the service) who has granted authorization to the client application.
+
+            '
+        authTime:
+          type: integer
+          format: int64
+          description: 'The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.
+
+            '
+        acr:
+          type: string
+          description: The Authentication Context Class Reference performed for the end-user authentication.
+        claims:
+          type: string
+          description: 'The claims of the end-user (= pieces of information about the end-user) in JSON format.
+
+            See [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.
+
+            '
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/property'
+          description: Extra properties to associate with an access token and/or an authorization code.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: 'Scopes to associate with an access token and/or an authorization code.
+
+            If a non-empty string array is given, it replaces the scopes specified by the original authorization request.
+
+            '
+        sub:
+          type: string
+          description: 'The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,
+
+            the value of the `subject` request parameter is used as the value of the `sub` claim.
+
+            '
+        idtHeaderParams:
+          type: string
+          description: 'JSON that represents additional JWS header parameters for ID tokens that may be issued based on
+
+            the authorization request.
+
+            '
+        claimsForTx:
+          type: string
+          description: 'Claim key-value pairs that are used to compute transformed claims.
+
+            '
+        consentedClaims:
+          type: array
+          items:
+            type: string
+          description: 'the claims that the user has consented for the client application
+
+            to know.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+        jwtAtClaims:
+          type: string
+          description: 'Additional claims that are added to the payload part of the JWT access token.
+
+            '
+        accessToken:
+          type: string
+          description: 'The representation of an access token that may be issued as a result of the Authlete API call.
+
+            '
+        accessTokenDuration:
+          type: integer
+          format: int64
+          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
+
+            API call.
+
+
+            When this request parameter holds a positive integer, it is used as the duration of the access
+
+            token in. In other cases, this request parameter is ignored.
+
+            '
+        sessionId:
+          type: string
+          description: 'The session ID of the user''s authentication session. The specified value will be embedded in the
+
+            ID token as the value of the `sid` claim. This parameter needs to be provided only if you want
+
+            to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+
+            specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the
+
+            `nativeSsoSupported` property of your service must be set to `true`.
+
+            '
+          x-mint:
+            metadata:
+              description: The session ID of the user's authentication session. The specified value will be embedded in the ID token as the value of the `sid` claim. This parameter needs to be provided only if you want to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the `nativeSsoSupported` property of your service must be set to `true`.
+            content: '<Accordion title="Full description" defaultOpen={false}>
+
+              NOTE: When the response from the `/auth/authorization` API contains the `nativeSsoRequested`
+
+              property with a value of `true`, the `sessionId` request parameter must be provided to the
+
+              `/auth/authorization/issue` API.
+
+              </Accordion>
+
+              '
+        idTokenAudType:
+          type: string
+          description: 'The type of the `aud` claim of the ID token being issued. Valid values are as follows.
+
+
+            | Value | Description |
+
+            | ----- | ----------- |
+
+            | "array" | The type of the aud claim is always an array of strings. |
+
+            | "string" | The type of the aud claim is always a single string. |
+
+            | null | The type of the aud claim remains the same as before. |
+
+
+            This request parameter takes precedence over the `idTokenAudType` property of the service.
+
+            '
+        verifiedClaimsForTx:
+          type: array
+          items:
+            type: string
+          description: 'Values of verified claims requested indirectly by "transformed claims".
+
+            '
+          x-mint:
+            metadata:
+              description: Values of verified claims requested indirectly by "transformed claims".
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\nA client application may request \"transformed claims\". Each of transformed claims uses an existing\nclaim as input. As a result, to compute the value of a transformed claim, the value of the referenced\nexisting claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide\nvalues of existing claims for computation of transformed claims.\n\nA response from the `/auth/authorization` API may include the `requestedVerifiedClaimsForTx` response\nparameter which is a list of verified claims that are referenced indirectly by transformed claims\n(cf. `requestedVerifiedClaimsForTx` in `/auth/authorization` API response). The authorization\nserver implementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`\nand pass them as the value of this `verifiedClaimsForTx` request parameter.\n\nThe following is an example of the value of this request parameter.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\",\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n\nThe reason that this `verifiedClaimsForTx` property is an array is that the `\"verified_claims\"`\nproperty in the claims request parameter of an authorization request can be an array like below.\n\n```\n&#123;\n  \"transformed_claims\": &#123;\n    \"nationality_usa\": &#123;\n      \"claim\": \"nationalities\",\n      \"fn\": [\n        [ \"eq\", \"USA\" ],\n        \"any\"\n      ]\n    &#125;\n  &#125;,\n  \"id_token\": &#123;\n    \"verified_claims\": [\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"gold\" &#125; &#125;,\n        \"claims\": &#123; \"::18_or_above\": null &#125;\n      &#125;,\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"silver\" &#125; &#125;,\n        \"claims\": &#123; \":nationality_usa\": null &#125;\n      &#125;\n    ]\n  &#125;\n&#125;\n```\n\nFor the example above, the value of this `verifiedClaimsForTx` property should be an array of\nsize 2 and look like below. The first element is JSON including claims which have been verified\nunder the trust framework `\"gold\"`, and the second element is JSON including claims which have\nbeen verified under the trust framework `\"silver\"`.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\"&#125;\",\n  \"&#123;\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n</Accordion>\n"
+    authorization_ticket_update_response:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/authorization_ticket_info'
+          description: Information about the ticket.
+        action:
+          type: string
+          enum:
+          - OK
+          - NOT_FOUND
+          - CALLER_ERROR
+          - AUTHLETE_ERROR
+          description: The result of the /auth/authorization/ticket/info API call.
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    authorization_ticket_info_response:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/authorization_ticket_info'
+          description: Information about the ticket.
+        action:
+          type: string
+          enum:
+          - OK
+          - NOT_FOUND
+          - CALLER_ERROR
+          - AUTHLETE_ERROR
+          description: The result of the `/auth/authorization/ticket/info` API call.
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    authorization_fail_response:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+        action:
+          type: string
+          enum:
+          - INTERNAL_SERVER_ERROR
+          - BAD_REQUEST
+          - LOCATION
+          - FORM
+          description: The next action that the authorization server implementation should take.
+        responseContent:
+          type: string
+          description: 'The content that the authorization server implementation is to return to the client application.
+
+            Its format varies depending on the value of `action` parameter.
+
+            '
+    authorization_fail_request:
+      type: object
+      required:
+      - ticket
+      - reason
+      properties:
+        ticket:
+          type: string
+          description: 'The ticket issued from Authlete `/auth/authorization` API.
+
+            '
+        reason:
+          type: string
+          enum:
+          - UNKNOWN
+          - NOT_LOGGED_IN
+          - MAX_AGE_NOT_SUPPORTED
+          - EXCEEDS_MAX_AGE
+          - DIFFERENT_SUBJECT
+          - ACR_NOT_SATISFIED
+          - DENIED
+          - SERVER_ERROR
+          - NOT_AUTHENTICATED
+          - ACCOUNT_SELECTION_REQUIRED
+          - CONSENT_REQUIRED
+          - INTERACTION_REQUIRED
+          - INVALID_TARGET
+          description: 'The reason of the failure of the authorization request.
+
+            For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
+
+            '
+        description:
+          type: string
+          description: 'The custom description about the authorization failure.
+
+            '
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    authorization_ticket_info_request:
+      type: object
+      required:
+      - ticket
+      properties:
+        ticket:
+          type: string
+          description: The ticket that has been issued from the `/auth/authorization` API.
+    dynamic_scope:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The scope name.
+        value:
+          type: string
+          description: The scope value.
     client_limited_authorization:
       type: object
       properties:
@@ -1968,18 +2234,25 @@ components:
           description: 'the entity ID of this client.
 
             '
-    authorization_ticket_update_request:
+    client_type:
+      type: string
+      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+
+        for details.
+
+        '
+      enum:
+      - PUBLIC
+      - CONFIDENTIAL
+    tagged_value:
       type: object
-      required:
-      - ticket
-      - info
       properties:
-        ticket:
+        tag:
           type: string
-          description: The ticket.
-        info:
+          description: The language tag part.
+        value:
           type: string
-          description: The information about the ticket.
+          description: The value part.
     authorization_issue_response:
       type: object
       properties:
@@ -2051,28 +2324,446 @@ components:
           description: 'The information about the ticket.
 
             '
-    scope:
+    user_code_charset:
+      type: string
+      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
+
+        '
+      enum:
+      - BASE20
+      - NUMERIC
+    named_uri:
       type: object
       properties:
         name:
           type: string
-          description: The name of the scope.
-        defaultEntry:
-          type: boolean
-          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
-        description:
+        uri:
           type: string
-          description: The description about the scope.
-        descriptions:
+          format: uri
+    hsk:
+      type: object
+      description: 'Holds information about a key managed in an HSM (Hardware Security Module)
+
+        '
+      properties:
+        kty:
+          type: string
+          description: 'The key type (EC or RSA)
+
+            '
+        use:
+          type: string
+          description: 'Get the use of the key on the HSM.
+
+            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
+
+            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
+
+            '
+        kid:
+          type: string
+          description: 'Key ID for the key on the HSM.
+
+            '
+        hsmName:
+          type: string
+          description: 'The name of the HSM.
+
+            The identifier for the HSM that sits behind the Authlete server. For example, "google".
+
+            '
+        handle:
+          type: string
+          description: 'The handle for the key on the HSM.
+
+            A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
+
+            '
+        publicKey:
+          type: string
+          description: 'The public key that corresponds to the key on the HSM.
+
+            '
+        alg:
+          type: string
+          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
+
+            signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
+
+            encryption algorithm such as `"RSA-OAEP-256"`.
+
+            '
+    service_profile:
+      type: string
+      enum:
+      - FAPI
+      - OPEN_BANKING
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    credential_offer_info:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: The identifier of the credential offer.
+        credentialOffer:
+          type: string
+          description: The credential offer in the JSON format.
+        credentialIssuer:
+          type: string
+          description: The identifier of the credential issuer.
+        authorizationCodeGrantIncluded:
+          type: boolean
+          description: 'The flag indicating whether the `authorization_code` object is
+
+            included in the `grants` object.
+
+            '
+        issuerStateIncluded:
+          type: boolean
+          description: 'The flag indicating whether the `issuer_state` property is
+
+            included in the `authorization_code` object in the `grants`
+
+            object.
+
+            '
+        issuerState:
+          type: string
+          description: 'The value of the `issuer_state` property in the
+
+            `authorization_code` object in the `grants` object.
+
+            '
+        preAuthorizedCodeGrantIncluded:
+          type: boolean
+          description: 'The flag indicating whether the
+
+            `urn:ietf:params:oauth:grant-type:pre-authorized_code` object is
+
+            included in the `grants` object.
+
+            '
+        preAuthorizedCode:
+          type: string
+          description: 'The value of the `pre-authorized_code` property in the
+
+            `urn:ietf:params:oauth:grant-type:pre-authorized_code` object in
+
+            the `grants` object.
+
+            '
+        subject:
+          type: string
+          description: The subject associated with the credential offer.
+        expiresAt:
+          type: integer
+          format: int64
+          description: The time at which the credential offer will expire.
+        context:
+          type: string
+          description: The general-purpose arbitrary string.
+        properties:
           type: array
-          description: The descriptions about this scope in multiple languages.
           items:
-            $ref: '#/components/schemas/tagged_value'
-        attributes:
+            $ref: '#/components/schemas/property'
+          description: Extra properties to associate with the credential offer.
+        jwtAtClaims:
+          type: string
+          description: 'Additional claims that are added to the payload part of the JWT
+
+            access token.
+
+            '
+        authTime:
+          type: integer
+          format: int64
+          description: 'The time at which the user authentication was performed during
+
+            the course of issuing the credential offer.
+
+            '
+        acr:
+          type: string
+          description: 'The Authentication Context Class Reference of the user authentication
+
+            performed during the course of issuing the credential offer.
+
+            '
+        credentialConfigurationIds:
           type: array
-          description: The attributes of the scope.
           items:
-            $ref: '#/components/schemas/pair'
+            type: string
+          description: 'The value of the `credential_configuration_ids` property of the credential offer.
+
+            '
+          x-mint:
+            metadata:
+              description: The value of the `credential_configuration_ids` property of the credential offer.
+            content: "<Accordion title=\"Full description\" defaultOpen={false}>\n```\n&#123;\n  \"credential_issuer\": \"...\",\n  \"credential_configuration_ids\": [ ... ],\n  \"grants\": &#123; ... &#125;\n&#125;\n```\n</Accordion>\n"
+        txCode:
+          type: string
+          description: 'The transaction code.
+
+            '
+        txCodeInputMode:
+          type: string
+          description: 'The input mode of the transaction code.
+
+            '
+        txCodeDescription:
+          type: string
+          description: 'The description of the transaction code.
+
+            '
+    display:
+      type: string
+      description: 'The display mode which the client application requests by `display` request parameter.
+
+        When the authorization request does not have `display` request parameter, `PAGE` is set as the default value.
+
+
+        It is ensured that the value of `display` is one of the supported display modes which are specified
+
+        by `supportedDisplays` configuration parameter of the service. If the display mode specified by the
+
+        authorization request is not supported, an error is raised.
+
+
+        Values for this property correspond to the values listed in
+
+        "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), display".
+
+        '
+      enum:
+      - PAGE
+      - POPUP
+      - TOUCH
+      - WAP
+    trust_anchor:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: 'the entity ID of the trust anchor
+
+            '
+        jwks:
+          type: string
+          description: 'the JWK Set document containing public keys of the trust anchor
+
+            '
+    attachment_type:
+      type: string
+      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
+      enum:
+      - EMBEDDED
+      - EXTERNAL
+    prompt:
+      type: string
+      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
+
+
+        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
+
+
+        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
+
+        '
+      enum:
+      - NONE
+      - LOGIN
+      - CONSENT
+      - SELECT_ACCOUNT
+      - CREATE
+    grant_scope:
+      type: object
+      properties:
+        scope:
+          type: string
+          description: 'Space-delimited scopes.
+
+            '
+        resource:
+          type: array
+          items:
+            type: string
+          description: 'List of resource indicators.
+
+            '
+    grant:
+      type: object
+      properties:
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/grant_scope'
+        claims:
+          type: array
+          items:
+            type: string
+          description: 'The claims associated with the Grant.
+
+            '
+        authorizationDetails:
+          $ref: '#/components/schemas/authz_details'
+    delivery_mode:
+      type: string
+      enum:
+      - PING
+      - POLL
+      - PUSH
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
+    cimd_options:
+      type: object
+      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+
+        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+
+        '
+      properties:
+        alwaysRetrieved:
+          type: boolean
+          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
+
+
+            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
+
+
+            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
+
+
+            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
+
+
+            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
+
+            '
+        httpPermitted:
+          type: boolean
+          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
+
+
+            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
+
+
+            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
+
+            '
+        queryPermitted:
+          type: boolean
+          description: 'Whether to allow a query component in client IDs in the CIMD context.
+
+
+            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
+
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
+
+            '
+    authorization_ticket_update_request:
+      type: object
+      required:
+      - ticket
+      - info
+      properties:
+        ticket:
+          type: string
+          description: The ticket.
+        info:
+          type: string
+          description: The information about the ticket.
+    pair:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key part.
+        value:
+          type: string
+          description: The value part.
+    verified_claims_validation_schema:
+      type: string
+      description: 'The verified claims validation schema set.
+
+        '
+      enum:
+      - standard
+      - standard+id_document
+    response_type:
+      type: string
+      enum:
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    sns_credentials:
+      type: object
+      properties:
+        sns:
+          type: string
+          description: SNS.
+        apiKey:
+          type: string
+          description: API key.
+        apiSecret:
+          type: string
+          description: API secret.
+    grant_management_action:
+      type: string
+      description: 'The grant management action of the device authorization request.
+
+
+        The `grant_management_action` request parameter is defined in
+
+        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+
+        '
+      enum:
+      - CREATE
+      - QUERY
+      - REPLACE
+      - REVOKE
+      - MERGE
+    claim_type:
+      type: string
+      enum:
+      - NORMAL
+      - AGGREGATED
+      - DISTRIBUTED
     service:
       type: object
       example:
@@ -4428,750 +5119,18 @@ components:
             OAuth 2.0 Attestation-Based Client Authentication.
 
             '
-    authorization_issue_request:
-      type: object
-      required:
-      - ticket
-      - subject
-      properties:
-        ticket:
-          type: string
-          description: 'The ticket issued from Authlete `/auth/authorization` API.
-
-            '
-        subject:
-          type: string
-          description: 'The subject (= a user account managed by the service) who has granted authorization to the client application.
-
-            '
-        authTime:
-          type: integer
-          format: int64
-          description: 'The time when the authentication of the end-user occurred. Its value is the number of seconds from `1970-01-01`.
-
-            '
-        acr:
-          type: string
-          description: The Authentication Context Class Reference performed for the end-user authentication.
-        claims:
-          type: string
-          description: 'The claims of the end-user (= pieces of information about the end-user) in JSON format.
-
-            See [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.
-
-            '
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/property'
-          description: Extra properties to associate with an access token and/or an authorization code.
-        scopes:
-          type: array
-          items:
-            type: string
-          description: 'Scopes to associate with an access token and/or an authorization code.
-
-            If a non-empty string array is given, it replaces the scopes specified by the original authorization request.
-
-            '
-        sub:
-          type: string
-          description: 'The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,
-
-            the value of the `subject` request parameter is used as the value of the `sub` claim.
-
-            '
-        idtHeaderParams:
-          type: string
-          description: 'JSON that represents additional JWS header parameters for ID tokens that may be issued based on
-
-            the authorization request.
-
-            '
-        claimsForTx:
-          type: string
-          description: 'Claim key-value pairs that are used to compute transformed claims.
-
-            '
-        consentedClaims:
-          type: array
-          items:
-            type: string
-          description: 'the claims that the user has consented for the client application
-
-            to know.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
-        jwtAtClaims:
-          type: string
-          description: 'Additional claims that are added to the payload part of the JWT access token.
-
-            '
-        accessToken:
-          type: string
-          description: 'The representation of an access token that may be issued as a result of the Authlete API call.
-
-            '
-        accessTokenDuration:
-          type: integer
-          format: int64
-          description: 'The duration (in seconds) of the access token that may be issued as a result of the Authlete
-
-            API call.
-
-
-            When this request parameter holds a positive integer, it is used as the duration of the access
-
-            token in. In other cases, this request parameter is ignored.
-
-            '
-        sessionId:
-          type: string
-          description: 'The session ID of the user''s authentication session. The specified value will be embedded in the
-
-            ID token as the value of the `sid` claim. This parameter needs to be provided only if you want
-
-            to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
-
-            specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the
-
-            `nativeSsoSupported` property of your service must be set to `true`.
-
-            '
-          x-mint:
-            metadata:
-              description: The session ID of the user's authentication session. The specified value will be embedded in the ID token as the value of the `sid` claim. This parameter needs to be provided only if you want to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the `nativeSsoSupported` property of your service must be set to `true`.
-            content: '<Accordion title="Full description" defaultOpen={false}>
-
-              NOTE: When the response from the `/auth/authorization` API contains the `nativeSsoRequested`
-
-              property with a value of `true`, the `sessionId` request parameter must be provided to the
-
-              `/auth/authorization/issue` API.
-
-              </Accordion>
-
-              '
-        idTokenAudType:
-          type: string
-          description: 'The type of the `aud` claim of the ID token being issued. Valid values are as follows.
-
-
-            | Value | Description |
-
-            | ----- | ----------- |
-
-            | "array" | The type of the aud claim is always an array of strings. |
-
-            | "string" | The type of the aud claim is always a single string. |
-
-            | null | The type of the aud claim remains the same as before. |
-
-
-            This request parameter takes precedence over the `idTokenAudType` property of the service.
-
-            '
-        verifiedClaimsForTx:
-          type: array
-          items:
-            type: string
-          description: 'Values of verified claims requested indirectly by "transformed claims".
-
-            '
-          x-mint:
-            metadata:
-              description: Values of verified claims requested indirectly by "transformed claims".
-            content: "<Accordion title=\"Full description\" defaultOpen={false}>\nA client application may request \"transformed claims\". Each of transformed claims uses an existing\nclaim as input. As a result, to compute the value of a transformed claim, the value of the referenced\nexisting claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide\nvalues of existing claims for computation of transformed claims.\n\nA response from the `/auth/authorization` API may include the `requestedVerifiedClaimsForTx` response\nparameter which is a list of verified claims that are referenced indirectly by transformed claims\n(cf. `requestedVerifiedClaimsForTx` in `/auth/authorization` API response). The authorization\nserver implementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`\nand pass them as the value of this `verifiedClaimsForTx` request parameter.\n\nThe following is an example of the value of this request parameter.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\",\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n\nThe reason that this `verifiedClaimsForTx` property is an array is that the `\"verified_claims\"`\nproperty in the claims request parameter of an authorization request can be an array like below.\n\n```\n&#123;\n  \"transformed_claims\": &#123;\n    \"nationality_usa\": &#123;\n      \"claim\": \"nationalities\",\n      \"fn\": [\n        [ \"eq\", \"USA\" ],\n        \"any\"\n      ]\n    &#125;\n  &#125;,\n  \"id_token\": &#123;\n    \"verified_claims\": [\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"gold\" &#125; &#125;,\n        \"claims\": &#123; \"::18_or_above\": null &#125;\n      &#125;,\n      &#123;\n        \"verification\": &#123; \"trust_framework\": &#123; \"value\": \"silver\" &#125; &#125;,\n        \"claims\": &#123; \":nationality_usa\": null &#125;\n      &#125;\n    ]\n  &#125;\n&#125;\n```\n\nFor the example above, the value of this `verifiedClaimsForTx` property should be an array of\nsize 2 and look like below. The first element is JSON including claims which have been verified\nunder the trust framework `\"gold\"`, and the second element is JSON including claims which have\nbeen verified under the trust framework `\"silver\"`.\n\n```\n[\n  \"&#123;\\\"birthdate\\\":\\\"1970-01-23\\\"&#125;\",\n  \"&#123;\\\"nationalities\\\":[\\\"DEU\\\",\\\"USA\\\"]&#125;\"\n]\n```\n</Accordion>\n"
-    grant_management_action:
-      type: string
-      description: 'The grant management action of the device authorization request.
-
-
-        The `grant_management_action` request parameter is defined in
-
-        [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
-
-        '
-      enum:
-      - CREATE
-      - QUERY
-      - REPLACE
-      - REVOKE
-      - MERGE
-    authorization_ticket_info:
-      type: object
-      properties:
-        context:
-          type: string
-          description: 'The arbitrary text attached to the ticket.
-
-            '
-    client_type:
-      type: string
-      description: 'The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
-
-        for details.
-
-        '
-      enum:
-      - PUBLIC
-      - CONFIDENTIAL
-    grant_scope:
-      type: object
-      properties:
-        scope:
-          type: string
-          description: 'Space-delimited scopes.
-
-            '
-        resource:
-          type: array
-          items:
-            type: string
-          description: 'List of resource indicators.
-
-            '
-    trust_anchor:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: 'the entity ID of the trust anchor
-
-            '
-        jwks:
-          type: string
-          description: 'the JWK Set document containing public keys of the trust anchor
-
-            '
-    property:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key part.
-        value:
-          type: string
-          description: The value part.
-        hidden:
-          type: boolean
-          description: 'The flag to indicate whether this property hidden from or visible to client applications.
-
-            If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
-
-            '
-    named_uri:
-      type: object
-      properties:
-        name:
-          type: string
-        uri:
-          type: string
-          format: uri
-    authorization_details_element:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: 'The type of this element.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-
-            This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
-
-
-            This property is always NOT `null`.
-
-            '
-        locations:
-          type: array
-          items:
-            type: string
-          description: 'The resources and/or resource servers. This property may be `null`.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-
-            the resource or resource server. This is typically composed of URIs."_
-
-
-            This property may be `null`.
-
-            '
-        actions:
-          type: array
-          items:
-            type: string
-          description: 'The actions.
-
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-
-            to be taken at the resource. The values of the strings are determined by the API being protected."_
-
-
-            This property may be `null`.
-
-            '
-        dataTypes:
-          type: array
-          items:
-            type: string
-          description: 'From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
-
-            from the resource."_
-
-
-            This property may be `null`.
-
-            '
-        identifier:
-          type: string
-          description: 'The identifier of a specific resource.
-
-            From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
-
-
-            This property may be `null`.
-
-            '
-        privileges:
-          type: array
-          items:
-            type: string
-          description: 'The types or levels of privilege.
-
-            From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-
-            levels of privilege being requested at the resource."_
-
-
-            This property may be `null`.
-
-            '
-        otherFields:
-          type: string
-          description: 'The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
-
-            The content and semantics are specific to the deployment and the use case implemented.
-
-            '
-    claim_type:
-      type: string
-      enum:
-      - NORMAL
-      - AGGREGATED
-      - DISTRIBUTED
-    prompt:
-      type: string
-      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
-
-
-        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
-
-
-        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
-
-        '
-      enum:
-      - NONE
-      - LOGIN
-      - CONSENT
-      - SELECT_ACCOUNT
-      - CREATE
-    client_auth_method:
-      type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    service_profile:
-      type: string
-      enum:
-      - FAPI
-      - OPEN_BANKING
-    cimd_options:
-      type: object
-      description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
-
-
-        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
-
-        '
-      properties:
-        alwaysRetrieved:
-          type: boolean
-          description: 'Whether to always retrieve client metadata in the CIMD context regardless of the cache''s validity.
-
-
-            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
-
-
-            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache''s validity.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
-
-
-            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
-
-
-            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
-
-            '
-        httpPermitted:
-          type: boolean
-          description: 'Whether to allow the `http` scheme in client IDs in the CIMD context.
-
-
-            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
-
-
-            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
-
-            '
-        queryPermitted:
-          type: boolean
-          description: 'Whether to allow a query component in client IDs in the CIMD context.
-
-
-            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
-
-
-            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
-
-            '
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    user_code_charset:
-      type: string
-      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
-
-        '
-      enum:
-      - BASE20
-      - NUMERIC
-    authorization_request:
-      type: object
-      required:
-      - parameters
-      properties:
-        parameters:
-          type: string
-          description: 'OAuth 2.0 authorization request parameters which are the request parameters that the OAuth 2.0 authorization endpoint of
-
-            the authorization server implementation received from the client application.
-
-
-            The value of parameters is either (1) the entire query string when the HTTP method of the request from the client application is `GET`
-
-            or (2) the entire entity body (which is formatted in `application/x-www-form-urlencoded`) when the HTTP method of the request from
-
-            the client application is `POST`.
-
-            '
-        context:
-          type: string
-          description: 'The arbitrary text to be attached to the ticket that will be issued from the `/auth/authorization`
-
-            API.
-
-
-            The text can be retrieved later by the `/auth/authorization/ticket/info` API and can be updated
-
-            by the `/auth/authorization/ticket/update` API.
-
-
-            The text will be compressed and encrypted when it is saved in the Authlete database.
-
-            '
-        cimdOptions:
-          $ref: '#/components/schemas/cimd_options'
-          description: 'Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
-
-
-            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
-
-            '
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    delivery_mode:
-      type: string
-      enum:
-      - PING
-      - POLL
-      - PUSH
-    authorization_fail_response:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
-        action:
-          type: string
-          enum:
-          - INTERNAL_SERVER_ERROR
-          - BAD_REQUEST
-          - LOCATION
-          - FORM
-          description: The next action that the authorization server implementation should take.
-        responseContent:
-          type: string
-          description: 'The content that the authorization server implementation is to return to the client application.
-
-            Its format varies depending on the value of `action` parameter.
-
-            '
-    hsk:
-      type: object
-      description: 'Holds information about a key managed in an HSM (Hardware Security Module)
-
-        '
-      properties:
-        kty:
-          type: string
-          description: 'The key type (EC or RSA)
-
-            '
-        use:
-          type: string
-          description: 'Get the use of the key on the HSM.
-
-            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
-
-            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
-
-            '
-        kid:
-          type: string
-          description: 'Key ID for the key on the HSM.
-
-            '
-        hsmName:
-          type: string
-          description: 'The name of the HSM.
-
-            The identifier for the HSM that sits behind the Authlete server. For example, "google".
-
-            '
-        handle:
-          type: string
-          description: 'The handle for the key on the HSM.
-
-            A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
-
-            '
-        publicKey:
-          type: string
-          description: 'The public key that corresponds to the key on the HSM.
-
-            '
-        alg:
-          type: string
-          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
-
-            signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
-
-            encryption algorithm such as `"RSA-OAEP-256"`.
-
-            '
     client_registration_type:
       type: string
       description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
       enum:
       - AUTOMATIC
       - EXPLICIT
-    display:
-      type: string
-      description: 'The display mode which the client application requests by `display` request parameter.
-
-        When the authorization request does not have `display` request parameter, `PAGE` is set as the default value.
-
-
-        It is ensured that the value of `display` is one of the supported display modes which are specified
-
-        by `supportedDisplays` configuration parameter of the service. If the display mode specified by the
-
-        authorization request is not supported, an error is raised.
-
-
-        Values for this property correspond to the values listed in
-
-        "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), display".
-
-        '
-      enum:
-      - PAGE
-      - POPUP
-      - TOUCH
-      - WAP
-    authorization_ticket_info_request:
-      type: object
-      required:
-      - ticket
-      properties:
-        ticket:
-          type: string
-          description: The ticket that has been issued from the `/auth/authorization` API.
-    attachment_type:
-      type: string
-      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
-      enum:
-      - EMBEDDED
-      - EXTERNAL
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
-    grant:
-      type: object
-      properties:
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/grant_scope'
-        claims:
-          type: array
-          items:
-            type: string
-          description: 'The claims associated with the Grant.
-
-            '
-        authorizationDetails:
-          $ref: '#/components/schemas/authz_details'
-    authorization_fail_request:
-      type: object
-      required:
-      - ticket
-      - reason
-      properties:
-        ticket:
-          type: string
-          description: 'The ticket issued from Authlete `/auth/authorization` API.
-
-            '
-        reason:
-          type: string
-          enum:
-          - UNKNOWN
-          - NOT_LOGGED_IN
-          - MAX_AGE_NOT_SUPPORTED
-          - EXCEEDS_MAX_AGE
-          - DIFFERENT_SUBJECT
-          - ACR_NOT_SATISFIED
-          - DENIED
-          - SERVER_ERROR
-          - NOT_AUTHENTICATED
-          - ACCOUNT_SELECTION_REQUIRED
-          - CONSENT_REQUIRED
-          - INTERACTION_REQUIRED
-          - INVALID_TARGET
-          description: 'The reason of the failure of the authorization request.
-
-            For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
-
-            '
-        description:
-          type: string
-          description: 'The custom description about the authorization failure.
-
-            '
-  responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
-    '403':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001215
-            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
   links:
     authz_issue:
       operationId: auth_authorization_issue_api
       parameters:
         serviceId: $request.path.serviceId
         ticket: $response.body#/ticket
-    token_issue_direct:
-      operationId: auth_token_issue_api
-      parameters:
-        serviceId: $request.path.serviceId
     token_exchange:
       operationId: auth_token_api
       parameters:
@@ -5181,6 +5140,47 @@ components:
       parameters:
         serviceId: $request.path.serviceId
         ticket: $response.body#/ticket
+    token_issue_direct:
+      operationId: auth_token_issue_api
+      parameters:
+        serviceId: $request.path.serviceId
+  responses:
+    '403':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001215
+            resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
   securitySchemes:
     bearer:
       type: http

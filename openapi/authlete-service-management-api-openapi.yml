@@ -1301,15 +1301,28 @@ paths:
       - Service Management
 components:
   schemas:
-    pair:
+    scope:
       type: object
       properties:
-        key:
+        name:
           type: string
-          description: The key part.
-        value:
+          description: The name of the scope.
+        defaultEntry:
+          type: boolean
+          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
+        description:
           type: string
-          description: The value part.
+          description: The description about the scope.
+        descriptions:
+          type: array
+          description: The descriptions about this scope in multiple languages.
+          items:
+            $ref: '#/components/schemas/tagged_value'
+        attributes:
+          type: array
+          description: The attributes of the scope.
+          items:
+            $ref: '#/components/schemas/pair'
     jws_alg:
       type:
       - string
@@ -1331,34 +1344,6 @@ components:
       - PS512
       - ES256K
       - EdDSA
-    response_type:
-      type: string
-      enum:
-      - NONE
-      - CODE
-      - TOKEN
-      - ID_TOKEN
-      - CODE_TOKEN
-      - CODE_ID_TOKEN
-      - ID_TOKEN_TOKEN
-      - CODE_ID_TOKEN_TOKEN
-    verified_claims_validation_schema:
-      type: string
-      description: 'The verified claims validation schema set.
-
-        '
-      enum:
-      - standard
-      - standard+id_document
-    result:
-      type: object
-      properties:
-        resultCode:
-          type: string
-          description: The code which represents the result of the API call.
-        resultMessage:
-          type: string
-          description: A short message which explains the result of the API call.
     credential_issuer_metadata:
       type: object
       properties:
@@ -1425,6 +1410,241 @@ components:
             property.
 
             '
+    client_auth_method:
+      type: string
+      description: 'The client authentication method that the client application declares that it uses at the token
+
+        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
+
+        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+
+        '
+      enum:
+      - NONE
+      - CLIENT_SECRET_BASIC
+      - CLIENT_SECRET_POST
+      - CLIENT_SECRET_JWT
+      - PRIVATE_KEY_JWT
+      - TLS_CLIENT_AUTH
+      - SELF_SIGNED_TLS_CLIENT_AUTH
+      - ATTEST_JWT_CLIENT_AUTH
+    result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The code which represents the result of the API call.
+        resultMessage:
+          type: string
+          description: A short message which explains the result of the API call.
+    service_get_list_response:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+          description: 'Start index (inclusive) of the result set. The default value is 0. Must not be a negative
+
+            number.
+
+            '
+        end:
+          type: integer
+          format: int32
+          description: 'Start index (inclusive) of the result set. The default value is 0. Must not be a negative
+
+            number.
+
+            '
+        totalCount:
+          type: integer
+          format: int32
+          description: 'Total number of services owned by the service owner. This doesn''t mean the number of services
+
+            contained in the response.
+
+            '
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/service'
+          description: 'An array of services.
+
+            '
+    tagged_value:
+      type: object
+      properties:
+        tag:
+          type: string
+          description: The language tag part.
+        value:
+          type: string
+          description: The value part.
+    user_code_charset:
+      type: string
+      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
+
+        '
+      enum:
+      - BASE20
+      - NUMERIC
+    named_uri:
+      type: object
+      properties:
+        name:
+          type: string
+        uri:
+          type: string
+          format: uri
+    hsk:
+      type: object
+      description: 'Holds information about a key managed in an HSM (Hardware Security Module)
+
+        '
+      properties:
+        kty:
+          type: string
+          description: 'The key type (EC or RSA)
+
+            '
+        use:
+          type: string
+          description: 'Get the use of the key on the HSM.
+
+            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
+
+            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
+
+            '
+        kid:
+          type: string
+          description: 'Key ID for the key on the HSM.
+
+            '
+        hsmName:
+          type: string
+          description: 'The name of the HSM.
+
+            The identifier for the HSM that sits behind the Authlete server. For example, "google".
+
+            '
+        handle:
+          type: string
+          description: 'The handle for the key on the HSM.
+
+            A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
+
+            '
+        publicKey:
+          type: string
+          description: 'The public key that corresponds to the key on the HSM.
+
+            '
+        alg:
+          type: string
+          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
+
+            signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
+
+            encryption algorithm such as `"RSA-OAEP-256"`.
+
+            '
+    service_profile:
+      type: string
+      enum:
+      - FAPI
+      - OPEN_BANKING
+    fapi_mode:
+      type: string
+      enum:
+      - FAPI1_ADVANCED
+      - FAPI1_BASELINE
+      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
+      - FAPI2_MESSAGE_SIGNING_AUTH_RES
+      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
+      - FAPI2_SECURITY
+    attachment_type:
+      type: string
+      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
+      enum:
+      - EMBEDDED
+      - EXTERNAL
+    display:
+      type: string
+      description: 'The display mode which the client application requests by `display` request parameter.
+
+        When the authorization request does not have `display` request parameter, `PAGE` is set as the default value.
+
+
+        It is ensured that the value of `display` is one of the supported display modes which are specified
+
+        by `supportedDisplays` configuration parameter of the service. If the display mode specified by the
+
+        authorization request is not supported, an error is raised.
+
+
+        Values for this property correspond to the values listed in
+
+        "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), display".
+
+        '
+      enum:
+      - PAGE
+      - POPUP
+      - TOUCH
+      - WAP
+    trust_anchor:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: 'the entity ID of the trust anchor
+
+            '
+        jwks:
+          type: string
+          description: 'the JWK Set document containing public keys of the trust anchor
+
+            '
+    prompt:
+      type: string
+      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
+
+
+        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
+
+
+        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
+
+        '
+      enum:
+      - NONE
+      - LOGIN
+      - CONSENT
+      - SELECT_ACCOUNT
+      - CREATE
+    delivery_mode:
+      type: string
+      enum:
+      - PING
+      - POLL
+      - PUSH
+    grant_type:
+      type: string
+      description: 'The grant type of the access token when the access token was created.
+
+        '
+      enum:
+      - AUTHORIZATION_CODE
+      - IMPLICIT
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      - CIBA
+      - DEVICE_CODE
+      - TOKEN_EXCHANGE
+      - JWT_BEARER
+      - PRE_AUTHORIZED_CODE
     sns_credentials:
       type: object
       properties:
@@ -1437,28 +1657,40 @@ components:
         apiSecret:
           type: string
           description: API secret.
-    scope:
+    pair:
       type: object
       properties:
-        name:
+        key:
           type: string
-          description: The name of the scope.
-        defaultEntry:
-          type: boolean
-          description: '`true` to mark the scope as default. Scopes marked as default are regarded as requested when an authorization request from a client application does not contain scope request parameter. '
-        description:
+          description: The key part.
+        value:
           type: string
-          description: The description about the scope.
-        descriptions:
-          type: array
-          description: The descriptions about this scope in multiple languages.
-          items:
-            $ref: '#/components/schemas/tagged_value'
-        attributes:
-          type: array
-          description: The attributes of the scope.
-          items:
-            $ref: '#/components/schemas/pair'
+          description: The value part.
+    verified_claims_validation_schema:
+      type: string
+      description: 'The verified claims validation schema set.
+
+        '
+      enum:
+      - standard
+      - standard+id_document
+    response_type:
+      type: string
+      enum:
+      - NONE
+      - CODE
+      - TOKEN
+      - ID_TOKEN
+      - CODE_TOKEN
+      - CODE_ID_TOKEN
+      - ID_TOKEN_TOKEN
+      - CODE_ID_TOKEN_TOKEN
+    claim_type:
+      type: string
+      enum:
+      - NORMAL
+      - AGGREGATED
+      - DISTRIBUTED
     service:
       type: object
       example:
@@ -3814,285 +4046,13 @@ components:
             OAuth 2.0 Attestation-Based Client Authentication.
 
             '
-    service_get_list_response:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-          description: 'Start index (inclusive) of the result set. The default value is 0. Must not be a negative
-
-            number.
-
-            '
-        end:
-          type: integer
-          format: int32
-          description: 'Start index (inclusive) of the result set. The default value is 0. Must not be a negative
-
-            number.
-
-            '
-        totalCount:
-          type: integer
-          format: int32
-          description: 'Total number of services owned by the service owner. This doesn''t mean the number of services
-
-            contained in the response.
-
-            '
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/service'
-          description: 'An array of services.
-
-            '
-    trust_anchor:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: 'the entity ID of the trust anchor
-
-            '
-        jwks:
-          type: string
-          description: 'the JWK Set document containing public keys of the trust anchor
-
-            '
-    named_uri:
-      type: object
-      properties:
-        name:
-          type: string
-        uri:
-          type: string
-          format: uri
-    claim_type:
-      type: string
-      enum:
-      - NORMAL
-      - AGGREGATED
-      - DISTRIBUTED
-    prompt:
-      type: string
-      description: 'The prompt that the UI displayed to the end-user must satisfy as the minimum level. This value comes from `prompt` request parameter.
-
-
-        When the authorization request does not contain `prompt` request parameter, `CONSENT` is used as the default value.
-
-
-        See "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), prompt" for `prompt` request parameter.
-
-        '
-      enum:
-      - NONE
-      - LOGIN
-      - CONSENT
-      - SELECT_ACCOUNT
-      - CREATE
-    client_auth_method:
-      type: string
-      description: 'The client authentication method that the client application declares that it uses at the token
-
-        endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-
-        Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
-
-        '
-      enum:
-      - NONE
-      - CLIENT_SECRET_BASIC
-      - CLIENT_SECRET_POST
-      - CLIENT_SECRET_JWT
-      - PRIVATE_KEY_JWT
-      - TLS_CLIENT_AUTH
-      - SELF_SIGNED_TLS_CLIENT_AUTH
-      - ATTEST_JWT_CLIENT_AUTH
-    service_profile:
-      type: string
-      enum:
-      - FAPI
-      - OPEN_BANKING
-    tagged_value:
-      type: object
-      properties:
-        tag:
-          type: string
-          description: The language tag part.
-        value:
-          type: string
-          description: The value part.
-    user_code_charset:
-      type: string
-      description: 'The character set for end-user verification codes (`user_code`) for Device Flow.
-
-        '
-      enum:
-      - BASE20
-      - NUMERIC
-    fapi_mode:
-      type: string
-      enum:
-      - FAPI1_ADVANCED
-      - FAPI1_BASELINE
-      - FAPI2_MESSAGE_SIGNING_AUTH_REQ
-      - FAPI2_MESSAGE_SIGNING_AUTH_RES
-      - FAPI2_MESSAGE_SIGNING_INTROSPECTION_RES
-      - FAPI2_SECURITY
-    delivery_mode:
-      type: string
-      enum:
-      - PING
-      - POLL
-      - PUSH
-    hsk:
-      type: object
-      description: 'Holds information about a key managed in an HSM (Hardware Security Module)
-
-        '
-      properties:
-        kty:
-          type: string
-          description: 'The key type (EC or RSA)
-
-            '
-        use:
-          type: string
-          description: 'Get the use of the key on the HSM.
-
-            When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
-
-            When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
-
-            '
-        kid:
-          type: string
-          description: 'Key ID for the key on the HSM.
-
-            '
-        hsmName:
-          type: string
-          description: 'The name of the HSM.
-
-            The identifier for the HSM that sits behind the Authlete server. For example, "google".
-
-            '
-        handle:
-          type: string
-          description: 'The handle for the key on the HSM.
-
-            A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
-
-            '
-        publicKey:
-          type: string
-          description: 'The public key that corresponds to the key on the HSM.
-
-            '
-        alg:
-          type: string
-          description: 'The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
-
-            signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
-
-            encryption algorithm such as `"RSA-OAEP-256"`.
-
-            '
     client_registration_type:
       type: string
       description: "Values for the `client_registration_types` RP metadata and the\n `client_registration_types_supported` OP metadata that are defined in\n [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).\n"
       enum:
       - AUTOMATIC
       - EXPLICIT
-    display:
-      type: string
-      description: 'The display mode which the client application requests by `display` request parameter.
-
-        When the authorization request does not have `display` request parameter, `PAGE` is set as the default value.
-
-
-        It is ensured that the value of `display` is one of the supported display modes which are specified
-
-        by `supportedDisplays` configuration parameter of the service. If the display mode specified by the
-
-        authorization request is not supported, an error is raised.
-
-
-        Values for this property correspond to the values listed in
-
-        "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), display".
-
-        '
-      enum:
-      - PAGE
-      - POPUP
-      - TOUCH
-      - WAP
-    attachment_type:
-      type: string
-      description: "Supported attachment types. This property corresponds to the `attachments_supported`\n server metadata which was added by the third implementer's draft of OpenID Connect\n for Identity Assurance 1.0.\n"
-      enum:
-      - EMBEDDED
-      - EXTERNAL
-    grant_type:
-      type: string
-      description: 'The grant type of the access token when the access token was created.
-
-        '
-      enum:
-      - AUTHORIZATION_CODE
-      - IMPLICIT
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      - CIBA
-      - DEVICE_CODE
-      - TOKEN_EXCHANGE
-      - JWT_BEARER
-      - PRE_AUTHORIZED_CODE
-  links:
-    service_update:
-      operationId: service_update_api
-      parameters:
-        serviceId: $request.path.serviceId
-    service_delete:
-      operationId: service_delete_api
-      parameters:
-        serviceId: $request.path.serviceId
-    service_create:
-      operationId: service_create_api
-    service_get_list:
-      operationId: service_get_list_api
   responses:
-    '400':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001201
-            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
-    '401':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001202
-            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
-    '500':
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-          example:
-            resultCode: A001101
-            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
     '403':
       description: ''
       content:
@@ -4102,6 +4062,46 @@ components:
           example:
             resultCode: A001215
             resultMessage: '[A001215] /auth/authorization, The client (ID = 26837717140341) is locked.'
+    '500':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001101
+            resultMessage: '[A001101] /auth/authorization, Authlete Server error.'
+    '401':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001202
+            resultMessage: '[A001202] /auth/authorization, Authorization header is missing.'
+    '400':
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+          example:
+            resultCode: A001201
+            resultMessage: '[A001201] /auth/authorization, TLS must be used.'
+  links:
+    service_delete:
+      operationId: service_delete_api
+      parameters:
+        serviceId: $request.path.serviceId
+    service_create:
+      operationId: service_create_api
+    service_get_list:
+      operationId: service_get_list_api
+    service_update:
+      operationId: service_update_api
+      parameters:
+        serviceId: $request.path.serviceId
   securitySchemes:
     bearer:
       type: http
