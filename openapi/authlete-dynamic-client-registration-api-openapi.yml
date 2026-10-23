@@ -2561,3 +2561,9 @@ components:
         Both token types are issued by the Authlete console or provisioning APIs.
 
         '
+x-provenance:
+  method: harvested
+  publisher: Authlete
+  source: https://raw.githubusercontent.com/authlete/openapi/HEAD/spec_next.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
